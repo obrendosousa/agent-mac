@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "agent-mac"
+version = "0.1.0"
+description = "A self-programming AI agent that can write its own tools and evolve its capabilities"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.50.0",
+    "anyio>=4.0.0",
+    "rich>=13.0.0",
+    "pydantic>=2.0.0",
+]
+
+[project.scripts]
+agent-mac = "main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
