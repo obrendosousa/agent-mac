@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+.memory/
+skills/dynamic/*.py
+!skills/dynamic/__init__.py
+dist/
+build/
+*.egg-info/
