@@ -115,11 +115,39 @@ def run_api(agent: AgentMacSDK, port: int = 8080) -> None:
     """
     loop = asyncio.new_event_loop()
 
+    auth_token = agent.config.server_auth_token
+    cors_enabled = agent.config.cors_enabled
+
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, fmt, *args):
             console.print(f"[dim]{self.address_string()} {fmt % args}[/dim]")
 
+        def _check_auth(self) -> bool:
+            """Validate auth token if configured."""
+            if not auth_token:
+                return True
+            header = self.headers.get("Authorization", "")
+            if header == f"Bearer {auth_token}":
+                return True
+            self._respond(401, b'{"error": "unauthorized"}')
+            return False
+
+        def _add_cors(self) -> None:
+            """Add CORS headers for remote connections."""
+            if cors_enabled:
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+                self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+        def do_OPTIONS(self):
+            """Handle CORS preflight requests."""
+            self.send_response(204)
+            self._add_cors()
+            self.end_headers()
+
         def do_GET(self):
+            if not self._check_auth():
+                return
             if self.path == "/health":
                 body = json.dumps({
                     "status": "ok",
@@ -138,6 +166,8 @@ def run_api(agent: AgentMacSDK, port: int = 8080) -> None:
                 self._respond(404, b'{"error": "not found"}')
 
         def do_POST(self):
+            if not self._check_auth():
+                return
             if self.path != "/query":
                 self._respond(404, b'{"error": "not found"}')
                 return
@@ -164,6 +194,7 @@ def run_api(agent: AgentMacSDK, port: int = 8080) -> None:
             self.send_response(status)
             self.send_header("Content-Type", "application/json")
             self.send_header("Content-Length", len(body))
+            self._add_cors()
             self.end_headers()
             self.wfile.write(body)
 
@@ -179,7 +210,14 @@ def run_api(agent: AgentMacSDK, port: int = 8080) -> None:
     console.print(f"[green]✓ Listening on http://0.0.0.0:{port}[/green]")
     console.print("[dim]POST /query  {\"prompt\": \"...\"}[/dim]")
     console.print("[dim]GET  /health[/dim]")
-    console.print("[dim]GET  /skills[/dim]\n")
+    console.print("[dim]GET  /skills[/dim]")
+    if auth_token:
+        console.print("[yellow]🔒 Auth token required (set via AGENT_MAC_AUTH_TOKEN)[/yellow]")
+    else:
+        console.print("[dim]⚠ No auth token — open access[/dim]")
+    if cors_enabled:
+        console.print("[dim]🌐 CORS enabled for remote connections[/dim]")
+    console.print()
 
     try:
         server.serve_forever()

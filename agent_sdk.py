@@ -178,6 +178,24 @@ def build_mcp_server(
         text = json.dumps(summary, indent=2)
         return {"content": [{"type": "text", "text": text}]}
 
+    # ── Tool: connect_to_pc ────────────────────────────────────────────────────
+    @tool(
+        "connect_to_pc",
+        "Connect to a remote Agent-MAC server running on your PC to send queries, check health, or list skills",
+        {
+            "action": str,
+            "host": str,
+            "port": int,
+            "prompt": str,
+            "auth_token": str,
+            "timeout": int,
+        },
+    )
+    async def connect_to_pc(args: dict):
+        from skills.builtin.connect_to_pc import run as pc_run
+        result = await pc_run(args)
+        return {"content": [{"type": "text", "text": result}]}
+
     return create_sdk_mcp_server(
         "agent-mac-tools",
         tools=[
@@ -187,6 +205,7 @@ def build_mcp_server(
             memory_store,
             memory_recall,
             session_history,
+            connect_to_pc,
         ],
     )
 
@@ -212,6 +231,7 @@ Ferramentas customizadas disponíveis via MCP:
 - list_synthesized_skills: liste os skills disponíveis
 - memory_store/recall: persista e recupere fatos entre sessões
 - session_history: veja o histórico de sessões passadas
+- connect_to_pc: conecte-se a um servidor Agent-MAC remoto no seu PC para enviar queries e gerenciar skills
 
 Fluxo de auto-programação:
 1. Detectou que falta uma capacidade? → chame request_skill_synthesis

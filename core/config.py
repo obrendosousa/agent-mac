@@ -25,6 +25,12 @@ class AgentConfig:
     max_skills: int = 50
     # API key (from env by default)
     api_key: str = field(default_factory=lambda: os.environ.get("ANTHROPIC_API_KEY", ""))
+    # Server auth token for remote connections (optional)
+    server_auth_token: str = field(default_factory=lambda: os.environ.get("AGENT_MAC_AUTH_TOKEN", ""))
+    # Default server port
+    server_port: int = 8080
+    # Allow CORS for remote connections
+    cors_enabled: bool = True
 
     def __post_init__(self) -> None:
         os.makedirs(self.skills_dir, exist_ok=True)
