@@ -5,7 +5,7 @@
   "description": "Chappie core memory search plugin",
   "type": "module",
   "peerDependencies": {
-    "chappie": ">=2026.3.11"
+    "chappie": "workspace:*"
   },
   "peerDependenciesMeta": {
     "chappie": {
