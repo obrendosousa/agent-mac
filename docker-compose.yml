@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  # ── Modo API: aceita queries via HTTP ─────────────────────────────────────
+  agent-api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    volumes:
+      - agent-memory:/app/.memory          # memória persistente
+      - agent-skills:/app/skills/dynamic   # skills sintetizadas
+    restart: unless-stopped
+    command: python server.py api --port 8080
+    profiles: ["api"]
+
+  # ── Modo Schedule: roda a cada hora ──────────────────────────────────────
+  agent-schedule:
+    build: .
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    volumes:
+      - agent-memory:/app/.memory
+      - agent-skills:/app/skills/dynamic
+    restart: unless-stopped
+    command: >
+      python server.py schedule
+      --interval 3600
+      --task "Analise o estado do projeto, identifique issues pendentes e sugira próximos passos. Run #{run_count} em {timestamp}"
+    profiles: ["schedule"]
+
+  # ── Modo Watch: monitora o código-fonte ───────────────────────────────────
+  agent-watch:
+    build: .
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    volumes:
+      - agent-memory:/app/.memory
+      - agent-skills:/app/skills/dynamic
+      - ./src:/watch/src:ro              # código a monitorar (read-only)
+    restart: unless-stopped
+    command: >
+      python server.py watch
+      --path /watch/src
+      --task "Os seguintes arquivos foram alterados: {files}. Revise as mudanças, identifique bugs ou melhorias e atualize a documentação se necessário."
+      --cooldown 30
+    profiles: ["watch"]
+
+volumes:
+  agent-memory:
+  agent-skills:

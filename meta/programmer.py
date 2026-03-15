@@ -76,11 +76,11 @@ class MetaProgrammer:
     def __init__(
         self,
         config: AgentConfig,
-        gateway: Gateway,
+        gateway: Gateway | None,
         client: anthropic.AsyncAnthropic,
     ) -> None:
         self.config = config
-        self.gateway = gateway
+        self.gateway = gateway  # Optional: None when using Agent SDK mode
         self.client = client
         self._synthesized_count = 0
 
@@ -112,13 +112,15 @@ class MetaProgrammer:
         # Step 3: Persist to disk
         skill_path = await self._persist_skill(skill_spec)
 
-        # Step 4: Load and register with Gateway
-        reg_result = await self._register_skill(skill_spec, skill_path)
-        if "error" in reg_result:
-            return reg_result
+        # Step 4: Register with Gateway (optional — not needed in Agent SDK mode)
+        if self.gateway is not None:
+            reg_result = await self._register_skill(skill_spec, skill_path)
+            if "error" in reg_result:
+                return reg_result
 
         self._synthesized_count += 1
-        console.print(f"[bold green]★ New tool '{skill_spec['name']}' registered![/bold green]")
+        console.print(f"[bold green]★ New tool '{skill_spec['name']}' synthesized![/bold green]")
+        console.print(f"[dim]  Use run_synthesized_skill('{skill_spec['name']}', {{...}}) to execute.[/dim]")
         return {
             "success": True,
             "tool_name": skill_spec["name"],

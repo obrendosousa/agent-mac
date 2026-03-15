@@ -1,10 +1,16 @@
 """
 Agent-MAC entrypoint.
 
-Usage:
-  python main.py                          # Interactive REPL
-  python main.py "your query here"        # Single query
-  python main.py --demo                   # Run capability demo
+Uso:
+  python main.py                    # REPL interativo (Agent SDK)
+  python main.py "sua query"        # Query única
+  python main.py --demo             # Demo de auto-programação
+  python main.py --legacy           # Usa implementação original (sem Agent SDK)
+
+Para modo servidor 24/7:
+  python server.py api --port 8080
+  python server.py schedule --interval 3600 --task "..."
+  python server.py watch --path ./src --task "Arquivos alterados: {files}"
 """
 from __future__ import annotations
 
@@ -12,57 +18,49 @@ import asyncio
 import sys
 
 from rich.console import Console
+from rich.rule import Rule
 
-from agent import SelfProgrammingAgent
 from core.config import AgentConfig
 
 console = Console()
 
 
-async def run_demo(agent: SelfProgrammingAgent) -> None:
-    """
-    Demonstrates the self-programming capability:
-
-    1. Ask the agent to do something that requires a non-existent tool
-    2. Watch it synthesize the tool and use it
-    3. Observe reflection and memory storage
-    """
+async def run_demo(agent) -> None:
     demos = [
-        "What tools do you currently have available?",
+        "Liste as ferramentas disponíveis para você.",
         (
-            "I need you to create a tool that can calculate the Fibonacci sequence "
-            "up to N numbers, then use it to get the first 10 Fibonacci numbers."
+            "Preciso de um tool que calcule números primos até N. "
+            "Sintetize-o e depois use para listar os primeiros 10 primos."
         ),
-        (
-            "Store in memory that my preferred programming language is Python "
-            "and I prefer concise code. Then recall it to confirm."
-        ),
-        "What tools do you have now? How many did you synthesize this session?",
+        "Guarde na memória que minha linguagem preferida é Python. Depois confirme o que foi guardado.",
+        "Que skills você sintetizou nessa sessão? Mostre o histórico da memória.",
     ]
-
     for i, query in enumerate(demos, 1):
-        console.print(f"\n[bold]Demo {i}/{len(demos)}[/bold]")
+        console.print(Rule(f"[bold]Demo {i}/{len(demos)}[/bold]"))
         result = await agent.query(query)
-        console.print(f"\n[green]Result:[/green] {result[:400]}\n")
-        console.print("─" * 60)
+        console.print(f"[green]Resultado:[/green] {result[:500]}\n")
 
 
 async def main() -> None:
-    config = AgentConfig()
-    agent = SelfProgrammingAgent(config)
-    await agent.initialize()
-
     args = sys.argv[1:]
+    config = AgentConfig()
+
+    if "--legacy" in args:
+        # Implementação original sem Agent SDK
+        from agent import SelfProgrammingAgent
+        agent = SelfProgrammingAgent(config)
+        await agent.initialize()
+    else:
+        # Nova implementação com Agent SDK
+        from agent_sdk import AgentMacSDK
+        agent = AgentMacSDK(config)
 
     if "--demo" in args:
         await run_demo(agent)
     elif args and not args[0].startswith("--"):
-        # Single query mode
-        query = " ".join(args)
-        result = await agent.query(query)
-        console.print(f"\n[green]Result:[/green] {result}")
+        result = await agent.query(" ".join(a for a in args if not a.startswith("--")))
+        console.print(f"\n[green]Resultado:[/green] {result}")
     else:
-        # Interactive mode
         await agent.interactive_loop()
 
 
