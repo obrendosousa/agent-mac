@@ -1,0 +1,12 @@
+{
+  "name": "@chappie/signal",
+  "version": "2026.3.14",
+  "private": true,
+  "description": "Chappie Signal channel plugin",
+  "type": "module",
+  "chappie": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

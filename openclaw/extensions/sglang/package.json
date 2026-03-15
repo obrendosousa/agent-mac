@@ -1,0 +1,12 @@
+{
+  "name": "@chappie/sglang-provider",
+  "version": "2026.3.14",
+  "private": true,
+  "description": "Chappie SGLang provider plugin",
+  "type": "module",
+  "chappie": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

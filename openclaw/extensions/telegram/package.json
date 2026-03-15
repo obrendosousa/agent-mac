@@ -1,0 +1,12 @@
+{
+  "name": "@chappie/telegram",
+  "version": "2026.3.14",
+  "private": true,
+  "description": "Chappie Telegram channel plugin",
+  "type": "module",
+  "chappie": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

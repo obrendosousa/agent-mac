@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: chappie
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "8080"
+      - key: SETUP_PASSWORD
+        sync: false
+      - key: CHAPPIE_STATE_DIR
+        value: /data/.chappie
+      - key: CHAPPIE_WORKSPACE_DIR
+        value: /data/workspace
+      - key: CHAPPIE_GATEWAY_TOKEN
+        generateValue: true
+    disk:
+      name: chappie-data
+      mountPath: /data
+      sizeGB: 1

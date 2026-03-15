@@ -1,0 +1,14 @@
+{
+  "name": "@chappie/acpx",
+  "version": "2026.3.14",
+  "description": "Chappie ACP runtime backend via acpx",
+  "type": "module",
+  "dependencies": {
+    "acpx": "0.3.0"
+  },
+  "chappie": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

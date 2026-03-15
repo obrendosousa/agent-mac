@@ -1,0 +1,20 @@
+{
+  "name": "@chappie/memory-core",
+  "version": "2026.3.14",
+  "private": true,
+  "description": "Chappie core memory search plugin",
+  "type": "module",
+  "peerDependencies": {
+    "chappie": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "chappie": {
+      "optional": true
+    }
+  },
+  "chappie": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}
