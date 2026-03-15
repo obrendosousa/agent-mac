@@ -148,7 +148,7 @@ describe("spawnSubagentDirect filename validation", () => {
     callGatewayMock.mockClear();
     setupGatewayMock();
     workspaceDirOverride = fs.mkdtempSync(
-      path.join(os.tmpdir(), `openclaw-subagent-attachments-${process.pid}-${Date.now()}-`),
+      path.join(os.tmpdir(), `chappie-subagent-attachments-${process.pid}-${Date.now()}-`),
     );
   });
 
@@ -249,7 +249,7 @@ describe("spawnSubagentDirect filename validation", () => {
       status: "error",
       error: "lineage patch failed",
     });
-    const attachmentsRoot = path.join(workspaceDirOverride, ".openclaw", "attachments");
+    const attachmentsRoot = path.join(workspaceDirOverride, ".chappie", "attachments");
     const retainedDirs = fs.existsSync(attachmentsRoot)
       ? fs.readdirSync(attachmentsRoot).filter((entry) => !entry.startsWith("."))
       : [];

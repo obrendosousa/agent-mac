@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/mattermost",
+  "name": "@chappie/mattermost",
   "version": "2026.3.14",
-  "description": "OpenClaw Mattermost channel plugin",
+  "description": "Chappie Mattermost channel plugin",
   "type": "module",
   "dependencies": {
     "ws": "^8.19.0",
     "zod": "^4.3.6"
   },
-  "openclaw": {
+  "chappie": {
     "extensions": [
       "./index.ts"
     ],
@@ -21,7 +21,7 @@
       "order": 65
     },
     "install": {
-      "npmSpec": "@openclaw/mattermost",
+      "npmSpec": "@chappie/mattermost",
       "localPath": "extensions/mattermost",
       "defaultChoice": "npm"
     }

@@ -8,7 +8,7 @@ import {
   ThreadUpdateListener,
   type User,
 } from "@buape/carbon";
-import type { OpenClawConfig } from "../../../../src/config/config.js";
+import type { ChappieConfig } from "../../../../src/config/config.js";
 import { danger, logVerbose } from "../../../../src/globals.js";
 import { formatDurationSeconds } from "../../../../src/infra/format-time/format-duration.ts";
 import { enqueueSystemEvent } from "../../../../src/infra/system-events.js";
@@ -731,7 +731,7 @@ type ThreadUpdateEvent = Parameters<ThreadUpdateListener["handle"]>[0];
 
 export class DiscordThreadUpdateListener extends ThreadUpdateListener {
   constructor(
-    private cfg: OpenClawConfig,
+    private cfg: ChappieConfig,
     private accountId: string,
     private logger?: Logger,
   ) {

@@ -1,4 +1,4 @@
-import type { ClawdbotConfig } from "openclaw/plugin-sdk/feishu";
+import type { ChappiedbotConfig } from "chappie/plugin-sdk/feishu";
 import { resolveFeishuAccount } from "./accounts.js";
 import { createFeishuClient } from "./client.js";
 
@@ -9,7 +9,7 @@ export type FeishuReaction = {
   operatorId: string;
 };
 
-function resolveConfiguredFeishuClient(params: { cfg: ClawdbotConfig; accountId?: string }) {
+function resolveConfiguredFeishuClient(params: { cfg: ChappiedbotConfig; accountId?: string }) {
   const account = resolveFeishuAccount(params);
   if (!account.configured) {
     throw new Error(`Feishu account "${account.accountId}" not configured`);
@@ -29,7 +29,7 @@ function assertFeishuReactionApiSuccess(response: { code?: number; msg?: string 
  * @see https://open.feishu.cn/document/server-docs/im-v1/message-reaction/emojis-introduce
  */
 export async function addReactionFeishu(params: {
-  cfg: ClawdbotConfig;
+  cfg: ChappiedbotConfig;
   messageId: string;
   emojiType: string;
   accountId?: string;
@@ -64,7 +64,7 @@ export async function addReactionFeishu(params: {
  * Remove a reaction from a message.
  */
 export async function removeReactionFeishu(params: {
-  cfg: ClawdbotConfig;
+  cfg: ChappiedbotConfig;
   messageId: string;
   reactionId: string;
   accountId?: string;
@@ -86,7 +86,7 @@ export async function removeReactionFeishu(params: {
  * List all reactions for a message.
  */
 export async function listReactionsFeishu(params: {
-  cfg: ClawdbotConfig;
+  cfg: ChappiedbotConfig;
   messageId: string;
   emojiType?: string;
   accountId?: string;

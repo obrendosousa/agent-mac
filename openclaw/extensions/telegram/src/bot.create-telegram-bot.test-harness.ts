@@ -2,14 +2,14 @@ import { beforeEach, vi } from "vitest";
 import { resetInboundDedupe } from "../../../src/auto-reply/reply/inbound-dedupe.js";
 import type { MsgContext } from "../../../src/auto-reply/templating.js";
 import type { GetReplyOptions, ReplyPayload } from "../../../src/auto-reply/types.js";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { ChappieConfig } from "../../../src/config/config.js";
 import type { MockFn } from "../../../src/test-utils/vitest-mock-fn.js";
 
 type AnyMock = MockFn<(...args: unknown[]) => unknown>;
 type AnyAsyncMock = MockFn<(...args: unknown[]) => Promise<unknown>>;
 
 const { sessionStorePath } = vi.hoisted(() => ({
-  sessionStorePath: `/tmp/openclaw-telegram-${process.pid}-${process.env.VITEST_POOL_ID ?? "0"}.json`,
+  sessionStorePath: `/tmp/chappie-telegram-${process.pid}-${process.env.VITEST_POOL_ID ?? "0"}.json`,
 }));
 
 const { loadWebMedia } = vi.hoisted((): { loadWebMedia: AnyMock } => ({
@@ -120,7 +120,7 @@ const grammySpies = vi.hoisted(() => ({
   setMessageReactionSpy: vi.fn(async () => undefined) as AnyAsyncMock,
   setMyCommandsSpy: vi.fn(async () => undefined) as AnyAsyncMock,
   getMeSpy: vi.fn(async () => ({
-    username: "openclaw_bot",
+    username: "chappie_bot",
     has_topics_enabled: true,
   })) as AnyAsyncMock,
   sendMessageSpy: vi.fn(async () => ({ message_id: 77 })) as AnyAsyncMock,
@@ -202,7 +202,7 @@ export const replySpy: MockFn<
   (
     ctx: MsgContext,
     opts?: GetReplyOptions,
-    configOverride?: OpenClawConfig,
+    configOverride?: ChappieConfig,
   ) => Promise<ReplyPayload | ReplyPayload[] | undefined>
 > = vi.fn(async (_ctx, opts) => {
   await opts?.onReplyStart?.();
@@ -222,7 +222,7 @@ export const getOnHandler = (event: string) => {
   return handler as (ctx: Record<string, unknown>) => Promise<void>;
 };
 
-const DEFAULT_TELEGRAM_TEST_CONFIG: OpenClawConfig = {
+const DEFAULT_TELEGRAM_TEST_CONFIG: ChappieConfig = {
   agents: {
     defaults: {
       envelopeTimezone: "utc",
@@ -257,7 +257,7 @@ export function makeTelegramMessageCtx(params: {
         ? {}
         : { message_thread_id: params.messageThreadId }),
     },
-    me: { username: "openclaw_bot" },
+    me: { username: "chappie_bot" },
     getFile: async () => ({ download: async () => new Uint8Array() }),
   };
 }
@@ -321,7 +321,7 @@ beforeEach(() => {
   setMyCommandsSpy.mockResolvedValue(undefined);
   getMeSpy.mockReset();
   getMeSpy.mockResolvedValue({
-    username: "openclaw_bot",
+    username: "chappie_bot",
     has_topics_enabled: true,
   });
   editMessageTextSpy.mockReset();

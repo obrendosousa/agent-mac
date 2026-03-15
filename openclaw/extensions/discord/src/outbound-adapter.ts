@@ -1,6 +1,6 @@
 import { sendTextMediaPayload } from "../../../src/channels/plugins/outbound/direct-text-media.js";
 import type { ChannelOutboundAdapter } from "../../../src/channels/plugins/types.js";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { ChappieConfig } from "../../../src/config/config.js";
 import type { OutboundIdentity } from "../../../src/infra/outbound/identity.js";
 import { resolveOutboundSendDep } from "../../../src/infra/outbound/send-deps.js";
 import { getThreadBindingManager, type ThreadBindingRecord } from "./monitor/thread-bindings.js";
@@ -33,7 +33,7 @@ function resolveDiscordWebhookIdentity(params: {
 }
 
 async function maybeSendDiscordWebhookText(params: {
-  cfg?: OpenClawConfig;
+  cfg?: ChappieConfig;
   text: string;
   threadId?: string | number | null;
   accountId?: string | null;

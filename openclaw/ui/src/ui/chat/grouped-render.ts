@@ -316,7 +316,7 @@ function extractGroupText(group: MessageGroup): string {
   return parts.join("\n\n");
 }
 
-const SKIP_DELETE_CONFIRM_KEY = "openclaw:skipDeleteConfirm";
+const SKIP_DELETE_CONFIRM_KEY = "chappie:skipDeleteConfirm";
 
 type DeleteConfirmSide = "left" | "right";
 

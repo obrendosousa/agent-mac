@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/signal",
+  "name": "@chappie/signal",
   "version": "2026.3.14",
   "private": true,
-  "description": "OpenClaw Signal channel plugin",
+  "description": "Chappie Signal channel plugin",
   "type": "module",
-  "openclaw": {
+  "chappie": {
     "extensions": [
       "./index.ts"
     ]

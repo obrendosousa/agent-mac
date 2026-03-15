@@ -1,4 +1,4 @@
-import type { ClawdbotConfig } from "openclaw/plugin-sdk/feishu";
+import type { ChappiedbotConfig } from "chappie/plugin-sdk/feishu";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   buildStructuredCard,
@@ -63,7 +63,7 @@ describe("getMessageFeishu", () => {
     });
 
     const result = await getMessageFeishu({
-      cfg: {} as ClawdbotConfig,
+      cfg: {} as ChappiedbotConfig,
       messageId: "om_1",
     });
 
@@ -100,7 +100,7 @@ describe("getMessageFeishu", () => {
     });
 
     const result = await getMessageFeishu({
-      cfg: {} as ClawdbotConfig,
+      cfg: {} as ChappiedbotConfig,
       messageId: "om_post",
     });
 
@@ -132,7 +132,7 @@ describe("getMessageFeishu", () => {
     });
 
     const result = await getMessageFeishu({
-      cfg: {} as ClawdbotConfig,
+      cfg: {} as ChappiedbotConfig,
       messageId: "om_file",
     });
 
@@ -160,7 +160,7 @@ describe("getMessageFeishu", () => {
     });
 
     const result = await getMessageFeishu({
-      cfg: {} as ClawdbotConfig,
+      cfg: {} as ChappiedbotConfig,
       messageId: "om_single",
     });
 
@@ -219,7 +219,7 @@ describe("getMessageFeishu", () => {
     });
 
     const result = await listFeishuThreadMessages({
-      cfg: {} as ClawdbotConfig,
+      cfg: {} as ChappiedbotConfig,
       threadId: "omt_1",
       rootMessageId: "om_root",
     });

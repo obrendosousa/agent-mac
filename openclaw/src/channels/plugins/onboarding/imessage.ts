@@ -5,7 +5,7 @@ import {
 } from "../../../../extensions/imessage/src/accounts.js";
 import { normalizeIMessageHandle } from "../../../../extensions/imessage/src/targets.js";
 import { detectBinary } from "../../../commands/onboard-helpers.js";
-import type { OpenClawConfig } from "../../../config/config.js";
+import type { ChappieConfig } from "../../../config/config.js";
 import { formatDocsLink } from "../../../terminal/links.js";
 import type { WizardPrompter } from "../../../wizard/prompts.js";
 import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.js";
@@ -50,10 +50,10 @@ export function parseIMessageAllowFromEntries(raw: string): { entries: string[];
 }
 
 async function promptIMessageAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<ChappieConfig> {
   return promptParsedAllowFromForScopedChannel({
     cfg: params.cfg,
     channel: "imessage",
@@ -165,7 +165,7 @@ export const imessageOnboardingAdapter: ChannelOnboardingAdapter = {
     await prompter.note(
       [
         "This is still a work in progress.",
-        "Ensure OpenClaw has Full Disk Access to Messages DB.",
+        "Ensure Chappie has Full Disk Access to Messages DB.",
         "Grant Automation permission for Messages when prompted.",
         "List chats with: imsg chats --limit 20",
         `Docs: ${formatDocsLink("/imessage", "imessage")}`,

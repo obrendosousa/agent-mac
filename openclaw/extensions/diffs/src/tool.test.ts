@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/diffs";
+import type { ChappiePluginApi } from "chappie/plugin-sdk/diffs";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createTestPluginApi } from "../../test-utils/plugin-api.js";
 import type { DiffScreenshotter } from "./browser.js";
@@ -15,7 +15,7 @@ describe("diffs tool", () => {
   let cleanupRootDir: () => Promise<void>;
 
   beforeEach(async () => {
-    ({ store, cleanup: cleanupRootDir } = await createDiffStoreHarness("openclaw-diffs-tool-"));
+    ({ store, cleanup: cleanupRootDir } = await createDiffStoreHarness("chappie-diffs-tool-"));
   });
 
   afterEach(async () => {
@@ -383,7 +383,7 @@ describe("diffs tool", () => {
   });
 });
 
-function createApi(): OpenClawPluginApi {
+function createApi(): ChappiePluginApi {
   return createTestPluginApi({
     id: "diffs",
     name: "Diffs",
@@ -395,8 +395,8 @@ function createApi(): OpenClawPluginApi {
         bind: "loopback",
       },
     },
-    runtime: {} as OpenClawPluginApi["runtime"],
-  }) as OpenClawPluginApi;
+    runtime: {} as ChappiePluginApi["runtime"],
+  }) as ChappiePluginApi;
 }
 
 function createToolWithScreenshotter(

@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "name": "OpenClaw",
+  "name": "Chappie",
   "description": "Self-hosted gateway that connects WhatsApp, Telegram, Discord, iMessage, and more to AI coding agents. Run a single Gateway process on your own machine and message your AI assistant from anywhere.",
   "theme": "mint",
   "icons": {
@@ -36,12 +36,12 @@
     "links": [
       {
         "label": "GitHub",
-        "href": "https://github.com/openclaw/openclaw",
+        "href": "https://github.com/chappie/chappie",
         "icon": "github"
       },
       {
         "label": "Releases",
-        "href": "https://github.com/openclaw/openclaw/releases",
+        "href": "https://github.com/chappie/chappie/releases",
         "icon": "package"
       }
     ]
@@ -269,31 +269,31 @@
     },
     {
       "source": "/clawd",
-      "destination": "/start/openclaw"
+      "destination": "/start/chappie"
     },
     {
       "source": "/start/clawd",
-      "destination": "/start/openclaw"
+      "destination": "/start/chappie"
     },
     {
       "source": "/start/clawd/",
-      "destination": "/start/openclaw"
+      "destination": "/start/chappie"
     },
     {
       "source": "/start/pairing",
       "destination": "/channels/pairing"
     },
     {
-      "source": "/clawhub",
-      "destination": "/tools/clawhub"
+      "source": "/chappiehub",
+      "destination": "/tools/chappiehub"
     },
     {
       "source": "/clawdhub",
-      "destination": "/tools/clawhub"
+      "destination": "/tools/chappiehub"
     },
     {
       "source": "/tools/clawdhub",
-      "destination": "/tools/clawhub"
+      "destination": "/tools/chappiehub"
     },
     {
       "source": "/configuration",
@@ -844,7 +844,7 @@
               {
                 "group": "Guides",
                 "pages": [
-                  "start/openclaw",
+                  "start/chappie",
                   "start/wizard-cli-reference",
                   "start/wizard-cli-automation"
                 ]
@@ -1038,7 +1038,7 @@
                   "tools/slash-commands",
                   "tools/skills",
                   "tools/skills-config",
-                  "tools/clawhub",
+                  "tools/chappiehub",
                   "tools/plugin"
                 ]
               },
@@ -1265,7 +1265,7 @@
                   "cli/approvals",
                   "cli/browser",
                   "cli/channels",
-                  "cli/clawbot",
+                  "cli/chappiebot",
                   "cli/completion",
                   "cli/config",
                   "cli/configure",
@@ -1445,7 +1445,7 @@
               },
               {
                 "group": "指南",
-                "pages": ["zh-CN/start/openclaw"]
+                "pages": ["zh-CN/start/chappie"]
               }
             ]
           },
@@ -1632,7 +1632,7 @@
                   "zh-CN/tools/slash-commands",
                   "zh-CN/tools/skills",
                   "zh-CN/tools/skills-config",
-                  "zh-CN/tools/clawhub",
+                  "zh-CN/tools/chappiehub",
                   "zh-CN/tools/plugin"
                 ]
               },
@@ -1950,7 +1950,7 @@
               {
                 "group": "重构方案",
                 "pages": [
-                  "zh-CN/refactor/clawnet",
+                  "zh-CN/refactor/chappienet",
                   "zh-CN/refactor/exec-host",
                   "zh-CN/refactor/outbound-session-mirroring",
                   "zh-CN/refactor/plugin-sdk",

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { ChappieConfig } from "../config/config.js";
 import type { loadSessionEntry as loadSessionEntryType } from "./session-utils.js";
 
 const buildSessionLookup = (
@@ -11,7 +11,7 @@ const buildSessionLookup = (
     updatedAt?: number;
   } = {},
 ): ReturnType<typeof loadSessionEntryType> => ({
-  cfg: { session: { mainKey: "agent:main:main" } } as OpenClawConfig,
+  cfg: { session: { mainKey: "agent:main:main" } } as ChappieConfig,
   storePath: "/tmp/sessions.json",
   store: {} as ReturnType<typeof loadSessionEntryType>["store"],
   entry: {
@@ -46,7 +46,7 @@ vi.mock("../commands/agent.js", () => ({
 }));
 vi.mock("../config/config.js", () => ({
   loadConfig: vi.fn(() => ({ session: { mainKey: "agent:main:main" } })),
-  STATE_DIR: "/tmp/openclaw-state",
+  STATE_DIR: "/tmp/chappie-state",
 }));
 vi.mock("../config/sessions.js", () => ({
   updateSessionStore: vi.fn(),
@@ -280,7 +280,7 @@ describe("node exec events", () => {
       event: "push.apns.register",
       payloadJSON: JSON.stringify({
         token: "abcd1234abcd1234abcd1234abcd1234",
-        topic: "ai.openclaw.ios",
+        topic: "ai.chappie.ios",
         environment: "sandbox",
       }),
     });
@@ -289,7 +289,7 @@ describe("node exec events", () => {
       nodeId: "node-direct",
       transport: "direct",
       token: "abcd1234abcd1234abcd1234abcd1234",
-      topic: "ai.openclaw.ios",
+      topic: "ai.chappie.ios",
       environment: "sandbox",
     });
   });
@@ -304,7 +304,7 @@ describe("node exec events", () => {
         sendGrant: "send-grant-123",
         gatewayDeviceId: "gateway-device-1",
         installationId: "install-123",
-        topic: "ai.openclaw.ios",
+        topic: "ai.chappie.ios",
         environment: "production",
         distribution: "official",
         tokenDebugSuffix: "abcd1234",
@@ -317,7 +317,7 @@ describe("node exec events", () => {
       relayHandle: "relay-handle-123",
       sendGrant: "send-grant-123",
       installationId: "install-123",
-      topic: "ai.openclaw.ios",
+      topic: "ai.chappie.ios",
       environment: "production",
       distribution: "official",
       tokenDebugSuffix: "abcd1234",
@@ -334,7 +334,7 @@ describe("node exec events", () => {
         sendGrant: "send-grant-123",
         gatewayDeviceId: "gateway-device-other",
         installationId: "install-123",
-        topic: "ai.openclaw.ios",
+        topic: "ai.chappie.ios",
         environment: "production",
         distribution: "official",
       }),

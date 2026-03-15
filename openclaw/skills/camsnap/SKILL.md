@@ -4,7 +4,7 @@ description: Capture frames or clips from RTSP/ONVIF cameras.
 homepage: https://camsnap.ai
 metadata:
   {
-    "openclaw":
+    "chappie":
       {
         "emoji": "📸",
         "requires": { "bins": ["camsnap"] },
@@ -13,7 +13,7 @@ metadata:
             {
               "id": "brew",
               "kind": "brew",
-              "formula": "steipete/tap/camsnap",
+              "formula": "chappie-team/tap/camsnap",
               "bins": ["camsnap"],
               "label": "Install camsnap (brew)",
             },

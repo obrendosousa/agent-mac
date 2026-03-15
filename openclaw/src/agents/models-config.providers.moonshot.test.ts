@@ -11,7 +11,7 @@ import { resolveImplicitProviders } from "./models-config.providers.js";
 
 describe("moonshot implicit provider (#33637)", () => {
   it("uses explicit CN baseUrl when provided", async () => {
-    const agentDir = mkdtempSync(join(tmpdir(), "openclaw-test-"));
+    const agentDir = mkdtempSync(join(tmpdir(), "chappie-test-"));
     const envSnapshot = captureEnv(["MOONSHOT_API_KEY"]);
     process.env.MOONSHOT_API_KEY = "sk-test-cn";
 
@@ -45,7 +45,7 @@ describe("moonshot implicit provider (#33637)", () => {
   });
 
   it("defaults to .ai baseUrl when no explicit provider", async () => {
-    const agentDir = mkdtempSync(join(tmpdir(), "openclaw-test-"));
+    const agentDir = mkdtempSync(join(tmpdir(), "chappie-test-"));
     const envSnapshot = captureEnv(["MOONSHOT_API_KEY"]);
     process.env.MOONSHOT_API_KEY = "sk-test";
 

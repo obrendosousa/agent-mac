@@ -4,13 +4,13 @@ import type {
   ChannelOutboundAdapter,
   ChannelPlugin,
   ChannelSetupInput,
-  OpenClawConfig,
-} from "openclaw/plugin-sdk/tlon";
+  ChappieConfig,
+} from "chappie/plugin-sdk/tlon";
 import {
   applyAccountNameToChannelSection,
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
-} from "openclaw/plugin-sdk/tlon";
+} from "chappie/plugin-sdk/tlon";
 import { buildTlonAccountFields } from "./account-fields.js";
 import { tlonChannelConfigSchema } from "./config-schema.js";
 import { monitorTlonProvider } from "./monitor/index.js";
@@ -101,10 +101,10 @@ type TlonSetupInput = ChannelSetupInput & {
 };
 
 function applyTlonSetupConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   accountId: string;
   input: TlonSetupInput;
-}): OpenClawConfig {
+}): ChappieConfig {
   const { cfg, accountId, input } = params;
   const useDefault = accountId === DEFAULT_ACCOUNT_ID;
   const namedConfig = applyAccountNameToChannelSection({
@@ -161,7 +161,7 @@ type ConfiguredTlonAccount = ResolvedTlonAccount & {
 };
 
 function resolveOutboundContext(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   accountId?: string | null;
   to: string;
 }) {
@@ -315,7 +315,7 @@ export const tlonPlugin: ChannelPlugin = {
               enabled,
             },
           },
-        } as OpenClawConfig;
+        } as ChappieConfig;
       }
       return {
         ...cfg,
@@ -332,7 +332,7 @@ export const tlonPlugin: ChannelPlugin = {
             },
           },
         },
-      } as OpenClawConfig;
+      } as ChappieConfig;
     },
     deleteAccount: ({ cfg, accountId }) => {
       const useDefault = !accountId || accountId === "default";
@@ -350,7 +350,7 @@ export const tlonPlugin: ChannelPlugin = {
             ...cfg.channels,
             tlon: rest,
           },
-        } as OpenClawConfig;
+        } as ChappieConfig;
       }
       const { [accountId]: _removed, ...remainingAccounts } = cfg.channels?.tlon?.accounts ?? {};
       return {
@@ -362,7 +362,7 @@ export const tlonPlugin: ChannelPlugin = {
             accounts: remainingAccounts,
           },
         },
-      } as OpenClawConfig;
+      } as ChappieConfig;
     },
     isConfigured: (account) => account.configured,
     describeAccount: (account) => ({
@@ -501,7 +501,7 @@ export const tlonPlugin: ChannelPlugin = {
         lastError: runtime?.lastError ?? null,
         probe,
       };
-      return snapshot as import("openclaw/plugin-sdk/tlon").ChannelAccountSnapshot;
+      return snapshot as import("chappie/plugin-sdk/tlon").ChannelAccountSnapshot;
     },
   },
   gateway: {
@@ -511,7 +511,7 @@ export const tlonPlugin: ChannelPlugin = {
         accountId: account.accountId,
         ship: account.ship,
         url: account.url,
-      } as import("openclaw/plugin-sdk/tlon").ChannelAccountSnapshot);
+      } as import("chappie/plugin-sdk/tlon").ChannelAccountSnapshot);
       ctx.log?.info(`[${account.accountId}] starting Tlon provider for ${account.ship ?? "tlon"}`);
       return monitorTlonProvider({
         runtime: ctx.runtime,

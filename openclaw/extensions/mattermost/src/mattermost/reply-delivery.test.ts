@@ -1,15 +1,15 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/mattermost";
+import type { ChappieConfig } from "chappie/plugin-sdk/mattermost";
 import { describe, expect, it, vi } from "vitest";
 import { deliverMattermostReplyPayload } from "./reply-delivery.js";
 
 describe("deliverMattermostReplyPayload", () => {
   it("passes agent-scoped mediaLocalRoots when sending media paths", async () => {
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-mm-state-"));
-    process.env.OPENCLAW_STATE_DIR = stateDir;
+    const previousStateDir = process.env.CHAPPIE_STATE_DIR;
+    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "chappie-mm-state-"));
+    process.env.CHAPPIE_STATE_DIR = stateDir;
 
     try {
       const sendMessage = vi.fn(async () => undefined);
@@ -25,7 +25,7 @@ describe("deliverMattermostReplyPayload", () => {
 
       const agentId = "agent-1";
       const mediaUrl = `file://${path.join(stateDir, `workspace-${agentId}`, "photo.png")}`;
-      const cfg = {} satisfies OpenClawConfig;
+      const cfg = {} satisfies ChappieConfig;
 
       await deliverMattermostReplyPayload({
         core,
@@ -53,9 +53,9 @@ describe("deliverMattermostReplyPayload", () => {
       );
     } finally {
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.CHAPPIE_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.CHAPPIE_STATE_DIR = previousStateDir;
       }
       await fs.rm(stateDir, { recursive: true, force: true });
     }
@@ -75,7 +75,7 @@ describe("deliverMattermostReplyPayload", () => {
 
     await deliverMattermostReplyPayload({
       core,
-      cfg: {} satisfies OpenClawConfig,
+      cfg: {} satisfies ChappieConfig,
       payload: { text: "hello" },
       to: "channel:town-square",
       accountId: "default",

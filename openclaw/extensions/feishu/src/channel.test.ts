@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/feishu";
+import type { ChappieConfig } from "chappie/plugin-sdk/feishu";
 import { describe, expect, it, vi } from "vitest";
 
 const probeFeishuMock = vi.hoisted(() => vi.fn());
@@ -31,7 +31,7 @@ describe("feishuPlugin.status.probeAccount", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as ChappieConfig;
 
     const account = feishuPlugin.config.resolveAccount(cfg, "main");
     probeFeishuMock.mockResolvedValueOnce({ ok: true, appId: "cli_main" });
@@ -66,7 +66,7 @@ describe("feishuPlugin actions", () => {
         },
       },
     },
-  } as OpenClawConfig;
+  } as ChappieConfig;
 
   it("does not advertise reactions when disabled via actions config", () => {
     const disabledCfg = {
@@ -80,7 +80,7 @@ describe("feishuPlugin actions", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as ChappieConfig;
 
     expect(feishuPlugin.actions?.listActions?.({ cfg: disabledCfg })).toEqual([]);
   });
@@ -114,7 +114,7 @@ describe("feishuPlugin actions", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as ChappieConfig;
 
     expect(feishuPlugin.actions?.listActions?.({ cfg })).toEqual(["react", "reactions"]);
   });

@@ -10,7 +10,7 @@ import {
   sanitizeHostExecEnv,
   sanitizeSystemRunEnvOverrides,
 } from "./host-env-security.js";
-import { OPENCLAW_CLI_ENV_VALUE } from "./openclaw-exec-env.js";
+import { CHAPPIE_CLI_ENV_VALUE } from "./chappie-exec-env.js";
 
 function getSystemGitPath() {
   if (process.platform === "win32") {
@@ -66,7 +66,7 @@ describe("sanitizeHostExecEnv", () => {
     });
 
     expect(env).toEqual({
-      OPENCLAW_CLI: OPENCLAW_CLI_ENV_VALUE,
+      CHAPPIE_CLI: CHAPPIE_CLI_ENV_VALUE,
       PATH: "/usr/bin:/bin",
       OK: "1",
     });
@@ -96,7 +96,7 @@ describe("sanitizeHostExecEnv", () => {
     });
 
     expect(env.PATH).toBe("/usr/bin:/bin");
-    expect(env.OPENCLAW_CLI).toBe(OPENCLAW_CLI_ENV_VALUE);
+    expect(env.CHAPPIE_CLI).toBe(CHAPPIE_CLI_ENV_VALUE);
     expect(env.BASH_ENV).toBeUndefined();
     expect(env.GIT_SSH_COMMAND).toBeUndefined();
     expect(env.GIT_EXEC_PATH).toBeUndefined();
@@ -121,7 +121,7 @@ describe("sanitizeHostExecEnv", () => {
     });
 
     expect(env.PATH).toBe("/usr/bin:/bin");
-    expect(env.OPENCLAW_CLI).toBe(OPENCLAW_CLI_ENV_VALUE);
+    expect(env.CHAPPIE_CLI).toBe(CHAPPIE_CLI_ENV_VALUE);
     expect(env.OK).toBe("1");
     expect(env.SHELLOPTS).toBeUndefined();
     expect(env.PS4).toBeUndefined();
@@ -140,7 +140,7 @@ describe("sanitizeHostExecEnv", () => {
     });
 
     expect(env.GOOD_KEY).toBe("ok");
-    expect(env.OPENCLAW_CLI).toBe(OPENCLAW_CLI_ENV_VALUE);
+    expect(env.CHAPPIE_CLI).toBe(CHAPPIE_CLI_ENV_VALUE);
     expect(env[" BAD KEY"]).toBeUndefined();
     expect(env["NOT-PORTABLE"]).toBeUndefined();
   });
@@ -157,7 +157,7 @@ describe("sanitizeHostExecEnv", () => {
     });
 
     expect(env.PATH).toBe("/custom/bin");
-    expect(env.OPENCLAW_CLI).toBe(OPENCLAW_CLI_ENV_VALUE);
+    expect(env.CHAPPIE_CLI).toBe(CHAPPIE_CLI_ENV_VALUE);
   });
 
   it("drops non-string inherited values and non-portable inherited keys", () => {
@@ -172,7 +172,7 @@ describe("sanitizeHostExecEnv", () => {
     });
 
     expect(env).toEqual({
-      OPENCLAW_CLI: OPENCLAW_CLI_ENV_VALUE,
+      CHAPPIE_CLI: CHAPPIE_CLI_ENV_VALUE,
       PATH: "/usr/bin:/bin",
       GOOD: "1",
     });
@@ -206,12 +206,12 @@ describe("sanitizeSystemRunEnvOverrides", () => {
     const overrides = sanitizeSystemRunEnvOverrides({
       shellWrapper: false,
       overrides: {
-        OPENCLAW_TEST: "1",
+        CHAPPIE_TEST: "1",
         TOKEN: "abc",
       },
     });
     expect(overrides).toEqual({
-      OPENCLAW_TEST: "1",
+      CHAPPIE_TEST: "1",
       TOKEN: "abc",
     });
   });
@@ -220,7 +220,7 @@ describe("sanitizeSystemRunEnvOverrides", () => {
     const overrides = sanitizeSystemRunEnvOverrides({
       shellWrapper: true,
       overrides: {
-        OPENCLAW_TEST: "1",
+        CHAPPIE_TEST: "1",
         TOKEN: "abc",
         LANG: "C",
         LC_ALL: "C",
@@ -266,7 +266,7 @@ describe("shell wrapper exploit regression", () => {
     if (process.platform === "win32" || !fs.existsSync(bashPath)) {
       return;
     }
-    const marker = path.join(os.tmpdir(), `openclaw-ps4-marker-${process.pid}-${Date.now()}`);
+    const marker = path.join(os.tmpdir(), `chappie-ps4-marker-${process.pid}-${Date.now()}`);
     try {
       fs.unlinkSync(marker);
     } catch {
@@ -305,12 +305,12 @@ describe("git env exploit regression", () => {
     }
 
     const helperDir = fs.mkdtempSync(
-      path.join(os.tmpdir(), `openclaw-git-exec-path-${process.pid}-${Date.now()}-`),
+      path.join(os.tmpdir(), `chappie-git-exec-path-${process.pid}-${Date.now()}-`),
     );
     const helperPath = path.join(helperDir, "git-remote-https");
     const marker = path.join(
       os.tmpdir(),
-      `openclaw-git-exec-path-marker-${process.pid}-${Date.now()}`,
+      `chappie-git-exec-path-marker-${process.pid}-${Date.now()}`,
     );
     try {
       clearMarker(marker);
@@ -348,7 +348,7 @@ describe("git env exploit regression", () => {
       return;
     }
 
-    const marker = path.join(os.tmpdir(), `openclaw-git-ssh-command-${process.pid}-${Date.now()}`);
+    const marker = path.join(os.tmpdir(), `chappie-git-ssh-command-${process.pid}-${Date.now()}`);
     clearMarker(marker);
 
     const target = "ssh://127.0.0.1:1/does-not-matter";

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { Readable } from "stream";
-import { withTempDownloadPath, type ClawdbotConfig } from "openclaw/plugin-sdk/feishu";
+import { withTempDownloadPath, type ChappiedbotConfig } from "chappie/plugin-sdk/feishu";
 import { resolveFeishuAccount } from "./accounts.js";
 import { createFeishuClient } from "./client.js";
 import { normalizeFeishuExternalKey } from "./external-keys.js";
@@ -22,7 +22,7 @@ export type DownloadMessageResourceResult = {
   fileName?: string;
 };
 
-function createConfiguredFeishuMediaClient(params: { cfg: ClawdbotConfig; accountId?: string }): {
+function createConfiguredFeishuMediaClient(params: { cfg: ChappiedbotConfig; accountId?: string }): {
   account: ReturnType<typeof resolveFeishuAccount>;
   client: ReturnType<typeof createFeishuClient>;
 } {
@@ -124,7 +124,7 @@ async function readFeishuResponseBuffer(params: {
  * Used for downloading images sent in messages.
  */
 export async function downloadImageFeishu(params: {
-  cfg: ClawdbotConfig;
+  cfg: ChappiedbotConfig;
   imageKey: string;
   accountId?: string;
 }): Promise<DownloadImageResult> {
@@ -141,7 +141,7 @@ export async function downloadImageFeishu(params: {
 
   const buffer = await readFeishuResponseBuffer({
     response,
-    tmpDirPrefix: "openclaw-feishu-img-",
+    tmpDirPrefix: "chappie-feishu-img-",
     errorPrefix: "Feishu image download failed",
   });
   return { buffer };
@@ -152,7 +152,7 @@ export async function downloadImageFeishu(params: {
  * Used for downloading files, audio, and video from messages.
  */
 export async function downloadMessageResourceFeishu(params: {
-  cfg: ClawdbotConfig;
+  cfg: ChappiedbotConfig;
   messageId: string;
   fileKey: string;
   type: "image" | "file";
@@ -172,7 +172,7 @@ export async function downloadMessageResourceFeishu(params: {
 
   const buffer = await readFeishuResponseBuffer({
     response,
-    tmpDirPrefix: "openclaw-feishu-resource-",
+    tmpDirPrefix: "chappie-feishu-resource-",
     errorPrefix: "Feishu message resource download failed",
   });
   return { buffer };
@@ -196,7 +196,7 @@ export type SendMediaResult = {
  * Supports: JPEG, PNG, WEBP, GIF, TIFF, BMP, ICO
  */
 export async function uploadImageFeishu(params: {
-  cfg: ClawdbotConfig;
+  cfg: ChappiedbotConfig;
   image: Buffer | string; // Buffer or file path
   imageType?: "message" | "avatar";
   accountId?: string;
@@ -244,7 +244,7 @@ export function sanitizeFileNameForUpload(fileName: string): string {
  * Max file size: 30MB
  */
 export async function uploadFileFeishu(params: {
-  cfg: ClawdbotConfig;
+  cfg: ChappiedbotConfig;
   file: Buffer | string; // Buffer or file path
   fileName: string;
   fileType: "opus" | "mp4" | "pdf" | "doc" | "xls" | "ppt" | "stream";
@@ -283,7 +283,7 @@ export async function uploadFileFeishu(params: {
  * Send an image message using an image_key
  */
 export async function sendImageFeishu(params: {
-  cfg: ClawdbotConfig;
+  cfg: ChappiedbotConfig;
   to: string;
   imageKey: string;
   replyToMessageId?: string;
@@ -327,7 +327,7 @@ export async function sendImageFeishu(params: {
  * Send a file message using a file_key
  */
 export async function sendFileFeishu(params: {
-  cfg: ClawdbotConfig;
+  cfg: ChappiedbotConfig;
   to: string;
   fileKey: string;
   /** Use "audio" for audio, "media" for video (mp4), "file" for documents */
@@ -407,7 +407,7 @@ export function detectFileType(
  * must be passed so loadWebMedia allows the path (post CVE-2026-26321).
  */
 export async function sendMediaFeishu(params: {
-  cfg: ClawdbotConfig;
+  cfg: ChappiedbotConfig;
   to: string;
   mediaUrl?: string;
   mediaBuffer?: Buffer;

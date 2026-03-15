@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/copilot-proxy",
+  "name": "@chappie/copilot-proxy",
   "version": "2026.3.14",
   "private": true,
-  "description": "OpenClaw Copilot Proxy provider plugin",
+  "description": "Chappie Copilot Proxy provider plugin",
   "type": "module",
-  "openclaw": {
+  "chappie": {
     "extensions": [
       "./index.ts"
     ]

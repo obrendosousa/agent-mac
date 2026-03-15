@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/mattermost";
+import type { ChappieConfig } from "chappie/plugin-sdk/mattermost";
 import { describe, expect, it } from "vitest";
 import {
   resolveDefaultMattermostAccountId,
@@ -8,7 +8,7 @@ import {
 
 describe("resolveDefaultMattermostAccountId", () => {
   it("prefers channels.mattermost.defaultAccount when it matches a configured account", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: ChappieConfig = {
       channels: {
         mattermost: {
           defaultAccount: "alerts",
@@ -24,7 +24,7 @@ describe("resolveDefaultMattermostAccountId", () => {
   });
 
   it("normalizes channels.mattermost.defaultAccount before lookup", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: ChappieConfig = {
       channels: {
         mattermost: {
           defaultAccount: "Ops Team",
@@ -39,7 +39,7 @@ describe("resolveDefaultMattermostAccountId", () => {
   });
 
   it("falls back when channels.mattermost.defaultAccount is missing", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: ChappieConfig = {
       channels: {
         mattermost: {
           defaultAccount: "missing",
@@ -57,7 +57,7 @@ describe("resolveDefaultMattermostAccountId", () => {
 
 describe("resolveMattermostReplyToMode", () => {
   it("uses the configured mode for channel and group messages", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: ChappieConfig = {
       channels: {
         mattermost: {
           replyToMode: "all",
@@ -71,7 +71,7 @@ describe("resolveMattermostReplyToMode", () => {
   });
 
   it("keeps direct messages off even when replyToMode is enabled", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: ChappieConfig = {
       channels: {
         mattermost: {
           replyToMode: "all",

@@ -9,7 +9,7 @@ import type { SignalProbe } from "../../../extensions/signal/src/probe.js";
 import type { SlackProbe } from "../../../extensions/slack/src/probe.js";
 import type { TelegramProbe } from "../../../extensions/telegram/src/probe.js";
 import type { TelegramTokenResolution } from "../../../extensions/telegram/src/token.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { ChappieConfig } from "../../config/config.js";
 import type { LineProbeResult } from "../../line/types.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import {
@@ -112,7 +112,7 @@ describe("channel plugin registry", () => {
 describe("channel plugin catalog", () => {
   it("includes Microsoft Teams", () => {
     const entry = getChannelPluginCatalogEntry("msteams");
-    expect(entry?.install.npmSpec).toBe("@openclaw/msteams");
+    expect(entry?.install.npmSpec).toBe("@chappie/msteams");
     expect(entry?.meta.aliases).toContain("teams");
   });
 
@@ -122,15 +122,15 @@ describe("channel plugin catalog", () => {
   });
 
   it("includes external catalog entries", () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-catalog-"));
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "chappie-catalog-"));
     const catalogPath = path.join(dir, "catalog.json");
     fs.writeFileSync(
       catalogPath,
       JSON.stringify({
         entries: [
           {
-            name: "@openclaw/demo-channel",
-            openclaw: {
+            name: "@chappie/demo-channel",
+            chappie: {
               channel: {
                 id: "demo-channel",
                 label: "Demo Channel",
@@ -140,7 +140,7 @@ describe("channel plugin catalog", () => {
                 order: 999,
               },
               install: {
-                npmSpec: "@openclaw/demo-channel",
+                npmSpec: "@chappie/demo-channel",
               },
             },
           },
@@ -155,15 +155,15 @@ describe("channel plugin catalog", () => {
   });
 
   it("uses the provided env for external catalog path resolution", () => {
-    const home = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-catalog-home-"));
+    const home = fs.mkdtempSync(path.join(os.tmpdir(), "chappie-catalog-home-"));
     const catalogPath = path.join(home, "catalog.json");
     fs.writeFileSync(
       catalogPath,
       JSON.stringify({
         entries: [
           {
-            name: "@openclaw/env-demo-channel",
-            openclaw: {
+            name: "@chappie/env-demo-channel",
+            chappie: {
               channel: {
                 id: "env-demo-channel",
                 label: "Env Demo Channel",
@@ -173,7 +173,7 @@ describe("channel plugin catalog", () => {
                 order: 1000,
               },
               install: {
-                npmSpec: "@openclaw/env-demo-channel",
+                npmSpec: "@chappie/env-demo-channel",
               },
             },
           },
@@ -184,7 +184,7 @@ describe("channel plugin catalog", () => {
     const ids = listChannelPluginCatalogEntries({
       env: {
         ...process.env,
-        OPENCLAW_PLUGIN_CATALOG_PATHS: "~/catalog.json",
+        CHAPPIE_PLUGIN_CATALOG_PATHS: "~/catalog.json",
         HOME: home,
       },
     }).map((entry) => entry.id);
@@ -193,7 +193,7 @@ describe("channel plugin catalog", () => {
   });
 
   it("uses the provided env for default catalog paths", () => {
-    const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-catalog-state-"));
+    const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "chappie-catalog-state-"));
     const catalogPath = path.join(stateDir, "plugins", "catalog.json");
     fs.mkdirSync(path.dirname(catalogPath), { recursive: true });
     fs.writeFileSync(
@@ -201,8 +201,8 @@ describe("channel plugin catalog", () => {
       JSON.stringify({
         entries: [
           {
-            name: "@openclaw/default-env-demo",
-            openclaw: {
+            name: "@chappie/default-env-demo",
+            chappie: {
               channel: {
                 id: "default-env-demo",
                 label: "Default Env Demo",
@@ -211,7 +211,7 @@ describe("channel plugin catalog", () => {
                 blurb: "Default env demo entry",
               },
               install: {
-                npmSpec: "@openclaw/default-env-demo",
+                npmSpec: "@chappie/default-env-demo",
               },
             },
           },
@@ -222,8 +222,8 @@ describe("channel plugin catalog", () => {
     const ids = listChannelPluginCatalogEntries({
       env: {
         ...process.env,
-        OPENCLAW_STATE_DIR: stateDir,
-        CLAWDBOT_STATE_DIR: undefined,
+        CHAPPIE_STATE_DIR: stateDir,
+        CHAPPIEDBOT_STATE_DIR: undefined,
       },
     }).map((entry) => entry.id);
 
@@ -287,13 +287,13 @@ function makeSlackConfigWritesCfg(accountIdKey: string) {
 }
 
 type DirectoryListFn = (params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   accountId?: string | null;
   query?: string | null;
   limit?: number | null;
 }) => Promise<ChannelDirectoryEntry[]>;
 
-async function listDirectoryEntriesWithDefaults(listFn: DirectoryListFn, cfg: OpenClawConfig) {
+async function listDirectoryEntriesWithDefaults(listFn: DirectoryListFn, cfg: ChappieConfig) {
   return await listFn({
     cfg,
     accountId: "default",
@@ -304,7 +304,7 @@ async function listDirectoryEntriesWithDefaults(listFn: DirectoryListFn, cfg: Op
 
 async function expectDirectoryIds(
   listFn: DirectoryListFn,
-  cfg: OpenClawConfig,
+  cfg: ChappieConfig,
   expected: string[],
   options?: { sorted?: boolean },
 ) {

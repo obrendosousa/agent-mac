@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import type { OpenClawConfig, PluginRuntime } from "openclaw/plugin-sdk/bluebubbles";
+import type { ChappieConfig, PluginRuntime } from "chappie/plugin-sdk/bluebubbles";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { sendBlueBubblesMedia } from "./media-send.js";
 import { setBlueBubblesRuntime } from "./runtime.js";
@@ -54,18 +54,18 @@ function createMockRuntime(): { runtime: PluginRuntime; mocks: RuntimeMocks } {
   };
 }
 
-function createConfig(overrides?: Record<string, unknown>): OpenClawConfig {
+function createConfig(overrides?: Record<string, unknown>): ChappieConfig {
   return {
     channels: {
       bluebubbles: {
         ...overrides,
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as ChappieConfig;
 }
 
 async function makeTempDir(): Promise<string> {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-bb-media-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "chappie-bb-media-"));
   tempDirs.push(dir);
   return dir;
 }
@@ -82,7 +82,7 @@ async function makeTempFile(
 }
 
 async function sendLocalMedia(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   mediaPath: string;
   accountId?: string;
 }) {
@@ -95,7 +95,7 @@ async function sendLocalMedia(params: {
 }
 
 async function expectRejectedLocalMedia(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   mediaPath: string;
   error: RegExp;
   accountId?: string;
@@ -112,7 +112,7 @@ async function expectRejectedLocalMedia(params: {
 }
 
 async function expectAllowedLocalMedia(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   mediaPath: string;
   expectedAttachment: Record<string, unknown>;
   accountId?: string;

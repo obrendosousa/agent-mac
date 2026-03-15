@@ -17,7 +17,7 @@ import {
   setLegacyChannelDmPolicyWithAllowFrom,
   setOnboardingChannelEnabled,
 } from "../../../src/channels/plugins/onboarding/helpers.js";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { ChappieConfig } from "../../../src/config/config.js";
 import type { DiscordGuildEntry } from "../../../src/config/types.discord.js";
 import { hasConfiguredSecretInput } from "../../../src/config/types.secrets.js";
 import { DEFAULT_ACCOUNT_ID } from "../../../src/routing/session-key.js";
@@ -52,13 +52,13 @@ async function noteDiscordTokenHelp(prompter: WizardPrompter): Promise<void> {
 }
 
 function setDiscordGuildChannelAllowlist(
-  cfg: OpenClawConfig,
+  cfg: ChappieConfig,
   accountId: string,
   entries: Array<{
     guildKey: string;
     channelKey?: string;
   }>,
-): OpenClawConfig {
+): ChappieConfig {
   const baseGuilds =
     accountId === DEFAULT_ACCOUNT_ID
       ? (cfg.channels?.discord?.guilds ?? {})
@@ -84,10 +84,10 @@ function setDiscordGuildChannelAllowlist(
 }
 
 async function promptDiscordAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<ChappieConfig> {
   const accountId = resolveOnboardingAccountId({
     accountId: params.accountId,
     defaultAccountId: resolveDefaultDiscordAccountId(params.cfg),

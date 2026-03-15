@@ -1,10 +1,10 @@
 import { resolveWhatsAppAccount } from "../../../extensions/whatsapp/src/accounts.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { ChappieConfig } from "../../config/config.js";
 import { resolveWhatsAppOutboundTarget } from "../../whatsapp/resolve-outbound-target.js";
 import { ToolAuthorizationError } from "./common.js";
 
 export function resolveAuthorizedWhatsAppOutboundTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   chatJid: string;
   accountId?: string;
   actionLabel: string;

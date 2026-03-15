@@ -4,7 +4,7 @@ description: Control Eight Sleep pods (status, temperature, alarms, schedules).
 homepage: https://eightctl.sh
 metadata:
   {
-    "openclaw":
+    "chappie":
       {
         "emoji": "🛌",
         "requires": { "bins": ["eightctl"] },
@@ -13,7 +13,7 @@ metadata:
             {
               "id": "go",
               "kind": "go",
-              "module": "github.com/steipete/eightctl/cmd/eightctl@latest",
+              "module": "github.com/chappie-team/eightctl/cmd/eightctl@latest",
               "bins": ["eightctl"],
               "label": "Install eightctl (go)",
             },

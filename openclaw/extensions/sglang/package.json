@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/sglang-provider",
+  "name": "@chappie/sglang-provider",
   "version": "2026.3.14",
   "private": true,
-  "description": "OpenClaw SGLang provider plugin",
+  "description": "Chappie SGLang provider plugin",
   "type": "module",
-  "openclaw": {
+  "chappie": {
     "extensions": [
       "./index.ts"
     ]

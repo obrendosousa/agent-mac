@@ -10,7 +10,7 @@ const modelStudioApiKeyEnv = ["MODELSTUDIO_API", "KEY"].join("_");
 
 describe("Model Studio implicit provider", () => {
   it("should include modelstudio when MODELSTUDIO_API_KEY is configured", async () => {
-    const agentDir = mkdtempSync(join(tmpdir(), "openclaw-test-"));
+    const agentDir = mkdtempSync(join(tmpdir(), "chappie-test-"));
     const modelStudioApiKey = "test-key"; // pragma: allowlist secret
     await withEnvAsync({ [modelStudioApiKeyEnv]: modelStudioApiKey }, async () => {
       const providers = await resolveImplicitProvidersForTest({ agentDir });

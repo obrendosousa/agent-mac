@@ -11,8 +11,8 @@ describe("chrome extension relay bindHost coordination", () => {
   let envSnapshot: ReturnType<typeof captureEnv>;
 
   beforeEach(() => {
-    envSnapshot = captureEnv(["OPENCLAW_GATEWAY_TOKEN"]);
-    process.env.OPENCLAW_GATEWAY_TOKEN = "test-gateway-token";
+    envSnapshot = captureEnv(["CHAPPIE_GATEWAY_TOKEN"]);
+    process.env.CHAPPIE_GATEWAY_TOKEN = "test-gateway-token";
   });
 
   afterEach(async () => {

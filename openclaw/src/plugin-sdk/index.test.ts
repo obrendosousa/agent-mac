@@ -54,7 +54,7 @@ const pluginSdkEntrypoints = [
 ] as const;
 
 const pluginSdkSpecifiers = pluginSdkEntrypoints.map((entry) =>
-  entry === "index" ? "openclaw/plugin-sdk" : `openclaw/plugin-sdk/${entry}`,
+  entry === "index" ? "chappie/plugin-sdk" : `chappie/plugin-sdk/${entry}`,
 );
 
 function buildPluginSdkPackageExports() {
@@ -173,8 +173,8 @@ describe("plugin-sdk exports", () => {
   });
 
   it("emits importable bundled subpath entries", { timeout: 240_000 }, async () => {
-    const outDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-plugin-sdk-build-"));
-    const fixtureDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-plugin-sdk-consumer-"));
+    const outDir = await fs.mkdtemp(path.join(os.tmpdir(), "chappie-plugin-sdk-build-"));
+    const fixtureDir = await fs.mkdtemp(path.join(os.tmpdir(), "chappie-plugin-sdk-consumer-"));
 
     try {
       await build({
@@ -196,7 +196,7 @@ describe("plugin-sdk exports", () => {
         expect(module).toBeTypeOf("object");
       }
 
-      const packageDir = path.join(fixtureDir, "openclaw");
+      const packageDir = path.join(fixtureDir, "chappie");
       const consumerDir = path.join(fixtureDir, "consumer");
       const consumerEntry = path.join(consumerDir, "import-plugin-sdk.mjs");
 
@@ -207,7 +207,7 @@ describe("plugin-sdk exports", () => {
         JSON.stringify(
           {
             exports: buildPluginSdkPackageExports(),
-            name: "openclaw",
+            name: "chappie",
             type: "module",
           },
           null,
@@ -216,7 +216,7 @@ describe("plugin-sdk exports", () => {
       );
 
       await fs.mkdir(path.join(consumerDir, "node_modules"), { recursive: true });
-      await fs.symlink(packageDir, path.join(consumerDir, "node_modules", "openclaw"), "dir");
+      await fs.symlink(packageDir, path.join(consumerDir, "node_modules", "chappie"), "dir");
       await fs.writeFile(
         consumerEntry,
         [

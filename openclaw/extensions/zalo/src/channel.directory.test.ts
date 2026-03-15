@@ -1,4 +1,4 @@
-import type { OpenClawConfig, RuntimeEnv } from "openclaw/plugin-sdk/zalo";
+import type { ChappieConfig, RuntimeEnv } from "chappie/plugin-sdk/zalo";
 import { describe, expect, it } from "vitest";
 import { createDirectoryTestRuntime, expectDirectorySurface } from "../../test-utils/directory.js";
 import { zaloPlugin } from "./channel.js";
@@ -13,7 +13,7 @@ describe("zalo directory", () => {
           allowFrom: ["zalo:123", "zl:234", "345"],
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as ChappieConfig;
 
     const directory = expectDirectorySurface(zaloPlugin.directory);
 

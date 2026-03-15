@@ -1,7 +1,7 @@
 import { buildTelegramExecApprovalButtons } from "../../extensions/telegram/src/approval-buttons.js";
 import { sendTypingTelegram } from "../../extensions/telegram/src/send.js";
 import type { ReplyPayload } from "../auto-reply/types.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { ChappieConfig } from "../config/config.js";
 import { loadConfig } from "../config/config.js";
 import type {
   ExecApprovalForwardingConfig,
@@ -43,11 +43,11 @@ export type ExecApprovalForwarder = {
 };
 
 export type ExecApprovalForwarderDeps = {
-  getConfig?: () => OpenClawConfig;
+  getConfig?: () => ChappieConfig;
   deliver?: typeof deliverOutboundPayloads;
   nowMs?: () => number;
   resolveSessionTarget?: (params: {
-    cfg: OpenClawConfig;
+    cfg: ChappieConfig;
     request: ExecApprovalRequest;
   }) => ExecApprovalForwardTarget | null;
 };
@@ -132,7 +132,7 @@ function resolveChannelAccountConfig<T>(
 // Discord-specific handler is enabled for the same target account.
 function shouldSkipDiscordForwarding(
   target: ExecApprovalForwardTarget,
-  cfg: OpenClawConfig,
+  cfg: ChappieConfig,
 ): boolean {
   const channel = normalizeMessageChannel(target.channel) ?? target.channel;
   if (channel !== "discord") {
@@ -157,7 +157,7 @@ function shouldSkipDiscordForwarding(
 
 function shouldSkipTelegramForwarding(params: {
   target: ExecApprovalForwardTarget;
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   request: ExecApprovalRequest;
 }): boolean {
   const channel = normalizeMessageChannel(params.target.channel) ?? params.target.channel;
@@ -277,7 +277,7 @@ function normalizeTurnSourceChannel(value?: string | null): DeliverableMessageCh
 }
 
 function defaultResolveSessionTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   request: ExecApprovalRequest;
 }): ExecApprovalForwardTarget | null {
   const resolvedTarget = resolveExecApprovalSessionTarget({
@@ -304,7 +304,7 @@ function defaultResolveSessionTarget(params: {
 }
 
 async function deliverToTargets(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   targets: ForwardTarget[];
   buildPayload: (target: ForwardTarget) => ReplyPayload;
   deliver: typeof deliverOutboundPayloads;
@@ -355,7 +355,7 @@ async function deliverToTargets(params: {
 }
 
 function buildRequestPayloadForTarget(
-  _cfg: OpenClawConfig,
+  _cfg: ChappieConfig,
   request: ExecApprovalRequest,
   nowMsValue: number,
   target: ForwardTarget,
@@ -391,11 +391,11 @@ function buildRequestPayloadForTarget(
 }
 
 function resolveForwardTargets(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   config?: ExecApprovalForwardingConfig;
   request: ExecApprovalRequest;
   resolveSessionTarget: (params: {
-    cfg: OpenClawConfig;
+    cfg: ChappieConfig;
     request: ExecApprovalRequest;
   }) => ExecApprovalForwardTarget | null;
 }): ForwardTarget[] {

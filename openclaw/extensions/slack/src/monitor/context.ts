@@ -2,7 +2,7 @@ import type { App } from "@slack/bolt";
 import type { HistoryEntry } from "../../../../src/auto-reply/reply/history.js";
 import { formatAllowlistMatchMeta } from "../../../../src/channels/allowlist-match.js";
 import type {
-  OpenClawConfig,
+  ChappieConfig,
   SlackReactionNotificationMode,
 } from "../../../../src/config/config.js";
 import { resolveSessionKey, type SessionScope } from "../../../../src/config/sessions.js";
@@ -22,7 +22,7 @@ import { isSlackChannelAllowedByPolicy } from "./policy.js";
 export { inferSlackChannelType, normalizeSlackChannelType } from "./channel-type.js";
 
 export type SlackMonitorContext = {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   accountId: string;
   botToken: string;
   app: App;
@@ -88,7 +88,7 @@ export type SlackMonitorContext = {
 };
 
 export function createSlackMonitorContext(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   accountId: string;
   botToken: string;
   app: App;

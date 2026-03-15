@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/config.js";
+import type { ChappieConfig } from "../config/config.js";
 import type { ResolvedAgentRoute } from "../routing/resolve-route.js";
 import { deriveLastRoutePolicy } from "../routing/resolve-route.js";
 import { resolveAgentIdFromSessionKey } from "../routing/session-key.js";
@@ -10,7 +10,7 @@ import {
 } from "./persistent-bindings.js";
 
 export function resolveConfiguredAcpRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   route: ResolvedAgentRoute;
   channel: ConfiguredAcpBindingChannel;
   accountId: string;
@@ -61,7 +61,7 @@ export function resolveConfiguredAcpRoute(params: {
 }
 
 export async function ensureConfiguredAcpRouteReady(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   configuredBinding: ResolvedConfiguredAcpBinding | null;
 }): Promise<{ ok: true } | { ok: false; error: string }> {
   if (!params.configuredBinding) {

@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/google-gemini-cli-auth",
+  "name": "@chappie/google-gemini-cli-auth",
   "version": "2026.3.14",
   "private": true,
-  "description": "OpenClaw Gemini CLI OAuth provider plugin",
+  "description": "Chappie Gemini CLI OAuth provider plugin",
   "type": "module",
-  "openclaw": {
+  "chappie": {
     "extensions": [
       "./index.ts"
     ]

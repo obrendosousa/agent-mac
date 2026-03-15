@@ -1,4 +1,4 @@
-const PREFIX = "openclaw:deleted:";
+const PREFIX = "chappie:deleted:";
 
 export class DeletedMessages {
   private key: string;

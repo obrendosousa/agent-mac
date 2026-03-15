@@ -5,8 +5,8 @@ import {
   resolveStorePath,
   resolveStoredModelOverride,
   type ModelsProviderData,
-  type OpenClawConfig,
-} from "openclaw/plugin-sdk/mattermost";
+  type ChappieConfig,
+} from "chappie/plugin-sdk/mattermost";
 import type { MattermostInteractiveButtonInput } from "./interactions.js";
 
 const MATTERMOST_MODEL_PICKER_CONTEXT_KEY = "oc_model_picker";
@@ -213,7 +213,7 @@ export function buildMattermostAllowedModelRefs(data: ModelsProviderData): Set<s
 }
 
 export function resolveMattermostModelPickerCurrentModel(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   route: { agentId: string; sessionKey: string };
   data: ModelsProviderData;
   skipCache?: boolean;

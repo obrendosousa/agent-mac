@@ -1,17 +1,17 @@
-# @openclaw/zalo
+# @chappie/zalo
 
-Zalo channel plugin for OpenClaw (Bot API).
+Zalo channel plugin for Chappie (Bot API).
 
 ## Install (local checkout)
 
 ```bash
-openclaw plugins install ./extensions/zalo
+chappie plugins install ./extensions/zalo
 ```
 
 ## Install (npm)
 
 ```bash
-openclaw plugins install @openclaw/zalo
+chappie plugins install @chappie/zalo
 ```
 
 Onboarding: select Zalo and confirm the install prompt to fetch the plugin automatically.

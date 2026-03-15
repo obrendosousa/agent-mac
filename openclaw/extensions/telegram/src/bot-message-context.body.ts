@@ -18,7 +18,7 @@ import { resolveControlCommandGate } from "../../../src/channels/command-gating.
 import { formatLocationText, type NormalizedLocation } from "../../../src/channels/location.js";
 import { logInboundDrop } from "../../../src/channels/logging.js";
 import { resolveMentionGatingWithBypass } from "../../../src/channels/mention-gating.js";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { ChappieConfig } from "../../../src/config/config.js";
 import type {
   TelegramDirectConfig,
   TelegramGroupConfig,
@@ -57,7 +57,7 @@ export type TelegramInboundBodyResult = {
 };
 
 async function resolveStickerVisionSupport(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   agentId?: string;
 }): Promise<boolean> {
   try {
@@ -77,7 +77,7 @@ async function resolveStickerVisionSupport(params: {
 }
 
 export async function resolveTelegramInboundBody(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   primaryCtx: TelegramContext;
   msg: TelegramContext["message"];
   allMedia: TelegramMediaRef[];

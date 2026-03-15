@@ -1,21 +1,21 @@
 {
-  "name": "@openclaw/googlechat",
+  "name": "@chappie/googlechat",
   "version": "2026.3.14",
   "private": true,
-  "description": "OpenClaw Google Chat channel plugin",
+  "description": "Chappie Google Chat channel plugin",
   "type": "module",
   "dependencies": {
     "google-auth-library": "^10.6.1"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.3.11"
+    "chappie": ">=2026.3.11"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "chappie": {
       "optional": true
     }
   },
-  "openclaw": {
+  "chappie": {
     "extensions": [
       "./index.ts"
     ],
@@ -34,7 +34,7 @@
       "order": 55
     },
     "install": {
-      "npmSpec": "@openclaw/googlechat",
+      "npmSpec": "@chappie/googlechat",
       "localPath": "extensions/googlechat",
       "defaultChoice": "npm"
     },

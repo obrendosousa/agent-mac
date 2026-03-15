@@ -5,7 +5,7 @@ import {
   type ResponsePrefixContext,
 } from "../auto-reply/reply/response-prefix-template.js";
 import type { GetReplyOptions } from "../auto-reply/types.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { ChappieConfig } from "../config/config.js";
 
 type ModelSelectionContext = Parameters<NonNullable<GetReplyOptions["onModelSelected"]>>[0];
 
@@ -26,7 +26,7 @@ export type ReplyPrefixOptions = Pick<
 >;
 
 export function createReplyPrefixContext(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   agentId: string;
   channel?: string;
   accountId?: string;
@@ -60,7 +60,7 @@ export function createReplyPrefixContext(params: {
 }
 
 export function createReplyPrefixOptions(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   agentId: string;
   channel?: string;
   accountId?: string;

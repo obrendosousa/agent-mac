@@ -13,10 +13,10 @@ COPY ui/package.json ./ui/package.json
 COPY extensions/memory-core/package.json ./extensions/memory-core/package.json
 COPY patches ./patches
 
-RUN --mount=type=cache,id=openclaw-pnpm-store,target=/root/.local/share/pnpm/store,sharing=locked \
+RUN --mount=type=cache,id=chappie-pnpm-store,target=/root/.local/share/pnpm/store,sharing=locked \
     pnpm install --frozen-lockfile
 
-COPY tsconfig.json tsconfig.plugin-sdk.dts.json tsdown.config.ts vitest.config.ts vitest.e2e.config.ts openclaw.mjs ./
+COPY tsconfig.json tsconfig.plugin-sdk.dts.json tsdown.config.ts vitest.config.ts vitest.e2e.config.ts chappie.mjs ./
 COPY src ./src
 COPY test ./test
 COPY scripts ./scripts
@@ -25,8 +25,8 @@ COPY skills ./skills
 COPY ui ./ui
 COPY extensions/memory-core ./extensions/memory-core
 COPY vendor/a2ui/renderers/lit ./vendor/a2ui/renderers/lit
-COPY apps/shared/OpenClawKit/Sources/OpenClawKit/Resources ./apps/shared/OpenClawKit/Sources/OpenClawKit/Resources
-COPY apps/shared/OpenClawKit/Tools/CanvasA2UI ./apps/shared/OpenClawKit/Tools/CanvasA2UI
+COPY apps/shared/ChappieKit/Sources/ChappieKit/Resources ./apps/shared/ChappieKit/Sources/ChappieKit/Resources
+COPY apps/shared/ChappieKit/Tools/CanvasA2UI ./apps/shared/ChappieKit/Tools/CanvasA2UI
 
 RUN pnpm build
 RUN pnpm ui:build

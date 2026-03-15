@@ -4,7 +4,7 @@ description: Terminal Spotify playback/search via spogo (preferred) or spotify_p
 homepage: https://www.spotify.com
 metadata:
   {
-    "openclaw":
+    "chappie":
       {
         "emoji": "🎵",
         "requires": { "anyBins": ["spogo", "spotify_player"] },
@@ -14,7 +14,7 @@ metadata:
               "id": "brew",
               "kind": "brew",
               "formula": "spogo",
-              "tap": "steipete/tap",
+              "tap": "chappie-team/tap",
               "bins": ["spogo"],
               "label": "Install spogo (brew)",
             },

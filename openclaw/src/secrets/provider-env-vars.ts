@@ -50,7 +50,7 @@ const KNOWN_SECRET_ENV_VARS = [
   ...new Set(Object.values(PROVIDER_ENV_VARS).flatMap((keys) => keys)),
 ];
 
-// OPENCLAW_API_KEY authenticates the local OpenClaw bridge itself and must
+// CHAPPIE_API_KEY authenticates the local Chappie bridge itself and must
 // remain available to child bridge/runtime processes.
 const KNOWN_PROVIDER_AUTH_ENV_VARS = [
   ...new Set([...KNOWN_SECRET_ENV_VARS, ...EXTRA_PROVIDER_AUTH_ENV_VARS]),

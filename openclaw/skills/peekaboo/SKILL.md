@@ -4,7 +4,7 @@ description: Capture and automate macOS UI with the Peekaboo CLI.
 homepage: https://peekaboo.boo
 metadata:
   {
-    "openclaw":
+    "chappie":
       {
         "emoji": "👀",
         "os": ["darwin"],
@@ -14,7 +14,7 @@ metadata:
             {
               "id": "brew",
               "kind": "brew",
-              "formula": "steipete/tap/peekaboo",
+              "formula": "chappie-team/tap/peekaboo",
               "bins": ["peekaboo"],
               "label": "Install Peekaboo (brew)",
             },

@@ -23,7 +23,7 @@ import {
 } from "../../../extensions/telegram/src/send.js";
 import { getCacheStats, searchStickers } from "../../../extensions/telegram/src/sticker-cache.js";
 import { resolveTelegramToken } from "../../../extensions/telegram/src/token.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { ChappieConfig } from "../../config/config.js";
 import { readBooleanParam } from "../../plugin-sdk/boolean-param.js";
 import { resolvePollMaxSelections } from "../../polls.js";
 import {
@@ -94,7 +94,7 @@ export function readTelegramButtons(
 
 export async function handleTelegramAction(
   params: Record<string, unknown>,
-  cfg: OpenClawConfig,
+  cfg: ChappieConfig,
   options?: {
     mediaLocalRoots?: readonly string[];
   },

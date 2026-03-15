@@ -5,7 +5,7 @@ import {
   type RequestClient,
 } from "@buape/carbon";
 import { ChannelType, Routes } from "discord-api-types/v10";
-import { loadConfig, type OpenClawConfig } from "../../../src/config/config.js";
+import { loadConfig, type ChappieConfig } from "../../../src/config/config.js";
 import { recordChannelActivity } from "../../../src/infra/channel-activity.js";
 import { loadWebMedia } from "../../whatsapp/src/media.js";
 import { resolveDiscordAccount } from "./accounts.js";
@@ -41,7 +41,7 @@ function extractComponentAttachmentNames(spec: DiscordComponentMessageSpec): str
 }
 
 type DiscordComponentSendOpts = {
-  cfg?: OpenClawConfig;
+  cfg?: ChappieConfig;
   accountId?: string;
   token?: string;
   rest?: RequestClient;

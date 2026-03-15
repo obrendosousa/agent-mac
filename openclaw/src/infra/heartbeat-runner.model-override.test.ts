@@ -4,7 +4,7 @@ import { setTelegramRuntime } from "../../extensions/telegram/src/runtime.js";
 import { whatsappPlugin } from "../../extensions/whatsapp/src/channel.js";
 import { setWhatsAppRuntime } from "../../extensions/whatsapp/src/runtime.js";
 import * as replyModule from "../auto-reply/reply.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { ChappieConfig } from "../config/config.js";
 import { resolveAgentMainSessionKey, resolveMainSessionKey } from "../config/sessions.js";
 import { setActivePluginRegistry } from "../plugins/runtime.js";
 import { createPluginRuntime } from "../plugins/runtime/index.js";
@@ -40,7 +40,7 @@ async function withHeartbeatFixture(
       };
       return run({ tmpDir, storePath, seedSession });
     },
-    { prefix: "openclaw-hb-model-" },
+    { prefix: "chappie-hb-model-" },
   );
 }
 
@@ -68,7 +68,7 @@ describe("runHeartbeatOnce – heartbeat model override", () => {
     isolatedSession?: boolean;
   }) {
     return withHeartbeatFixture(async ({ tmpDir, storePath, seedSession }) => {
-      const cfg: OpenClawConfig = {
+      const cfg: ChappieConfig = {
         agents: {
           defaults: {
             workspace: tmpDir,
@@ -137,7 +137,7 @@ describe("runHeartbeatOnce – heartbeat model override", () => {
 
   it("uses isolated session key when isolatedSession is enabled", async () => {
     await withHeartbeatFixture(async ({ tmpDir, storePath, seedSession }) => {
-      const cfg: OpenClawConfig = {
+      const cfg: ChappieConfig = {
         agents: {
           defaults: {
             workspace: tmpDir,
@@ -171,7 +171,7 @@ describe("runHeartbeatOnce – heartbeat model override", () => {
 
   it("uses main session key when isolatedSession is not set", async () => {
     await withHeartbeatFixture(async ({ tmpDir, storePath, seedSession }) => {
-      const cfg: OpenClawConfig = {
+      const cfg: ChappieConfig = {
         agents: {
           defaults: {
             workspace: tmpDir,
@@ -203,7 +203,7 @@ describe("runHeartbeatOnce – heartbeat model override", () => {
 
   it("passes per-agent heartbeat model override (merged with defaults)", async () => {
     await withHeartbeatFixture(async ({ tmpDir, storePath, seedSession }) => {
-      const cfg: OpenClawConfig = {
+      const cfg: ChappieConfig = {
         agents: {
           defaults: {
             heartbeat: {

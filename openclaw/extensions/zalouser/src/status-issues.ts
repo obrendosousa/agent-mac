@@ -1,4 +1,4 @@
-import type { ChannelAccountSnapshot, ChannelStatusIssue } from "openclaw/plugin-sdk/zalouser";
+import type { ChannelAccountSnapshot, ChannelStatusIssue } from "chappie/plugin-sdk/zalouser";
 import { coerceStatusIssueAccountId, readStatusIssueFields } from "../../shared/status-issues.js";
 
 const ZALOUSER_STATUS_FIELDS = [
@@ -32,7 +32,7 @@ export function collectZalouserStatusIssues(
         accountId,
         kind: "auth",
         message: "Not authenticated (no saved Zalo session).",
-        fix: "Run: openclaw channels login --channel zalouser",
+        fix: "Run: chappie channels login --channel zalouser",
       });
       continue;
     }

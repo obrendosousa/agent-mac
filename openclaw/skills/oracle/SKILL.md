@@ -4,7 +4,7 @@ description: Best practices for using the oracle CLI (prompt + file bundling, en
 homepage: https://askoracle.dev
 metadata:
   {
-    "openclaw":
+    "chappie":
       {
         "emoji": "🧿",
         "requires": { "bins": ["oracle"] },
@@ -13,7 +13,7 @@ metadata:
             {
               "id": "node",
               "kind": "node",
-              "package": "@steipete/oracle",
+              "package": "@chappie-team/oracle",
               "bins": ["oracle"],
               "label": "Install oracle (node)",
             },
@@ -46,7 +46,7 @@ Recommended defaults:
 
 - Help:
   - `oracle --help`
-  - If the binary isn’t installed: `npx -y @steipete/oracle --help` (avoid `pnpx` here; sqlite bindings).
+  - If the binary isn’t installed: `npx -y @chappie-team/oracle --help` (avoid `pnpx` here; sqlite bindings).
 
 - Preview (no tokens):
   - `oracle --dry-run summary -p "<task>" --file "src/**" --file "!**/*.test.*"`

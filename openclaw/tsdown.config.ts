@@ -5,7 +5,7 @@ const env = {
 };
 
 function buildInputOptions(options: { onLog?: unknown; [key: string]: unknown }) {
-  if (process.env.OPENCLAW_BUILD_VERBOSE === "1") {
+  if (process.env.CHAPPIE_BUILD_VERBOSE === "1") {
     return undefined;
   }
 

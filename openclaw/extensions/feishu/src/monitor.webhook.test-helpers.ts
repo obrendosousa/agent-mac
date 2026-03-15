@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
-import type { ClawdbotConfig } from "openclaw/plugin-sdk/feishu";
+import type { ChappiedbotConfig } from "chappie/plugin-sdk/feishu";
 import { vi } from "vitest";
 import type { monitorFeishuProvider } from "./monitor.js";
 
@@ -36,7 +36,7 @@ export function buildWebhookConfig(params: {
   port: number;
   verificationToken?: string;
   encryptKey?: string;
-}): ClawdbotConfig {
+}): ChappiedbotConfig {
   return {
     channels: {
       feishu: {
@@ -56,7 +56,7 @@ export function buildWebhookConfig(params: {
         },
       },
     },
-  } as ClawdbotConfig;
+  } as ChappiedbotConfig;
 }
 
 export async function withRunningWebhookMonitor(

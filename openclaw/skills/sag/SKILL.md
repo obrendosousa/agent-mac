@@ -4,7 +4,7 @@ description: ElevenLabs text-to-speech with mac-style say UX.
 homepage: https://sag.sh
 metadata:
   {
-    "openclaw":
+    "chappie":
       {
         "emoji": "🔊",
         "requires": { "bins": ["sag"], "env": ["ELEVENLABS_API_KEY"] },
@@ -14,7 +14,7 @@ metadata:
             {
               "id": "brew",
               "kind": "brew",
-              "formula": "steipete/tap/sag",
+              "formula": "chappie-team/tap/sag",
               "bins": ["sag"],
               "label": "Install sag (brew)",
             },

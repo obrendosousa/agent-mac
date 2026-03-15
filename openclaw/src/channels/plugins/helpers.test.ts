@@ -1,17 +1,17 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { ChappieConfig } from "../../config/config.js";
 import {
   buildAccountScopedDmSecurityPolicy,
   formatPairingApproveHint,
   parseOptionalDelimitedEntries,
 } from "./helpers.js";
 
-function cfgWithChannel(channelKey: string, accounts?: Record<string, unknown>): OpenClawConfig {
+function cfgWithChannel(channelKey: string, accounts?: Record<string, unknown>): ChappieConfig {
   return {
     channels: {
       [channelKey]: accounts ? { accounts } : {},
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as ChappieConfig;
 }
 
 describe("buildAccountScopedDmSecurityPolicy", () => {
@@ -85,14 +85,14 @@ describe("buildAccountScopedDmSecurityPolicy", () => {
         allowFrom: ["user-1"],
         defaultPolicy: "allowlist",
         policyPathSuffix: "dmPolicy",
-        approveHint: "openclaw pairing approve synology-chat <code>",
+        approveHint: "chappie pairing approve synology-chat <code>",
       }),
     ).toEqual({
       policy: "allowlist",
       allowFrom: ["user-1"],
       policyPath: "channels.synology-chat.dmPolicy",
       allowFromPath: "channels.synology-chat.",
-      approveHint: "openclaw pairing approve synology-chat <code>",
+      approveHint: "chappie pairing approve synology-chat <code>",
       normalizeEntry: undefined,
     });
   });

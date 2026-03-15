@@ -15,7 +15,7 @@ type CacheEntry = {
  * Keep sent-message tracking shared across bundled chunks so Telegram reaction
  * filters see the same sent-message history regardless of which chunk recorded it.
  */
-const TELEGRAM_SENT_MESSAGES_KEY = Symbol.for("openclaw.telegramSentMessages");
+const TELEGRAM_SENT_MESSAGES_KEY = Symbol.for("chappie.telegramSentMessages");
 
 const sentMessages = resolveGlobalMap<string, CacheEntry>(TELEGRAM_SENT_MESSAGES_KEY);
 

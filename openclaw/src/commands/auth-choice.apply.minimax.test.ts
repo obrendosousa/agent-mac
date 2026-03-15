@@ -11,15 +11,15 @@ import {
 
 describe("applyAuthChoiceMiniMax", () => {
   const lifecycle = createAuthTestLifecycle([
-    "OPENCLAW_STATE_DIR",
-    "OPENCLAW_AGENT_DIR",
+    "CHAPPIE_STATE_DIR",
+    "CHAPPIE_AGENT_DIR",
     "PI_CODING_AGENT_DIR",
     "MINIMAX_API_KEY",
     "MINIMAX_OAUTH_TOKEN",
   ]);
 
   async function setupTempState() {
-    const env = await setupAuthTestEnv("openclaw-minimax-");
+    const env = await setupAuthTestEnv("chappie-minimax-");
     lifecycle.setStateDir(env.stateDir);
     return env.agentDir;
   }

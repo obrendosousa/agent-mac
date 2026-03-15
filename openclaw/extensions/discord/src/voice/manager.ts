@@ -19,12 +19,12 @@ import {
 import { resolveAgentDir } from "../../../../src/agents/agent-scope.js";
 import type { MsgContext } from "../../../../src/auto-reply/templating.js";
 import { agentCommandFromIngress } from "../../../../src/commands/agent.js";
-import type { OpenClawConfig } from "../../../../src/config/config.js";
+import type { ChappieConfig } from "../../../../src/config/config.js";
 import { isDangerousNameMatchingEnabled } from "../../../../src/config/dangerous-name-matching.js";
 import type { DiscordAccountConfig, TtsConfig } from "../../../../src/config/types.js";
 import { logVerbose, shouldLogVerbose } from "../../../../src/globals.js";
 import { formatErrorMessage } from "../../../../src/infra/errors.js";
-import { resolvePreferredOpenClawTmpDir } from "../../../../src/infra/tmp-openclaw-dir.js";
+import { resolvePreferredChappieTmpDir } from "../../../../src/infra/tmp-chappie-dir.js";
 import { createSubsystemLogger } from "../../../../src/logging/subsystem.js";
 import {
   buildProviderRegistry,
@@ -113,8 +113,8 @@ function mergeTtsConfig(base: TtsConfig, override?: TtsConfig): TtsConfig {
   };
 }
 
-function resolveVoiceTtsConfig(params: { cfg: OpenClawConfig; override?: TtsConfig }): {
-  cfg: OpenClawConfig;
+function resolveVoiceTtsConfig(params: { cfg: ChappieConfig; override?: TtsConfig }): {
+  cfg: ChappieConfig;
   resolved: ResolvedTtsConfig;
 } {
   if (!params.override) {
@@ -212,7 +212,7 @@ function estimateDurationSeconds(pcm: Buffer): number {
 }
 
 async function writeWavFile(pcm: Buffer): Promise<{ path: string; durationSeconds: number }> {
-  const tempDir = await fs.mkdtemp(path.join(resolvePreferredOpenClawTmpDir(), "discord-voice-"));
+  const tempDir = await fs.mkdtemp(path.join(resolvePreferredChappieTmpDir(), "discord-voice-"));
   const filePath = path.join(tempDir, `segment-${randomUUID()}.wav`);
   const wav = buildWavBuffer(pcm);
   await fs.writeFile(filePath, wav);
@@ -232,7 +232,7 @@ function scheduleTempCleanup(tempDir: string, delayMs: number = 30 * 60 * 1000):
 }
 
 async function transcribeAudio(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   agentId: string;
   filePath: string;
 }): Promise<string | undefined> {
@@ -284,7 +284,7 @@ export class DiscordVoiceManager {
   constructor(
     private params: {
       client: Client;
-      cfg: OpenClawConfig;
+      cfg: ChappieConfig;
       discordConfig: DiscordAccountConfig;
       accountId: string;
       runtime: RuntimeEnv;

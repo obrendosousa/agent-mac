@@ -19,7 +19,7 @@ export type DiscordMessageEvent = import("./listeners.js").DiscordMessageEvent;
 type DiscordMessagePreflightSharedFields = {
   cfg: LoadedConfig;
   discordConfig: NonNullable<
-    import("../../../../src/config/config.js").OpenClawConfig["channels"]
+    import("../../../../src/config/config.js").ChappieConfig["channels"]
   >["discord"];
   accountId: string;
   token: string;

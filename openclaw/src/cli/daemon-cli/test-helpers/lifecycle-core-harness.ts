@@ -58,8 +58,8 @@ export function resetLifecycleServiceMocks() {
 
 export function stubEmptyGatewayEnv() {
   vi.unstubAllEnvs();
-  vi.stubEnv("OPENCLAW_GATEWAY_TOKEN", "");
-  vi.stubEnv("CLAWDBOT_GATEWAY_TOKEN", "");
-  vi.stubEnv("OPENCLAW_GATEWAY_URL", "");
-  vi.stubEnv("CLAWDBOT_GATEWAY_URL", "");
+  vi.stubEnv("CHAPPIE_GATEWAY_TOKEN", "");
+  vi.stubEnv("CHAPPIEDBOT_GATEWAY_TOKEN", "");
+  vi.stubEnv("CHAPPIE_GATEWAY_URL", "");
+  vi.stubEnv("CHAPPIEDBOT_GATEWAY_URL", "");
 }

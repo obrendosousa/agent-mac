@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { resolveUserPath } from "../utils.js";
 
 export function resolveBundledPluginsDir(env: NodeJS.ProcessEnv = process.env): string | undefined {
-  const override = env.OPENCLAW_BUNDLED_PLUGINS_DIR?.trim();
+  const override = env.CHAPPIE_BUNDLED_PLUGINS_DIR?.trim();
   if (override) {
     return resolveUserPath(override, env);
   }

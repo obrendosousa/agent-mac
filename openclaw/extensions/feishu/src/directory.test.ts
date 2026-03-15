@@ -1,4 +1,4 @@
-import type { ClawdbotConfig } from "openclaw/plugin-sdk/feishu";
+import type { ChappiedbotConfig } from "chappie/plugin-sdk/feishu";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("./accounts.js", () => ({
@@ -20,7 +20,7 @@ vi.mock("./accounts.js", () => ({
 import { listFeishuDirectoryGroups, listFeishuDirectoryPeers } from "./directory.js";
 
 describe("feishu directory (config-backed)", () => {
-  const cfg = {} as ClawdbotConfig;
+  const cfg = {} as ChappiedbotConfig;
 
   it("merges allowFrom + dms into peer entries", async () => {
     const peers = await listFeishuDirectoryPeers({ cfg, query: "a" });

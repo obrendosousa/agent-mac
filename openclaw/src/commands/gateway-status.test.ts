@@ -291,11 +291,11 @@ describe("gateway-status command", () => {
     expect(unresolvedWarning?.message).not.toContain("missing or empty");
   });
 
-  it("does not resolve local token SecretRef when OPENCLAW_GATEWAY_TOKEN is set", async () => {
+  it("does not resolve local token SecretRef when CHAPPIE_GATEWAY_TOKEN is set", async () => {
     const { runtime, runtimeLogs, runtimeErrors } = createRuntimeCapture();
     await withEnvAsync(
       {
-        OPENCLAW_GATEWAY_TOKEN: "env-token",
+        CHAPPIE_GATEWAY_TOKEN: "env-token",
         MISSING_GATEWAY_TOKEN: undefined,
       },
       async () => {
@@ -328,7 +328,7 @@ describe("gateway-status command", () => {
     const { runtime, runtimeLogs, runtimeErrors } = createRuntimeCapture();
     await withEnvAsync(
       {
-        OPENCLAW_GATEWAY_TOKEN: "env-token",
+        CHAPPIE_GATEWAY_TOKEN: "env-token",
         MISSING_GATEWAY_PASSWORD: undefined,
       },
       async () => {
@@ -369,8 +369,8 @@ describe("gateway-status command", () => {
     await withEnvAsync(
       {
         CUSTOM_GATEWAY_TOKEN: "resolved-gateway-token",
-        OPENCLAW_GATEWAY_TOKEN: undefined,
-        CLAWDBOT_GATEWAY_TOKEN: undefined,
+        CHAPPIE_GATEWAY_TOKEN: undefined,
+        CHAPPIEDBOT_GATEWAY_TOKEN: undefined,
       },
       async () => {
         readBestEffortConfig.mockResolvedValueOnce({
@@ -452,8 +452,8 @@ describe("gateway-status command", () => {
             mode: "remote",
             auth: {
               mode: "token",
-              token: { source: "env", provider: "default", id: "OPENCLAW_GATEWAY_TOKEN" },
-              password: { source: "env", provider: "default", id: "OPENCLAW_GATEWAY_PASSWORD" },
+              token: { source: "env", provider: "default", id: "CHAPPIE_GATEWAY_TOKEN" },
+              password: { source: "env", provider: "default", id: "CHAPPIE_GATEWAY_PASSWORD" },
             },
             remote: {
               url: "wss://remote.example:18789",
@@ -537,7 +537,7 @@ describe("gateway-status command", () => {
 
   it("skips invalid ssh-auto discovery targets", async () => {
     const { runtime } = createRuntimeCapture();
-    await withEnvAsync({ USER: "steipete" }, async () => {
+    await withEnvAsync({ USER: "chappie-team" }, async () => {
       readBestEffortConfig.mockResolvedValueOnce(makeRemoteGatewayConfig("", "", "ltok"));
       discoverGatewayBeacons.mockResolvedValueOnce([
         { tailnetDns: "-V" },
@@ -549,18 +549,18 @@ describe("gateway-status command", () => {
 
       expect(startSshPortForward).toHaveBeenCalledTimes(1);
       const call = startSshPortForward.mock.calls[0]?.[0] as { target: string };
-      expect(call.target).toBe("steipete@goodhost");
+      expect(call.target).toBe("chappie-team@goodhost");
     });
   });
 
   it("infers SSH target from gateway.remote.url and ssh config", async () => {
     const { runtime } = createRuntimeCapture();
-    await withEnvAsync({ USER: "steipete" }, async () => {
+    await withEnvAsync({ USER: "chappie-team" }, async () => {
       readBestEffortConfig.mockResolvedValueOnce(
         makeRemoteGatewayConfig("ws://peters-mac-studio-1.sheep-coho.ts.net:18789"),
       );
       resolveSshConfig.mockResolvedValueOnce({
-        user: "steipete",
+        user: "chappie-team",
         host: "peters-mac-studio-1.sheep-coho.ts.net",
         port: 2222,
         identityFiles: ["/tmp/id_ed25519"],
@@ -574,7 +574,7 @@ describe("gateway-status command", () => {
         target: string;
         identity?: string;
       };
-      expect(call.target).toBe("steipete@peters-mac-studio-1.sheep-coho.ts.net:2222");
+      expect(call.target).toBe("chappie-team@peters-mac-studio-1.sheep-coho.ts.net:2222");
       expect(call.identity).toBe("/tmp/id_ed25519");
     });
   });

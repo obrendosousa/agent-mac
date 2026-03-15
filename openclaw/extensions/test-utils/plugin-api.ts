@@ -1,9 +1,9 @@
-import type { OpenClawPluginApi } from "../../src/plugins/types.js";
+import type { ChappiePluginApi } from "../../src/plugins/types.js";
 
-type TestPluginApiInput = Partial<OpenClawPluginApi> &
-  Pick<OpenClawPluginApi, "id" | "name" | "source" | "config" | "runtime">;
+type TestPluginApiInput = Partial<ChappiePluginApi> &
+  Pick<ChappiePluginApi, "id" | "name" | "source" | "config" | "runtime">;
 
-export function createTestPluginApi(api: TestPluginApiInput): OpenClawPluginApi {
+export function createTestPluginApi(api: TestPluginApiInput): ChappiePluginApi {
   return {
     logger: { info() {}, warn() {}, error() {}, debug() {} },
     registerTool() {},

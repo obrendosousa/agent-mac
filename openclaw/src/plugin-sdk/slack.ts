@@ -1,4 +1,4 @@
-export type { OpenClawConfig } from "../config/config.js";
+export type { ChappieConfig } from "../config/config.js";
 export type { InspectedSlackAccount } from "../../extensions/slack/src/account-inspect.js";
 export type { ResolvedSlackAccount } from "../../extensions/slack/src/accounts.js";
 export * from "./channel-plugin-common.js";

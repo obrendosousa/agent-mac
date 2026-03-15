@@ -42,7 +42,7 @@ vi.mock("../../../src/config/sessions.js", async (importOriginal) => {
   const actual = await importOriginal<typeof import("../../../src/config/sessions.js")>();
   return {
     ...actual,
-    resolveStorePath: vi.fn(() => "/tmp/openclaw-sessions.json"),
+    resolveStorePath: vi.fn(() => "/tmp/chappie-sessions.json"),
     updateLastRoute: (...args: unknown[]) => updateLastRouteMock(...args),
     resolveSessionKey: vi.fn(),
   };

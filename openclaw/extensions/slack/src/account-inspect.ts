@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { ChappieConfig } from "../../../src/config/config.js";
 import {
   hasConfiguredSecretInput,
   normalizeSecretInputString,
@@ -61,7 +61,7 @@ function inspectSlackToken(value: unknown): {
 }
 
 export function inspectSlackAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   accountId?: string | null;
   envBotToken?: string | null;
   envAppToken?: string | null;

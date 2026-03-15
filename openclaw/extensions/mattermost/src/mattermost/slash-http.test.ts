@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { PassThrough } from "node:stream";
-import type { OpenClawConfig, RuntimeEnv } from "openclaw/plugin-sdk/mattermost";
+import type { ChappieConfig, RuntimeEnv } from "chappie/plugin-sdk/mattermost";
 import { describe, expect, it } from "vitest";
 import type { ResolvedMattermostAccount } from "./accounts.js";
 import { createSlashCommandHttpHandler } from "./slash-http.js";
@@ -65,7 +65,7 @@ async function runSlashRequest(params: {
 }) {
   const handler = createSlashCommandHttpHandler({
     account: accountFixture,
-    cfg: {} as OpenClawConfig,
+    cfg: {} as ChappieConfig,
     runtime: {} as RuntimeEnv,
     commandTokens: params.commandTokens,
   });
@@ -79,7 +79,7 @@ describe("slash-http", () => {
   it("rejects non-POST methods", async () => {
     const handler = createSlashCommandHttpHandler({
       account: accountFixture,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as ChappieConfig,
       runtime: {} as RuntimeEnv,
       commandTokens: new Set(["valid-token"]),
     });
@@ -96,7 +96,7 @@ describe("slash-http", () => {
   it("rejects malformed payloads", async () => {
     const handler = createSlashCommandHttpHandler({
       account: accountFixture,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as ChappieConfig,
       runtime: {} as RuntimeEnv,
       commandTokens: new Set(["valid-token"]),
     });

@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { importFreshModule } from "../../../test/helpers/import-fresh.js";
 import { expectInboundContextContract } from "../../../test/helpers/inbound-contract.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { ChappieConfig } from "../../config/config.js";
 import { defaultRuntime } from "../../runtime.js";
 import type { MsgContext } from "../templating.js";
 import { HEARTBEAT_TOKEN, SILENT_REPLY_TOKEN } from "../tokens.js";
@@ -617,11 +617,11 @@ describe("parseSlackDirectives", () => {
       },
       {
         type: "actions",
-        block_id: "openclaw_reply_buttons_1",
+        block_id: "chappie_reply_buttons_1",
         elements: [
           {
             type: "button",
-            action_id: "openclaw:reply_button",
+            action_id: "chappie:reply_button",
             text: {
               type: "plain_text",
               text: "Approve",
@@ -631,7 +631,7 @@ describe("parseSlackDirectives", () => {
           },
           {
             type: "button",
-            action_id: "openclaw:reply_button",
+            action_id: "chappie:reply_button",
             text: {
               type: "plain_text",
               text: "Reject",
@@ -653,11 +653,11 @@ describe("parseSlackDirectives", () => {
     expect(getSlackData(result).blocks).toEqual([
       {
         type: "actions",
-        block_id: "openclaw_reply_select_1",
+        block_id: "chappie_reply_select_1",
         elements: [
           {
             type: "static_select",
-            action_id: "openclaw:reply_select",
+            action_id: "chappie:reply_select",
             placeholder: {
               type: "plain_text",
               text: "Choose a project",
@@ -709,11 +709,11 @@ describe("parseSlackDirectives", () => {
       },
       {
         type: "actions",
-        block_id: "openclaw_reply_buttons_1",
+        block_id: "chappie_reply_buttons_1",
         elements: [
           {
             type: "button",
-            action_id: "openclaw:reply_button",
+            action_id: "chappie:reply_button",
             text: {
               type: "plain_text",
               text: "Retry",
@@ -734,11 +734,11 @@ describe("parseSlackDirectives", () => {
     expect(getSlackData(result).blocks).toEqual([
       {
         type: "actions",
-        block_id: "openclaw_reply_select_1",
+        block_id: "chappie_reply_select_1",
         elements: [
           {
             type: "static_select",
-            action_id: "openclaw:reply_select",
+            action_id: "chappie:reply_select",
             placeholder: {
               type: "plain_text",
               text: "Pick one",
@@ -766,11 +766,11 @@ describe("parseSlackDirectives", () => {
       },
       {
         type: "actions",
-        block_id: "openclaw_reply_buttons_1",
+        block_id: "chappie_reply_buttons_1",
         elements: [
           {
             type: "button",
-            action_id: "openclaw:reply_button",
+            action_id: "chappie:reply_button",
             text: {
               type: "plain_text",
               text: "Retry",
@@ -916,7 +916,7 @@ function createRun(params: {
       sessionId: "sess",
       sessionFile: "/tmp/session.json",
       workspaceDir: "/tmp",
-      config: {} as OpenClawConfig,
+      config: {} as ChappieConfig,
       provider: "openai",
       model: "gpt-test",
       timeoutMs: 10_000,
@@ -1742,7 +1742,7 @@ describe("followup queue drain restart after idle window", () => {
   });
 });
 
-const emptyCfg = {} as OpenClawConfig;
+const emptyCfg = {} as ChappieConfig;
 
 describe("createReplyDispatcher", () => {
   it("drops empty payloads and exact silent tokens without media", async () => {
@@ -1808,7 +1808,7 @@ describe("createReplyDispatcher", () => {
             },
             {
               type: "actions",
-              block_id: "openclaw_reply_buttons_1",
+              block_id: "chappie_reply_buttons_1",
             },
           ],
         },
@@ -1943,7 +1943,7 @@ describe("resolveReplyToMode", () => {
         discord: { replyToMode: "first" },
         slack: { replyToMode: "all" },
       },
-    } as OpenClawConfig;
+    } as ChappieConfig;
     const chatTypeCfg = {
       channels: {
         slack: {
@@ -1951,14 +1951,14 @@ describe("resolveReplyToMode", () => {
           replyToModeByChatType: { direct: "all", group: "first" },
         },
       },
-    } as OpenClawConfig;
+    } as ChappieConfig;
     const topLevelFallbackCfg = {
       channels: {
         slack: {
           replyToMode: "first",
         },
       },
-    } as OpenClawConfig;
+    } as ChappieConfig;
     const legacyDmCfg = {
       channels: {
         slack: {
@@ -1966,10 +1966,10 @@ describe("resolveReplyToMode", () => {
           dm: { replyToMode: "all" },
         },
       },
-    } as OpenClawConfig;
+    } as ChappieConfig;
 
     const cases: Array<{
-      cfg: OpenClawConfig;
+      cfg: ChappieConfig;
       channel?: "telegram" | "discord" | "slack";
       chatType?: "direct" | "group" | "channel";
       expected: "off" | "all" | "first";

@@ -18,7 +18,7 @@ import { resolveCommandAuthorizedFromAuthorizers } from "../../../src/channels/c
 import { resolveNativeCommandSessionTargets } from "../../../src/channels/native-command-session-targets.js";
 import { createReplyPrefixOptions } from "../../../src/channels/reply-prefix.js";
 import { recordInboundSessionMetaSafe } from "../../../src/channels/session-meta.js";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { ChappieConfig } from "../../../src/config/config.js";
 import type { ChannelGroupPolicy } from "../../../src/config/group-policy.js";
 import { resolveMarkdownTableMode } from "../../../src/config/markdown-tables.js";
 import {
@@ -90,7 +90,7 @@ type TelegramCommandAuthResult = {
 };
 
 export type RegisterTelegramHandlerParams = {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   accountId: string;
   bot: Bot;
   mediaMaxBytes: number;
@@ -121,7 +121,7 @@ export type RegisterTelegramHandlerParams = {
 
 type RegisterTelegramNativeCommandsParams = {
   bot: Bot;
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   runtime: RuntimeEnv;
   accountId: string;
   telegramCfg: TelegramAccountConfig;
@@ -145,7 +145,7 @@ type RegisterTelegramNativeCommandsParams = {
 async function resolveTelegramCommandAuth(params: {
   msg: NonNullable<TelegramNativeCommandContext["message"]>;
   bot: Bot;
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   accountId: string;
   telegramCfg: TelegramAccountConfig;
   allowFrom?: Array<string | number>;

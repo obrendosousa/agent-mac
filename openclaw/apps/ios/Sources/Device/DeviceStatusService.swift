@@ -1,5 +1,5 @@
 import Foundation
-import OpenClawKit
+import ChappieKit
 import UIKit
 
 @MainActor
@@ -10,14 +10,14 @@ final class DeviceStatusService: DeviceStatusServicing {
         self.networkStatus = networkStatus
     }
 
-    func status() async throws -> OpenClawDeviceStatusPayload {
+    func status() async throws -> ChappieDeviceStatusPayload {
         let battery = self.batteryStatus()
         let thermal = self.thermalStatus()
         let storage = self.storageStatus()
         let network = await self.networkStatus.currentStatus()
         let uptime = ProcessInfo.processInfo.systemUptime
 
-        return OpenClawDeviceStatusPayload(
+        return ChappieDeviceStatusPayload(
             battery: battery,
             thermal: thermal,
             storage: storage,
@@ -25,12 +25,12 @@ final class DeviceStatusService: DeviceStatusServicing {
             uptimeSeconds: uptime)
     }
 
-    func info() -> OpenClawDeviceInfoPayload {
+    func info() -> ChappieDeviceInfoPayload {
         let device = UIDevice.current
         let appVersion = DeviceInfoHelper.appVersion()
         let appBuild = DeviceStatusService.fallbackAppBuild(DeviceInfoHelper.appBuild())
         let locale = Locale.preferredLanguages.first ?? Locale.current.identifier
-        return OpenClawDeviceInfoPayload(
+        return ChappieDeviceInfoPayload(
             deviceName: device.name,
             modelIdentifier: DeviceInfoHelper.modelIdentifier(),
             systemName: device.systemName,
@@ -40,40 +40,40 @@ final class DeviceStatusService: DeviceStatusServicing {
             locale: locale)
     }
 
-    private func batteryStatus() -> OpenClawBatteryStatusPayload {
+    private func batteryStatus() -> ChappieBatteryStatusPayload {
         let device = UIDevice.current
         device.isBatteryMonitoringEnabled = true
         let level = device.batteryLevel >= 0 ? Double(device.batteryLevel) : nil
-        let state: OpenClawBatteryState = switch device.batteryState {
+        let state: ChappieBatteryState = switch device.batteryState {
         case .charging: .charging
         case .full: .full
         case .unplugged: .unplugged
         case .unknown: .unknown
         @unknown default: .unknown
         }
-        return OpenClawBatteryStatusPayload(
+        return ChappieBatteryStatusPayload(
             level: level,
             state: state,
             lowPowerModeEnabled: ProcessInfo.processInfo.isLowPowerModeEnabled)
     }
 
-    private func thermalStatus() -> OpenClawThermalStatusPayload {
-        let state: OpenClawThermalState = switch ProcessInfo.processInfo.thermalState {
+    private func thermalStatus() -> ChappieThermalStatusPayload {
+        let state: ChappieThermalState = switch ProcessInfo.processInfo.thermalState {
         case .nominal: .nominal
         case .fair: .fair
         case .serious: .serious
         case .critical: .critical
         @unknown default: .nominal
         }
-        return OpenClawThermalStatusPayload(state: state)
+        return ChappieThermalStatusPayload(state: state)
     }
 
-    private func storageStatus() -> OpenClawStorageStatusPayload {
+    private func storageStatus() -> ChappieStorageStatusPayload {
         let attrs = (try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory())) ?? [:]
         let total = (attrs[.systemSize] as? NSNumber)?.int64Value ?? 0
         let free = (attrs[.systemFreeSize] as? NSNumber)?.int64Value ?? 0
         let used = max(0, total - free)
-        return OpenClawStorageStatusPayload(totalBytes: total, freeBytes: free, usedBytes: used)
+        return ChappieStorageStatusPayload(totalBytes: total, freeBytes: free, usedBytes: used)
     }
 
     /// Fallback for payloads that require a non-empty build (e.g. "0").

@@ -51,10 +51,10 @@ export function renderSkills(props: SkillsProps) {
       <div class="filters" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 14px;">
         <a
           class="btn"
-          href="https://clawhub.com"
+          href="https://chappiehub.com"
           target="_blank"
           rel="noreferrer"
-          title="Browse skills on ClawHub"
+          title="Browse skills on ChappieHub"
         >Browse Skills Store</a>
         <label class="field" style="flex: 1; min-width: 180px;">
           <input
@@ -113,7 +113,7 @@ function renderSkill(skill: SkillStatusEntry, props: SkillsProps) {
   const apiKey = props.edits[skill.skillKey] ?? "";
   const message = props.messages[skill.skillKey] ?? null;
   const canInstall = skill.install.length > 0 && skill.missing.bins.length > 0;
-  const showBundledBadge = Boolean(skill.bundled && skill.source !== "openclaw-bundled");
+  const showBundledBadge = Boolean(skill.bundled && skill.source !== "chappie-bundled");
   const missing = computeSkillMissing(skill);
   const reasons = computeSkillReasons(skill);
   return html`

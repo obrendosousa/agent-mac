@@ -1,4 +1,4 @@
-import type { AcpRuntimeEvent, AcpSessionUpdateTag } from "openclaw/plugin-sdk/acpx";
+import type { AcpRuntimeEvent, AcpSessionUpdateTag } from "chappie/plugin-sdk/acpx";
 import {
   asOptionalBoolean,
   asOptionalString,

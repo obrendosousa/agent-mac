@@ -5,7 +5,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 async function withTempDir<T>(run: (dir: string) => Promise<T>): Promise<T> {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-run-node-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "chappie-run-node-"));
   try {
     return await run(dir);
   } finally {
@@ -62,8 +62,8 @@ describe("run-node script", () => {
           args: ["--version"],
           env: {
             ...process.env,
-            OPENCLAW_FORCE_BUILD: "1",
-            OPENCLAW_RUNNER_LOG: "0",
+            CHAPPIE_FORCE_BUILD: "1",
+            CHAPPIE_RUNNER_LOG: "0",
           },
           spawn,
           execPath: process.execPath,
@@ -73,7 +73,7 @@ describe("run-node script", () => {
         expect(exitCode).toBe(0);
         await expect(fs.readFile(argsPath, "utf-8")).resolves.toContain("exec tsdown --no-clean");
         await expect(fs.readFile(indexPath, "utf-8")).resolves.toContain("sentinel");
-        expect(nodeCalls).toEqual([[process.execPath, "openclaw.mjs", "--version"]]);
+        expect(nodeCalls).toEqual([[process.execPath, "chappie.mjs", "--version"]]);
       });
     },
   );
@@ -89,7 +89,7 @@ describe("run-node script", () => {
       await fs.mkdir(path.dirname(distEntryPath), { recursive: true });
       await fs.writeFile(srcPath, "export const value = 1;\n", "utf-8");
       await fs.writeFile(tsconfigPath, "{}\n", "utf-8");
-      await fs.writeFile(packageJsonPath, '{"name":"openclaw-test"}\n', "utf-8");
+      await fs.writeFile(packageJsonPath, '{"name":"chappie-test"}\n', "utf-8");
       await fs.writeFile(distEntryPath, "console.log('built');\n", "utf-8");
       await fs.writeFile(buildStampPath, '{"head":"abc123"}\n', "utf-8");
 
@@ -122,7 +122,7 @@ describe("run-node script", () => {
         args: ["status"],
         env: {
           ...process.env,
-          OPENCLAW_RUNNER_LOG: "0",
+          CHAPPIE_RUNNER_LOG: "0",
         },
         spawn,
         spawnSync,
@@ -131,7 +131,7 @@ describe("run-node script", () => {
       });
 
       expect(exitCode).toBe(0);
-      expect(spawnCalls).toEqual([[process.execPath, "openclaw.mjs", "status"]]);
+      expect(spawnCalls).toEqual([[process.execPath, "chappie.mjs", "status"]]);
     });
   });
 
@@ -150,8 +150,8 @@ describe("run-node script", () => {
         args: ["status"],
         env: {
           ...process.env,
-          OPENCLAW_FORCE_BUILD: "1",
-          OPENCLAW_RUNNER_LOG: "0",
+          CHAPPIE_FORCE_BUILD: "1",
+          CHAPPIE_RUNNER_LOG: "0",
         },
         spawn,
         execPath: process.execPath,

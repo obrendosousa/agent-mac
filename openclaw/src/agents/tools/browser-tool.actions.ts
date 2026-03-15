@@ -338,7 +338,7 @@ export async function executeActAction(params: {
         const isRelayProfile = profile === "chrome-relay" || profile === "chrome";
         throw new Error(
           isRelayProfile
-            ? "No Chrome tabs are attached via the OpenClaw Browser Relay extension. Click the toolbar icon on the tab you want to control (badge ON), then retry."
+            ? "No Chrome tabs are attached via the Chappie Browser Relay extension. Click the toolbar icon on the tab you want to control (badge ON), then retry."
             : `No Chrome tabs found for profile="${profile}". Make sure Chrome (v146+) is running and has open tabs, then retry.`,
           { cause: err },
         );

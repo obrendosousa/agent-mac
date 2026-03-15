@@ -5,12 +5,12 @@ import {
   OLLAMA_DEFAULT_BASE_URL,
   promptAndConfigureOllama,
   configureOllamaNonInteractive,
-  type OpenClawPluginApi,
+  type ChappiePluginApi,
   type ProviderAuthContext,
   type ProviderAuthMethodNonInteractiveContext,
   type ProviderAuthResult,
   type ProviderDiscoveryContext,
-} from "openclaw/plugin-sdk/core";
+} from "chappie/plugin-sdk/core";
 
 const PROVIDER_ID = "ollama";
 const DEFAULT_API_KEY = "ollama-local";
@@ -20,7 +20,7 @@ const ollamaPlugin = {
   name: "Ollama Provider",
   description: "Bundled Ollama provider plugin",
   configSchema: emptyPluginConfigSchema(),
-  register(api: OpenClawPluginApi) {
+  register(api: ChappiePluginApi) {
     api.registerProvider({
       id: PROVIDER_ID,
       label: "Ollama",

@@ -2,10 +2,10 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import type {
-  OpenClawPluginApi,
-  OpenClawPluginCommandDefinition,
+  ChappiePluginApi,
+  ChappiePluginCommandDefinition,
   PluginCommandContext,
-} from "openclaw/plugin-sdk/phone-control";
+} from "chappie/plugin-sdk/phone-control";
 import { describe, expect, it, vi } from "vitest";
 import { createTestPluginApi } from "../test-utils/plugin-api.js";
 import registerPhoneControl from "./index.js";
@@ -14,8 +14,8 @@ function createApi(params: {
   stateDir: string;
   getConfig: () => Record<string, unknown>;
   writeConfig: (next: Record<string, unknown>) => Promise<void>;
-  registerCommand: (command: OpenClawPluginCommandDefinition) => void;
-}): OpenClawPluginApi {
+  registerCommand: (command: ChappiePluginCommandDefinition) => void;
+}): ChappiePluginApi {
   return createTestPluginApi({
     id: "phone-control",
     name: "phone-control",
@@ -30,9 +30,9 @@ function createApi(params: {
         loadConfig: () => params.getConfig(),
         writeConfigFile: (next: Record<string, unknown>) => params.writeConfig(next),
       },
-    } as OpenClawPluginApi["runtime"],
+    } as ChappiePluginApi["runtime"],
     registerCommand: params.registerCommand,
-  }) as OpenClawPluginApi;
+  }) as ChappiePluginApi;
 }
 
 function createCommandContext(args: string): PluginCommandContext {
@@ -47,7 +47,7 @@ function createCommandContext(args: string): PluginCommandContext {
 
 describe("phone-control plugin", () => {
   it("arms sms.send as part of the writes group", async () => {
-    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-phone-control-test-"));
+    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "chappie-phone-control-test-"));
     try {
       let config: Record<string, unknown> = {
         gateway: {
@@ -61,7 +61,7 @@ describe("phone-control plugin", () => {
         config = next;
       });
 
-      let command: OpenClawPluginCommandDefinition | undefined;
+      let command: ChappiePluginCommandDefinition | undefined;
       registerPhoneControl(
         createApi({
           stateDir,

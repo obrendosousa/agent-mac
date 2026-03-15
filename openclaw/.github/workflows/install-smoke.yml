@@ -53,14 +53,14 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          tags: openclaw-dockerfile-smoke:local
+          tags: chappie-dockerfile-smoke:local
           load: true
           push: false
           provenance: false
 
       - name: Run root Dockerfile CLI smoke
         run: |
-          docker run --rm --entrypoint sh openclaw-dockerfile-smoke:local -lc 'which openclaw && openclaw --version'
+          docker run --rm --entrypoint sh chappie-dockerfile-smoke:local -lc 'which chappie && chappie --version'
 
       # This smoke only validates that the build-arg path preinstalls selected
       # extension deps without breaking image build or basic CLI startup. It
@@ -71,22 +71,22 @@ jobs:
           context: .
           file: ./Dockerfile
           build-args: |
-            OPENCLAW_EXTENSIONS=diagnostics-otel
-          tags: openclaw-ext-smoke:local
+            CHAPPIE_EXTENSIONS=diagnostics-otel
+          tags: chappie-ext-smoke:local
           load: true
           push: false
           provenance: false
 
       - name: Smoke test Dockerfile with extension build arg
         run: |
-          docker run --rm --entrypoint sh openclaw-ext-smoke:local -lc 'which openclaw && openclaw --version'
+          docker run --rm --entrypoint sh chappie-ext-smoke:local -lc 'which chappie && chappie --version'
 
       - name: Build installer smoke image
         uses: useblacksmith/build-push-action@v2
         with:
           context: ./scripts/docker
           file: ./scripts/docker/install-sh-smoke/Dockerfile
-          tags: openclaw-install-smoke:local
+          tags: chappie-install-smoke:local
           load: true
           push: false
           provenance: false
@@ -97,19 +97,19 @@ jobs:
         with:
           context: ./scripts/docker
           file: ./scripts/docker/install-sh-nonroot/Dockerfile
-          tags: openclaw-install-nonroot:local
+          tags: chappie-install-nonroot:local
           load: true
           push: false
           provenance: false
 
       - name: Run installer docker tests
         env:
-          CLAWDBOT_INSTALL_URL: https://openclaw.ai/install.sh
-          CLAWDBOT_INSTALL_CLI_URL: https://openclaw.ai/install-cli.sh
-          CLAWDBOT_NO_ONBOARD: "1"
-          CLAWDBOT_INSTALL_SMOKE_SKIP_CLI: "1"
-          CLAWDBOT_INSTALL_SMOKE_SKIP_IMAGE_BUILD: "1"
-          CLAWDBOT_INSTALL_NONROOT_SKIP_IMAGE_BUILD: ${{ github.event_name == 'pull_request' && '0' || '1' }}
-          CLAWDBOT_INSTALL_SMOKE_SKIP_NONROOT: ${{ github.event_name == 'pull_request' && '1' || '0' }}
-          CLAWDBOT_INSTALL_SMOKE_SKIP_PREVIOUS: "1"
+          CHAPPIEDBOT_INSTALL_URL: https://chappie.ai/install.sh
+          CHAPPIEDBOT_INSTALL_CLI_URL: https://chappie.ai/install-cli.sh
+          CHAPPIEDBOT_NO_ONBOARD: "1"
+          CHAPPIEDBOT_INSTALL_SMOKE_SKIP_CLI: "1"
+          CHAPPIEDBOT_INSTALL_SMOKE_SKIP_IMAGE_BUILD: "1"
+          CHAPPIEDBOT_INSTALL_NONROOT_SKIP_IMAGE_BUILD: ${{ github.event_name == 'pull_request' && '0' || '1' }}
+          CHAPPIEDBOT_INSTALL_SMOKE_SKIP_NONROOT: ${{ github.event_name == 'pull_request' && '1' || '0' }}
+          CHAPPIEDBOT_INSTALL_SMOKE_SKIP_PREVIOUS: "1"
         run: bash scripts/test-install-sh-docker.sh

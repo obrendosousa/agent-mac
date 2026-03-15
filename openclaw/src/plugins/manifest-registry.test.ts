@@ -23,11 +23,11 @@ function mkdirSafe(dir: string) {
 }
 
 function makeTempDir() {
-  return makeTrackedTempDir("openclaw-manifest-registry", tempDirs);
+  return makeTrackedTempDir("chappie-manifest-registry", tempDirs);
 }
 
 function writeManifest(dir: string, manifest: Record<string, unknown>) {
-  fs.writeFileSync(path.join(dir, "openclaw.plugin.json"), JSON.stringify(manifest), "utf-8");
+  fs.writeFileSync(path.join(dir, "chappie.plugin.json"), JSON.stringify(manifest), "utf-8");
 }
 
 function createPluginCandidate(params: {
@@ -64,8 +64,8 @@ function prepareLinkedManifestFixture(params: { id: string; mode: "symlink" | "h
 } {
   const rootDir = makeTempDir();
   const outsideDir = makeTempDir();
-  const outsideManifest = path.join(outsideDir, "openclaw.plugin.json");
-  const linkedManifest = path.join(rootDir, "openclaw.plugin.json");
+  const outsideManifest = path.join(outsideDir, "chappie.plugin.json");
+  const linkedManifest = path.join(rootDir, "chappie.plugin.json");
   fs.writeFileSync(path.join(rootDir, "index.ts"), "export default function () {}", "utf-8");
   fs.writeFileSync(
     outsideManifest,
@@ -361,14 +361,14 @@ describe("loadPluginManifestRegistry", () => {
       cache: true,
       env: {
         ...process.env,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledA,
+        CHAPPIE_BUNDLED_PLUGINS_DIR: bundledA,
       },
     });
     const second = loadPluginManifestRegistry({
       cache: true,
       env: {
         ...process.env,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledB,
+        CHAPPIE_BUNDLED_PLUGINS_DIR: bundledB,
       },
     });
 
@@ -414,8 +414,8 @@ describe("loadPluginManifestRegistry", () => {
       env: {
         ...process.env,
         HOME: homeA,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_STATE_DIR: path.join(homeA, ".state"),
+        CHAPPIE_HOME: undefined,
+        CHAPPIE_STATE_DIR: path.join(homeA, ".state"),
       },
     });
     const second = loadPluginManifestRegistry({
@@ -424,8 +424,8 @@ describe("loadPluginManifestRegistry", () => {
       env: {
         ...process.env,
         HOME: homeB,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_STATE_DIR: path.join(homeB, ".state"),
+        CHAPPIE_HOME: undefined,
+        CHAPPIE_STATE_DIR: path.join(homeB, ".state"),
       },
     });
 

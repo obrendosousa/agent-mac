@@ -1,9 +1,9 @@
-import type { OpenClawConfig } from "../config/config.js";
-import { loadOpenClawPlugins } from "../plugins/loader.js";
+import type { ChappieConfig } from "../config/config.js";
+import { loadChappiePlugins } from "../plugins/loader.js";
 import { resolveUserPath } from "../utils.js";
 
 export function ensureRuntimePluginsLoaded(params: {
-  config?: OpenClawConfig;
+  config?: ChappieConfig;
   workspaceDir?: string | null;
 }): void {
   const workspaceDir =
@@ -11,7 +11,7 @@ export function ensureRuntimePluginsLoaded(params: {
       ? resolveUserPath(params.workspaceDir)
       : undefined;
 
-  loadOpenClawPlugins({
+  loadChappiePlugins({
     config: params.config,
     workspaceDir,
   });

@@ -14,12 +14,12 @@ title: 飞书
 
 ## 内置插件
 
-当前版本的 OpenClaw 已内置 Feishu 插件，因此通常不需要单独安装。
+当前版本的 Chappie 已内置 Feishu 插件，因此通常不需要单独安装。
 
 如果你使用的是较旧版本，或是没有内置 Feishu 的自定义安装，可手动安装：
 
 ```bash
-openclaw plugins install @openclaw/feishu
+chappie plugins install @chappie/feishu
 ```
 
 ---
@@ -30,10 +30,10 @@ openclaw plugins install @openclaw/feishu
 
 ### 方式一：通过安装向导添加（推荐）
 
-如果您刚安装完 OpenClaw，可以直接运行向导，根据提示添加飞书：
+如果您刚安装完 Chappie，可以直接运行向导，根据提示添加飞书：
 
 ```bash
-openclaw onboard
+chappie onboard
 ```
 
 向导会引导您完成：
@@ -44,24 +44,24 @@ openclaw onboard
 
 ✅ **完成配置后**，您可以使用以下命令检查网关状态：
 
-- `openclaw gateway status` - 查看网关运行状态
-- `openclaw logs --follow` - 查看实时日志
+- `chappie gateway status` - 查看网关运行状态
+- `chappie logs --follow` - 查看实时日志
 
 ### 方式二：通过命令行添加
 
 如果您已经完成了初始安装，可以用以下命令添加飞书渠道：
 
 ```bash
-openclaw channels add
+chappie channels add
 ```
 
 然后根据交互式提示选择 Feishu，输入 App ID 和 App Secret 即可。
 
 ✅ **完成配置后**，您可以使用以下命令管理网关：
 
-- `openclaw gateway status` - 查看网关运行状态
-- `openclaw gateway restart` - 重启网关以应用新配置
-- `openclaw logs --follow` - 查看实时日志
+- `chappie gateway status` - 查看网关运行状态
+- `chappie gateway restart` - 重启网关以应用新配置
+- `chappie logs --follow` - 查看实时日志
 
 ---
 
@@ -143,8 +143,8 @@ Lark（国际版）请使用 https://open.larksuite.com/app，并在配置中设
 
 ⚠️ **重要提醒**：在配置事件订阅前，请务必确保已完成以下步骤：
 
-1. 运行 `openclaw channels add` 添加了 Feishu 渠道
-2. 网关处于启动状态（可通过 `openclaw gateway status` 检查状态）
+1. 运行 `chappie channels add` 添加了 Feishu 渠道
+2. 网关处于启动状态（可通过 `chappie gateway status` 检查状态）
 
 在 **事件订阅** 页面：
 
@@ -167,21 +167,21 @@ Lark（国际版）请使用 https://open.larksuite.com/app，并在配置中设
 
 ---
 
-## 第二步：配置 OpenClaw
+## 第二步：配置 Chappie
 
 ### 通过向导配置（推荐）
 
 运行以下命令，根据提示粘贴 App ID 和 App Secret：
 
 ```bash
-openclaw channels add
+chappie channels add
 ```
 
 选择 **Feishu**，然后输入您在第一步获取的凭证即可。
 
 ### 通过配置文件配置
 
-编辑 `~/.openclaw/openclaw.json`：
+编辑 `~/.chappie/chappie.json`：
 
 ```json5
 {
@@ -276,7 +276,7 @@ export FEISHU_APP_SECRET="xxx"
 ### 1. 启动网关
 
 ```bash
-openclaw gateway
+chappie gateway
 ```
 
 ### 2. 发送测试消息
@@ -288,7 +288,7 @@ openclaw gateway
 默认情况下，机器人会回复一个 **配对码**。您需要批准此代码：
 
 ```bash
-openclaw pairing approve feishu <配对码>
+chappie pairing approve feishu <配对码>
 ```
 
 批准后即可正常对话。
@@ -311,8 +311,8 @@ openclaw pairing approve feishu <配对码>
 - **默认**：`dmPolicy: "pairing"`，陌生用户会收到配对码
 - **批准配对**：
   ```bash
-  openclaw pairing list feishu      # 查看待审批列表
-  openclaw pairing approve feishu <CODE>  # 批准
+  chappie pairing list feishu      # 查看待审批列表
+  chappie pairing approve feishu <CODE>  # 批准
   ```
 - **白名单模式**：通过 `channels.feishu.allowFrom` 配置允许的用户 Open ID
 
@@ -408,7 +408,7 @@ openclaw pairing approve feishu <配对码>
 **方法一**（推荐）：
 
 1. 启动网关并在群组中 @机器人发消息
-2. 运行 `openclaw logs --follow` 查看日志中的 `chat_id`
+2. 运行 `chappie logs --follow` 查看日志中的 `chat_id`
 
 **方法二**：
 使用飞书 API 调试工具获取机器人所在群组列表。
@@ -420,13 +420,13 @@ openclaw pairing approve feishu <配对码>
 **方法一**（推荐）：
 
 1. 启动网关并给机器人发消息
-2. 运行 `openclaw logs --follow` 查看日志中的 `open_id`
+2. 运行 `chappie logs --follow` 查看日志中的 `open_id`
 
 **方法二**：
 查看配对请求列表，其中包含用户的 Open ID：
 
 ```bash
-openclaw pairing list feishu
+chappie pairing list feishu
 ```
 
 ---
@@ -439,7 +439,7 @@ openclaw pairing list feishu
 | `/reset`  | 重置对话会话   |
 | `/model`  | 查看/切换模型  |
 
-飞书机器人菜单建议直接在飞书开放平台的机器人能力页面配置。OpenClaw 当前支持接收 `application.bot.menu_v6` 事件，并把点击事件转换成普通文本命令（例如 `/menu <eventKey>`）继续走现有消息路由，但不通过渠道配置自动创建或同步菜单。
+飞书机器人菜单建议直接在飞书开放平台的机器人能力页面配置。Chappie 当前支持接收 `application.bot.menu_v6` 事件，并把点击事件转换成普通文本命令（例如 `/menu <eventKey>`）继续走现有消息路由，但不通过渠道配置自动创建或同步菜单。
 
 ## 网关管理命令
 
@@ -447,11 +447,11 @@ openclaw pairing list feishu
 
 | 命令                       | 说明              |
 | -------------------------- | ----------------- |
-| `openclaw gateway status`  | 查看网关运行状态  |
-| `openclaw gateway install` | 安装/启动网关服务 |
-| `openclaw gateway stop`    | 停止网关服务      |
-| `openclaw gateway restart` | 重启网关服务      |
-| `openclaw logs --follow`   | 实时查看日志输出  |
+| `chappie gateway status`  | 查看网关运行状态  |
+| `chappie gateway install` | 安装/启动网关服务 |
+| `chappie gateway stop`    | 停止网关服务      |
+| `chappie gateway restart` | 重启网关服务      |
+| `chappie logs --follow`   | 实时查看日志输出  |
 
 ---
 
@@ -462,7 +462,7 @@ openclaw pairing list feishu
 1. 检查机器人是否已添加到群组
 2. 检查是否 @了机器人（默认需要 @提及）
 3. 检查 `groupPolicy` 是否为 `"disabled"`
-4. 查看日志：`openclaw logs --follow`
+4. 查看日志：`chappie logs --follow`
 
 ### 机器人收不到消息
 
@@ -470,8 +470,8 @@ openclaw pairing list feishu
 2. 检查事件订阅是否配置正确（`im.message.receive_v1`）
 3. 检查是否选择了 **长连接** 模式
 4. 检查应用权限是否完整
-5. 检查网关是否正在运行：`openclaw gateway status`
-6. 查看实时日志：`openclaw logs --follow`
+5. 检查网关是否正在运行：`chappie gateway status`
+6. 查看实时日志：`chappie logs --follow`
 
 ### App Secret 泄露怎么办
 
@@ -544,7 +544,7 @@ openclaw pairing list feishu
 
 ### 交互式卡片
 
-OpenClaw 默认会在需要时发送 Markdown 卡片；如果你需要完整的 Feishu 原生交互式卡片，也可以显式发送原始 `card` payload。
+Chappie 默认会在需要时发送 Markdown 卡片；如果你需要完整的 Feishu 原生交互式卡片，也可以显式发送原始 `card` payload。
 
 - 默认路径：文本自动渲染或 Markdown 卡片
 - 显式卡片：通过消息动作的 `card` 参数发送原始交互卡片
@@ -623,12 +623,12 @@ OpenClaw 默认会在需要时发送 Markdown 卡片；如果你需要完整的 
       {
         id: "clawd-fan",
         workspace: "/home/user/clawd-fan",
-        agentDir: "/home/user/.openclaw/agents/clawd-fan/agent",
+        agentDir: "/home/user/.chappie/agents/clawd-fan/agent",
       },
       {
         id: "clawd-xi",
         workspace: "/home/user/clawd-xi",
-        agentDir: "/home/user/.openclaw/agents/clawd-xi/agent",
+        agentDir: "/home/user/.chappie/agents/clawd-xi/agent",
       },
     ],
   },

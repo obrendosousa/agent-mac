@@ -1,10 +1,10 @@
 ---
 name: songsee
 description: Generate spectrograms and feature-panel visualizations from audio with the songsee CLI.
-homepage: https://github.com/steipete/songsee
+homepage: https://github.com/chappie-team/songsee
 metadata:
   {
-    "openclaw":
+    "chappie":
       {
         "emoji": "🌊",
         "requires": { "bins": ["songsee"] },
@@ -13,7 +13,7 @@ metadata:
             {
               "id": "brew",
               "kind": "brew",
-              "formula": "steipete/tap/songsee",
+              "formula": "chappie-team/tap/songsee",
               "bins": ["songsee"],
               "label": "Install songsee (brew)",
             },

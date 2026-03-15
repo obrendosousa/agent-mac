@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/line",
+  "name": "@chappie/line",
   "version": "2026.3.14",
   "private": true,
-  "description": "OpenClaw LINE channel plugin",
+  "description": "Chappie LINE channel plugin",
   "type": "module",
-  "openclaw": {
+  "chappie": {
     "extensions": [
       "./index.ts"
     ],
@@ -19,7 +19,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/line",
+      "npmSpec": "@chappie/line",
       "localPath": "extensions/line",
       "defaultChoice": "npm"
     }

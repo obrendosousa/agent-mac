@@ -1,0 +1,16 @@
+{
+  "name": "chappiedbot",
+  "version": "2026.2.12",
+  "description": "Compatibility shim that forwards to chappie",
+  "bin": {
+    "chappiedbot": "./bin/chappiedbot.js"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./cli-entry": "./bin/chappiedbot.js"
+  },
+  "dependencies": {
+    "chappie": "workspace:*"
+  }
+}

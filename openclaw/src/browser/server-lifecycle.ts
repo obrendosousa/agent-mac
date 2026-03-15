@@ -1,4 +1,4 @@
-import { stopOpenClawChrome } from "./chrome.js";
+import { stopChappieChrome } from "./chrome.js";
 import type { ResolvedBrowserConfig } from "./config.js";
 import { resolveProfile } from "./config.js";
 import {
@@ -46,7 +46,7 @@ export async function stopKnownBrowserProfiles(params: {
       try {
         const runtime = current.profiles.get(name);
         if (runtime?.running) {
-          await stopOpenClawChrome(runtime.running);
+          await stopChappieChrome(runtime.running);
           runtime.running = null;
           continue;
         }
@@ -62,6 +62,6 @@ export async function stopKnownBrowserProfiles(params: {
       }
     }
   } catch (err) {
-    params.onWarn(`openclaw browser stop failed: ${String(err)}`);
+    params.onWarn(`chappie browser stop failed: ${String(err)}`);
   }
 }

@@ -31,7 +31,7 @@ const {
   clearPluginLoaderCache,
   createHookRunner,
   getGlobalHookRunner,
-  loadOpenClawPlugins,
+  loadChappiePlugins,
   resetGlobalHookRunner,
 } = await importFreshPluginTestModules();
 
@@ -55,9 +55,9 @@ function mkdirSafe(dir: string) {
   chmodSafeDir(dir);
 }
 
-const fixtureRoot = mkdtempSafe(path.join(os.tmpdir(), "openclaw-plugin-"));
+const fixtureRoot = mkdtempSafe(path.join(os.tmpdir(), "chappie-plugin-"));
 let tempDirIndex = 0;
-const prevBundledDir = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+const prevBundledDir = process.env.CHAPPIE_BUNDLED_PLUGINS_DIR;
 const EMPTY_PLUGIN_SCHEMA = { type: "object", additionalProperties: false, properties: {} };
 let cachedBundledTelegramDir = "";
 let cachedBundledMemoryDir = "";
@@ -103,7 +103,7 @@ function writePlugin(params: {
   const file = path.join(dir, filename);
   fs.writeFileSync(file, params.body, "utf-8");
   fs.writeFileSync(
-    path.join(dir, "openclaw.plugin.json"),
+    path.join(dir, "chappie.plugin.json"),
     JSON.stringify(
       {
         id: params.id,
@@ -123,8 +123,8 @@ function loadBundledMemoryPluginRegistry(options?: {
   pluginFilename?: string;
 }) {
   if (!options && cachedBundledMemoryDir) {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = cachedBundledMemoryDir;
-    return loadOpenClawPlugins({
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = cachedBundledMemoryDir;
+    return loadChappiePlugins({
       cache: false,
       workspaceDir: cachedBundledMemoryDir,
       config: {
@@ -152,7 +152,7 @@ function loadBundledMemoryPluginRegistry(options?: {
           name: options.packageMeta.name,
           version: options.packageMeta.version,
           description: options.packageMeta.description,
-          openclaw: { extensions: [`./${pluginFilename}`] },
+          chappie: { extensions: [`./${pluginFilename}`] },
         },
         null,
         2,
@@ -172,9 +172,9 @@ function loadBundledMemoryPluginRegistry(options?: {
   if (!options) {
     cachedBundledMemoryDir = bundledDir;
   }
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledDir;
+  process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = bundledDir;
 
-  return loadOpenClawPlugins({
+  return loadChappiePlugins({
     cache: false,
     workspaceDir: bundledDir,
     config: {
@@ -197,27 +197,27 @@ function setupBundledTelegramPlugin() {
       filename: "telegram.cjs",
     });
   }
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = cachedBundledTelegramDir;
+  process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = cachedBundledTelegramDir;
 }
 
-function expectTelegramLoaded(registry: ReturnType<typeof loadOpenClawPlugins>) {
+function expectTelegramLoaded(registry: ReturnType<typeof loadChappiePlugins>) {
   const telegram = registry.plugins.find((entry) => entry.id === "telegram");
   expect(telegram?.status).toBe("loaded");
   expect(registry.channels.some((entry) => entry.plugin.id === "telegram")).toBe(true);
 }
 
 function useNoBundledPlugins() {
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
+  process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
 }
 
 function loadRegistryFromSinglePlugin(params: {
   plugin: TempPlugin;
   pluginConfig?: Record<string, unknown>;
   includeWorkspaceDir?: boolean;
-  options?: Omit<Parameters<typeof loadOpenClawPlugins>[0], "cache" | "workspaceDir" | "config">;
+  options?: Omit<Parameters<typeof loadChappiePlugins>[0], "cache" | "workspaceDir" | "config">;
 }) {
   const pluginConfig = params.pluginConfig ?? {};
-  return loadOpenClawPlugins({
+  return loadChappiePlugins({
     cache: false,
     ...(params.includeWorkspaceDir === false ? {} : { workspaceDir: params.plugin.dir }),
     ...params.options,
@@ -254,7 +254,7 @@ function createEscapingEntryFixture(params: { id: string; sourceBody: string }) 
   const linkedEntry = path.join(pluginDir, "entry.cjs");
   fs.writeFileSync(outsideEntry, params.sourceBody, "utf-8");
   fs.writeFileSync(
-    path.join(pluginDir, "openclaw.plugin.json"),
+    path.join(pluginDir, "chappie.plugin.json"),
     JSON.stringify(
       {
         id: params.id,
@@ -287,9 +287,9 @@ function createPluginSdkAliasFixture(params?: {
 afterEach(() => {
   clearPluginLoaderCache();
   if (prevBundledDir === undefined) {
-    delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+    delete process.env.CHAPPIE_BUNDLED_PLUGINS_DIR;
   } else {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = prevBundledDir;
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = prevBundledDir;
   }
 });
 
@@ -304,7 +304,7 @@ afterAll(() => {
   }
 });
 
-describe("loadOpenClawPlugins", () => {
+describe("loadChappiePlugins", () => {
   it("disables bundled plugins by default", () => {
     const bundledDir = makeTempDir();
     writePlugin({
@@ -313,9 +313,9 @@ describe("loadOpenClawPlugins", () => {
       dir: bundledDir,
       filename: "bundled.cjs",
     });
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledDir;
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = bundledDir;
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       config: {
         plugins: {
@@ -331,7 +331,7 @@ describe("loadOpenClawPlugins", () => {
   it("loads bundled telegram plugin when enabled", () => {
     setupBundledTelegramPlugin();
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       workspaceDir: cachedBundledTelegramDir,
       config: {
@@ -350,7 +350,7 @@ describe("loadOpenClawPlugins", () => {
   it("loads bundled channel plugins when channels.<id>.enabled=true", () => {
     setupBundledTelegramPlugin();
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       workspaceDir: cachedBundledTelegramDir,
       config: {
@@ -371,7 +371,7 @@ describe("loadOpenClawPlugins", () => {
   it("still respects explicit disable via plugins.entries for bundled channels", () => {
     setupBundledTelegramPlugin();
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       workspaceDir: cachedBundledTelegramDir,
       config: {
@@ -396,7 +396,7 @@ describe("loadOpenClawPlugins", () => {
   it("preserves package.json metadata for bundled memory plugins", () => {
     const registry = loadBundledMemoryPluginRegistry({
       packageMeta: {
-        name: "@openclaw/memory-core",
+        name: "@chappie/memory-core",
         version: "1.2.3",
         description: "Memory plugin package",
       },
@@ -411,7 +411,7 @@ describe("loadOpenClawPlugins", () => {
     expect(memory?.version).toBe("1.2.3");
   });
   it("loads plugins from config paths", () => {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
     const plugin = writePlugin({
       id: "allowed",
       filename: "allowed.cjs",
@@ -423,7 +423,7 @@ describe("loadOpenClawPlugins", () => {
 };`,
     });
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       workspaceDir: plugin.dir,
       config: {
@@ -440,7 +440,7 @@ describe("loadOpenClawPlugins", () => {
   });
 
   it("re-initializes global hook runner when serving registry from cache", () => {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
     const plugin = writePlugin({
       id: "cache-hook-runner",
       filename: "cache-hook-runner.cjs",
@@ -457,13 +457,13 @@ describe("loadOpenClawPlugins", () => {
       },
     };
 
-    const first = loadOpenClawPlugins(options);
+    const first = loadChappiePlugins(options);
     expect(getGlobalHookRunner()).not.toBeNull();
 
     resetGlobalHookRunner();
     expect(getGlobalHookRunner()).toBeNull();
 
-    const second = loadOpenClawPlugins(options);
+    const second = loadChappiePlugins(options);
     expect(second).toBe(first);
     expect(getGlobalHookRunner()).not.toBeNull();
 
@@ -497,18 +497,18 @@ describe("loadOpenClawPlugins", () => {
       },
     };
 
-    const first = loadOpenClawPlugins({
+    const first = loadChappiePlugins({
       ...options,
       env: {
         ...process.env,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledA,
+        CHAPPIE_BUNDLED_PLUGINS_DIR: bundledA,
       },
     });
-    const second = loadOpenClawPlugins({
+    const second = loadChappiePlugins({
       ...options,
       env: {
         ...process.env,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledB,
+        CHAPPIE_BUNDLED_PLUGINS_DIR: bundledB,
       },
     });
 
@@ -553,24 +553,24 @@ describe("loadOpenClawPlugins", () => {
       },
     };
 
-    const first = loadOpenClawPlugins({
+    const first = loadChappiePlugins({
       ...options,
       env: {
         ...process.env,
         HOME: homeA,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+        CHAPPIE_HOME: undefined,
+        CHAPPIE_STATE_DIR: stateDir,
+        CHAPPIE_BUNDLED_PLUGINS_DIR: bundledDir,
       },
     });
-    const second = loadOpenClawPlugins({
+    const second = loadChappiePlugins({
       ...options,
       env: {
         ...process.env,
         HOME: homeB,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+        CHAPPIE_HOME: undefined,
+        CHAPPIE_STATE_DIR: stateDir,
+        CHAPPIE_BUNDLED_PLUGINS_DIR: bundledDir,
       },
     });
 
@@ -585,10 +585,10 @@ describe("loadOpenClawPlugins", () => {
 
   it("does not reuse cached registries when env-resolved install paths change", () => {
     useNoBundledPlugins();
-    const openclawHome = makeTempDir();
+    const chappieHome = makeTempDir();
     const ignoredHome = makeTempDir();
     const stateDir = makeTempDir();
-    const pluginDir = path.join(openclawHome, "plugins", "tracked-install-cache");
+    const pluginDir = path.join(chappieHome, "plugins", "tracked-install-cache");
     mkdirSafe(pluginDir);
     const plugin = writePlugin({
       id: "tracked-install-cache",
@@ -613,15 +613,15 @@ describe("loadOpenClawPlugins", () => {
       },
     };
 
-    const first = loadOpenClawPlugins({
+    const first = loadChappiePlugins({
       ...options,
       env: {
         ...process.env,
-        OPENCLAW_HOME: openclawHome,
+        CHAPPIE_HOME: chappieHome,
         HOME: ignoredHome,
-        OPENCLAW_STATE_DIR: stateDir,
-        CLAWDBOT_STATE_DIR: undefined,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
+        CHAPPIE_STATE_DIR: stateDir,
+        CHAPPIEDBOT_STATE_DIR: undefined,
+        CHAPPIE_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
       },
     });
     const secondHome = makeTempDir();
@@ -629,15 +629,15 @@ describe("loadOpenClawPlugins", () => {
       ...options,
       env: {
         ...process.env,
-        OPENCLAW_HOME: secondHome,
+        CHAPPIE_HOME: secondHome,
         HOME: ignoredHome,
-        OPENCLAW_STATE_DIR: stateDir,
-        CLAWDBOT_STATE_DIR: undefined,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
+        CHAPPIE_STATE_DIR: stateDir,
+        CHAPPIEDBOT_STATE_DIR: undefined,
+        CHAPPIE_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
       },
     };
-    const second = loadOpenClawPlugins(secondOptions);
-    const third = loadOpenClawPlugins(secondOptions);
+    const second = loadChappiePlugins(secondOptions);
+    const third = loadChappiePlugins(secondOptions);
 
     expect(second).not.toBe(first);
     expect(third).toBe(second);
@@ -655,11 +655,11 @@ describe("loadOpenClawPlugins", () => {
     );
 
     const loadWithStateDir = (stateDir: string) =>
-      loadOpenClawPlugins({
+      loadChappiePlugins({
         env: {
           ...process.env,
-          OPENCLAW_STATE_DIR: stateDir,
-          OPENCLAW_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
+          CHAPPIE_STATE_DIR: stateDir,
+          CHAPPIE_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
         },
         config: {
           plugins: {
@@ -695,12 +695,12 @@ describe("loadOpenClawPlugins", () => {
       body: `module.exports = { id: "tilde-bundled", register() {} };`,
     });
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       env: {
         ...process.env,
         HOME: homeDir,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: override,
+        CHAPPIE_HOME: undefined,
+        CHAPPIE_BUNDLED_PLUGINS_DIR: override,
       },
       config: {
         plugins: {
@@ -717,34 +717,34 @@ describe("loadOpenClawPlugins", () => {
     ).toBe(fs.realpathSync(plugin.file));
   });
 
-  it("prefers OPENCLAW_HOME over HOME for env-expanded load paths", () => {
+  it("prefers CHAPPIE_HOME over HOME for env-expanded load paths", () => {
     const ignoredHome = makeTempDir();
-    const openclawHome = makeTempDir();
+    const chappieHome = makeTempDir();
     const stateDir = makeTempDir();
     const bundledDir = makeTempDir();
     const plugin = writePlugin({
-      id: "openclaw-home-demo",
-      dir: path.join(openclawHome, "plugins", "openclaw-home-demo"),
+      id: "chappie-home-demo",
+      dir: path.join(chappieHome, "plugins", "chappie-home-demo"),
       filename: "index.cjs",
-      body: `module.exports = { id: "openclaw-home-demo", register() {} };`,
+      body: `module.exports = { id: "chappie-home-demo", register() {} };`,
     });
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       env: {
         ...process.env,
         HOME: ignoredHome,
-        OPENCLAW_HOME: openclawHome,
-        OPENCLAW_STATE_DIR: stateDir,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: bundledDir,
+        CHAPPIE_HOME: chappieHome,
+        CHAPPIE_STATE_DIR: stateDir,
+        CHAPPIE_BUNDLED_PLUGINS_DIR: bundledDir,
       },
       config: {
         plugins: {
-          allow: ["openclaw-home-demo"],
+          allow: ["chappie-home-demo"],
           entries: {
-            "openclaw-home-demo": { enabled: true },
+            "chappie-home-demo": { enabled: true },
           },
           load: {
-            paths: ["~/plugins/openclaw-home-demo"],
+            paths: ["~/plugins/chappie-home-demo"],
           },
         },
       },
@@ -752,7 +752,7 @@ describe("loadOpenClawPlugins", () => {
 
     expect(
       fs.realpathSync(
-        registry.plugins.find((entry) => entry.id === "openclaw-home-demo")?.source ?? "",
+        registry.plugins.find((entry) => entry.id === "chappie-home-demo")?.source ?? "",
       ),
     ).toBe(fs.realpathSync(plugin.file));
   });
@@ -1141,7 +1141,7 @@ describe("loadOpenClawPlugins", () => {
 } };`,
     });
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       config: {
         plugins: {
@@ -1214,13 +1214,13 @@ describe("loadOpenClawPlugins", () => {
   });
 
   it("respects explicit disable in config", () => {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
     const plugin = writePlugin({
       id: "config-disable",
       body: `module.exports = { id: "config-disable", register() {} };`,
     });
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       config: {
         plugins: {
@@ -1353,7 +1353,7 @@ describe("loadOpenClawPlugins", () => {
   });
 
   it("enforces memory slot selection", () => {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
     const memoryA = writePlugin({
       id: "memory-a",
       body: `module.exports = { id: "memory-a", kind: "memory", register() {} };`,
@@ -1363,7 +1363,7 @@ describe("loadOpenClawPlugins", () => {
       body: `module.exports = { id: "memory-b", kind: "memory", register() {} };`,
     });
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       config: {
         plugins: {
@@ -1398,7 +1398,7 @@ describe("loadOpenClawPlugins", () => {
       body: `module.exports = { id: "memory-b", kind: "memory", register() {} };`,
     });
     fs.writeFileSync(
-      path.join(memoryADir, "openclaw.plugin.json"),
+      path.join(memoryADir, "chappie.plugin.json"),
       JSON.stringify(
         {
           id: "memory-a",
@@ -1411,7 +1411,7 @@ describe("loadOpenClawPlugins", () => {
       "utf-8",
     );
     fs.writeFileSync(
-      path.join(memoryBDir, "openclaw.plugin.json"),
+      path.join(memoryBDir, "chappie.plugin.json"),
       JSON.stringify(
         {
           id: "memory-b",
@@ -1423,9 +1423,9 @@ describe("loadOpenClawPlugins", () => {
       ),
       "utf-8",
     );
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledDir;
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = bundledDir;
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       config: {
         plugins: {
@@ -1447,13 +1447,13 @@ describe("loadOpenClawPlugins", () => {
   });
 
   it("disables memory plugins when slot is none", () => {
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
     const memory = writePlugin({
       id: "memory-off",
       body: `module.exports = { id: "memory-off", kind: "memory", register() {} };`,
     });
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       config: {
         plugins: {
@@ -1475,14 +1475,14 @@ describe("loadOpenClawPlugins", () => {
       dir: bundledDir,
       filename: "shadow.cjs",
     });
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledDir;
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = bundledDir;
 
     const override = writePlugin({
       id: "shadow",
       body: `module.exports = { id: "shadow", register() {} };`,
     });
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       config: {
         plugins: {
@@ -1509,10 +1509,10 @@ describe("loadOpenClawPlugins", () => {
       dir: bundledDir,
       filename: "index.cjs",
     });
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledDir;
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = bundledDir;
 
     const stateDir = makeTempDir();
-    withEnv({ OPENCLAW_STATE_DIR: stateDir, CLAWDBOT_STATE_DIR: undefined }, () => {
+    withEnv({ CHAPPIE_STATE_DIR: stateDir, CHAPPIEDBOT_STATE_DIR: undefined }, () => {
       const globalDir = path.join(stateDir, "extensions", "feishu");
       mkdirSafe(globalDir);
       writePlugin({
@@ -1522,7 +1522,7 @@ describe("loadOpenClawPlugins", () => {
         filename: "index.cjs",
       });
 
-      const registry = loadOpenClawPlugins({
+      const registry = loadChappiePlugins({
         cache: false,
         config: {
           plugins: {
@@ -1551,10 +1551,10 @@ describe("loadOpenClawPlugins", () => {
       dir: bundledDir,
       filename: "index.cjs",
     });
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledDir;
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = bundledDir;
 
     const stateDir = makeTempDir();
-    withEnv({ OPENCLAW_STATE_DIR: stateDir, CLAWDBOT_STATE_DIR: undefined }, () => {
+    withEnv({ CHAPPIE_STATE_DIR: stateDir, CHAPPIEDBOT_STATE_DIR: undefined }, () => {
       const globalDir = path.join(stateDir, "extensions", "zalouser");
       mkdirSafe(globalDir);
       writePlugin({
@@ -1564,7 +1564,7 @@ describe("loadOpenClawPlugins", () => {
         filename: "index.cjs",
       });
 
-      const registry = loadOpenClawPlugins({
+      const registry = loadChappiePlugins({
         cache: false,
         config: {
           plugins: {
@@ -1598,7 +1598,7 @@ describe("loadOpenClawPlugins", () => {
       body: `module.exports = { id: "warn-open-allow", register() {} };`,
     });
     const warnings: string[] = [];
-    loadOpenClawPlugins({
+    loadChappiePlugins({
       cache: false,
       logger: createWarningLogger(warnings),
       config: {
@@ -1630,8 +1630,8 @@ describe("loadOpenClawPlugins", () => {
       },
     };
 
-    loadOpenClawPlugins(options);
-    loadOpenClawPlugins(options);
+    loadChappiePlugins(options);
+    loadChappiePlugins(options);
 
     expect(warnings.filter((msg) => msg.includes("plugins.allow is empty"))).toHaveLength(1);
   });
@@ -1639,7 +1639,7 @@ describe("loadOpenClawPlugins", () => {
   it("does not auto-load workspace-discovered plugins unless explicitly trusted", () => {
     useNoBundledPlugins();
     const workspaceDir = makeTempDir();
-    const workspaceExtDir = path.join(workspaceDir, ".openclaw", "extensions", "workspace-helper");
+    const workspaceExtDir = path.join(workspaceDir, ".chappie", "extensions", "workspace-helper");
     mkdirSafe(workspaceExtDir);
     writePlugin({
       id: "workspace-helper",
@@ -1648,7 +1648,7 @@ describe("loadOpenClawPlugins", () => {
       filename: "index.cjs",
     });
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       workspaceDir,
       config: {
@@ -1667,7 +1667,7 @@ describe("loadOpenClawPlugins", () => {
   it("loads workspace-discovered plugins when plugins.allow explicitly trusts them", () => {
     useNoBundledPlugins();
     const workspaceDir = makeTempDir();
-    const workspaceExtDir = path.join(workspaceDir, ".openclaw", "extensions", "workspace-helper");
+    const workspaceExtDir = path.join(workspaceDir, ".chappie", "extensions", "workspace-helper");
     mkdirSafe(workspaceExtDir);
     writePlugin({
       id: "workspace-helper",
@@ -1676,7 +1676,7 @@ describe("loadOpenClawPlugins", () => {
       filename: "index.cjs",
     });
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       workspaceDir,
       config: {
@@ -1700,10 +1700,10 @@ describe("loadOpenClawPlugins", () => {
       dir: bundledDir,
       filename: "index.cjs",
     });
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledDir;
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = bundledDir;
 
     const workspaceDir = makeTempDir();
-    const workspaceExtDir = path.join(workspaceDir, ".openclaw", "extensions", "shadowed");
+    const workspaceExtDir = path.join(workspaceDir, ".chappie", "extensions", "shadowed");
     mkdirSafe(workspaceExtDir);
     writePlugin({
       id: "shadowed",
@@ -1712,7 +1712,7 @@ describe("loadOpenClawPlugins", () => {
       filename: "index.cjs",
     });
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       workspaceDir,
       config: {
@@ -1733,7 +1733,7 @@ describe("loadOpenClawPlugins", () => {
   it("warns when loaded non-bundled plugin has no install/load-path provenance", () => {
     useNoBundledPlugins();
     const stateDir = makeTempDir();
-    withEnv({ OPENCLAW_STATE_DIR: stateDir, CLAWDBOT_STATE_DIR: undefined }, () => {
+    withEnv({ CHAPPIE_STATE_DIR: stateDir, CHAPPIEDBOT_STATE_DIR: undefined }, () => {
       const globalDir = path.join(stateDir, "extensions", "rogue");
       mkdirSafe(globalDir);
       writePlugin({
@@ -1744,7 +1744,7 @@ describe("loadOpenClawPlugins", () => {
       });
 
       const warnings: string[] = [];
-      const registry = loadOpenClawPlugins({
+      const registry = loadChappiePlugins({
         cache: false,
         logger: createWarningLogger(warnings),
         config: {
@@ -1767,10 +1767,10 @@ describe("loadOpenClawPlugins", () => {
 
   it("does not warn about missing provenance for env-resolved load paths", () => {
     useNoBundledPlugins();
-    const openclawHome = makeTempDir();
+    const chappieHome = makeTempDir();
     const ignoredHome = makeTempDir();
     const stateDir = makeTempDir();
-    const pluginDir = path.join(openclawHome, "plugins", "tracked-load-path");
+    const pluginDir = path.join(chappieHome, "plugins", "tracked-load-path");
     mkdirSafe(pluginDir);
     const plugin = writePlugin({
       id: "tracked-load-path",
@@ -1780,16 +1780,16 @@ describe("loadOpenClawPlugins", () => {
     });
 
     const warnings: string[] = [];
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       logger: createWarningLogger(warnings),
       env: {
         ...process.env,
-        OPENCLAW_HOME: openclawHome,
+        CHAPPIE_HOME: chappieHome,
         HOME: ignoredHome,
-        OPENCLAW_STATE_DIR: stateDir,
-        CLAWDBOT_STATE_DIR: undefined,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
+        CHAPPIE_STATE_DIR: stateDir,
+        CHAPPIEDBOT_STATE_DIR: undefined,
+        CHAPPIE_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
       },
       config: {
         plugins: {
@@ -1809,10 +1809,10 @@ describe("loadOpenClawPlugins", () => {
 
   it("does not warn about missing provenance for env-resolved install paths", () => {
     useNoBundledPlugins();
-    const openclawHome = makeTempDir();
+    const chappieHome = makeTempDir();
     const ignoredHome = makeTempDir();
     const stateDir = makeTempDir();
-    const pluginDir = path.join(openclawHome, "plugins", "tracked-install-path");
+    const pluginDir = path.join(chappieHome, "plugins", "tracked-install-path");
     mkdirSafe(pluginDir);
     const plugin = writePlugin({
       id: "tracked-install-path",
@@ -1822,16 +1822,16 @@ describe("loadOpenClawPlugins", () => {
     });
 
     const warnings: string[] = [];
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       logger: createWarningLogger(warnings),
       env: {
         ...process.env,
-        OPENCLAW_HOME: openclawHome,
+        CHAPPIE_HOME: chappieHome,
         HOME: ignoredHome,
-        OPENCLAW_STATE_DIR: stateDir,
-        CLAWDBOT_STATE_DIR: undefined,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
+        CHAPPIE_STATE_DIR: stateDir,
+        CHAPPIEDBOT_STATE_DIR: undefined,
+        CHAPPIE_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
       },
       config: {
         plugins: {
@@ -1869,7 +1869,7 @@ describe("loadOpenClawPlugins", () => {
       return;
     }
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       config: {
         plugins: {
@@ -1903,7 +1903,7 @@ describe("loadOpenClawPlugins", () => {
       throw err;
     }
 
-    const registry = loadOpenClawPlugins({
+    const registry = loadChappiePlugins({
       cache: false,
       config: {
         plugins: {
@@ -1949,8 +1949,8 @@ describe("loadOpenClawPlugins", () => {
       throw err;
     }
 
-    process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledDir;
-    const registry = loadOpenClawPlugins({
+    process.env.CHAPPIE_BUNDLED_PLUGINS_DIR = bundledDir;
+    const registry = loadChappiePlugins({
       cache: false,
       workspaceDir: bundledDir,
       config: {
@@ -2008,7 +2008,7 @@ describe("loadOpenClawPlugins", () => {
       filename: "legacy-root-import.cjs",
       body: `module.exports = {
   id: "legacy-root-import",
-  configSchema: (require("openclaw/plugin-sdk").emptyPluginConfigSchema)(),
+  configSchema: (require("chappie/plugin-sdk").emptyPluginConfigSchema)(),
   register() {},
 };`,
     });
@@ -2017,8 +2017,8 @@ describe("loadOpenClawPlugins", () => {
       path.join(process.cwd(), "src", "plugins", "loader.ts"),
     ).href;
     const script = `
-      import { loadOpenClawPlugins } from ${JSON.stringify(loaderModuleUrl)};
-      const registry = loadOpenClawPlugins({
+      import { loadChappiePlugins } from ${JSON.stringify(loaderModuleUrl)};
+      const registry = loadChappiePlugins({
         cache: false,
         workspaceDir: ${JSON.stringify(plugin.dir)},
         config: {
@@ -2039,8 +2039,8 @@ describe("loadOpenClawPlugins", () => {
       cwd: process.cwd(),
       env: {
         ...process.env,
-        OPENCLAW_HOME: undefined,
-        OPENCLAW_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
+        CHAPPIE_HOME: undefined,
+        CHAPPIE_BUNDLED_PLUGINS_DIR: "/nonexistent/bundled/plugins",
       },
       encoding: "utf-8",
       stdio: "pipe",

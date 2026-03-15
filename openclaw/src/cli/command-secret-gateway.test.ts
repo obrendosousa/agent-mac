@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { ChappieConfig } from "../config/config.js";
 
 const callGateway = vi.fn();
 
@@ -10,12 +10,12 @@ vi.mock("../gateway/call.js", () => ({
 const { resolveCommandSecretRefsViaGateway } = await import("./command-secret-gateway.js");
 
 describe("resolveCommandSecretRefsViaGateway", () => {
-  function makeTalkApiKeySecretRefConfig(envKey: string): OpenClawConfig {
+  function makeTalkApiKeySecretRefConfig(envKey: string): ChappieConfig {
     return {
       talk: {
         apiKey: { source: "env", provider: "default", id: envKey },
       },
-    } as OpenClawConfig;
+    } as ChappieConfig;
   }
 
   async function withEnvValue(
@@ -80,7 +80,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
       talk: {
         apiKey: "plain", // pragma: allowlist secret
       },
-    } as OpenClawConfig;
+    } as ChappieConfig;
     const result = await resolveCommandSecretRefsViaGateway({
       config,
       commandName: "memory status",
@@ -105,7 +105,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
           },
         ],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as ChappieConfig;
 
     const result = await resolveCommandSecretRefsViaGateway({
       config,
@@ -135,7 +135,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
       talk: {
         apiKey: { source: "env", provider: "default", id: "TALK_API_KEY" },
       },
-    } as OpenClawConfig;
+    } as ChappieConfig;
     const result = await resolveCommandSecretRefsViaGateway({
       config,
       commandName: "memory status",
@@ -167,7 +167,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
             talk: {
               apiKey: { source: "env", provider: "default", id: envKey },
             },
-          } as OpenClawConfig,
+          } as ChappieConfig,
           commandName: "memory status",
           targetIds: new Set(["talk.apiKey"]),
         }),
@@ -196,7 +196,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               default: { source: "env" },
             },
           },
-        } as OpenClawConfig,
+        } as ChappieConfig,
         commandName: "memory status",
         targetIds: new Set(["talk.apiKey"]),
       });
@@ -233,7 +233,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as ChappieConfig,
         commandName: "agent",
         targetIds: new Set(["tools.web.search.gemini.apiKey"]),
       });
@@ -261,7 +261,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as ChappieConfig,
         commandName: "agent",
         targetIds: new Set(["tools.web.fetch.firecrawl.apiKey"]),
       });
@@ -288,7 +288,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as ChappieConfig,
       commandName: "agent",
       targetIds: new Set(["tools.web.search.gemini.apiKey"]),
     });
@@ -337,7 +337,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
           talk: {
             apiKey: { source: "env", provider: "default", id: "TALK_API_KEY" },
           },
-        } as OpenClawConfig,
+        } as ChappieConfig,
         commandName: "memory status",
         targetIds: new Set(["talk.apiKey"]),
       }),
@@ -361,7 +361,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
           talk: {
             apiKey: { source: "env", provider: "default", id: "TALK_API_KEY" },
           },
-        } as OpenClawConfig,
+        } as ChappieConfig,
         commandName: "memory status",
         targetIds: new Set(["talk.apiKey"]),
       }),
@@ -431,7 +431,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
           },
         ],
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as ChappieConfig;
 
     const result = await resolveCommandSecretRefsViaGateway({
       config,
@@ -524,7 +524,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               },
             },
           },
-        } as OpenClawConfig,
+        } as ChappieConfig,
         commandName: "message send",
         targetIds: new Set(["talk.apiKey", "talk.providers.*.apiKey"]),
       });
@@ -568,7 +568,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
               password: { source: "env", provider: "default", id: gatewayEnvKey },
             },
           },
-        } as OpenClawConfig,
+        } as ChappieConfig,
         commandName: "status",
         targetIds: new Set(["talk.apiKey"]),
         mode: "summary",
@@ -603,7 +603,7 @@ describe("resolveCommandSecretRefsViaGateway", () => {
           talk: {
             apiKey: { source: "env", provider: "default", id: envKey },
           },
-        } as OpenClawConfig,
+        } as ChappieConfig,
         commandName: "channels resolve",
         targetIds: new Set(["talk.apiKey"]),
         mode: "operational_readonly",

@@ -1,9 +1,9 @@
 {
-  "name": "@openclaw/discord",
+  "name": "@chappie/discord",
   "version": "2026.3.14",
-  "description": "OpenClaw Discord channel plugin",
+  "description": "Chappie Discord channel plugin",
   "type": "module",
-  "openclaw": {
+  "chappie": {
     "extensions": [
       "./index.ts"
     ]

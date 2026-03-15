@@ -1,10 +1,10 @@
 ---
 name: goplaces
 description: Query Google Places API (New) via the goplaces CLI for text search, place details, resolve, and reviews. Use for human-friendly place lookup or JSON output for scripts.
-homepage: https://github.com/steipete/goplaces
+homepage: https://github.com/chappie-team/goplaces
 metadata:
   {
-    "openclaw":
+    "chappie":
       {
         "emoji": "📍",
         "requires": { "bins": ["goplaces"], "env": ["GOOGLE_PLACES_API_KEY"] },
@@ -14,7 +14,7 @@ metadata:
             {
               "id": "brew",
               "kind": "brew",
-              "formula": "steipete/tap/goplaces",
+              "formula": "chappie-team/tap/goplaces",
               "bins": ["goplaces"],
               "label": "Install goplaces (brew)",
             },
@@ -29,7 +29,7 @@ Modern Google Places API (New) CLI. Human output by default, `--json` for script
 
 Install
 
-- Homebrew: `brew install steipete/tap/goplaces`
+- Homebrew: `brew install chappie-team/tap/goplaces`
 
 Config
 

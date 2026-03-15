@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../../../src/config/config.js";
+import type { ChappieConfig } from "../../../../src/config/config.js";
 import { resolveStorePath, updateSessionStore } from "../../../../src/config/sessions.js";
 
 /**
@@ -11,7 +11,7 @@ import { resolveStorePath, updateSessionStore } from "../../../../src/config/ses
  * any on-disk transcript history.
  */
 export async function closeDiscordThreadSessions(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   accountId: string;
   threadId: string;
 }): Promise<number> {

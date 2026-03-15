@@ -1,4 +1,4 @@
-import { MarkdownConfigSchema } from "openclaw/plugin-sdk/twitch";
+import { MarkdownConfigSchema } from "chappie/plugin-sdk/twitch";
 import { z } from "zod";
 
 /**

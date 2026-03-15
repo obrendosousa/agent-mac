@@ -8,7 +8,7 @@ import {
   modelSupportsVision,
 } from "../../../src/agents/model-catalog.js";
 import { resolveDefaultModelForAgent } from "../../../src/agents/model-selection.js";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { ChappieConfig } from "../../../src/config/config.js";
 import { STATE_DIR } from "../../../src/config/paths.js";
 import { logVerbose } from "../../../src/globals.js";
 import { loadJsonFile, saveJsonFile } from "../../../src/infra/json-file.js";
@@ -157,7 +157,7 @@ function loadImageRuntime() {
 
 export interface DescribeStickerParams {
   imagePath: string;
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   agentDir?: string;
   agentId?: string;
 }

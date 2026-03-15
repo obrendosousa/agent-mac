@@ -4,7 +4,7 @@ description: Summarize or extract text/transcripts from URLs, podcasts, and loca
 homepage: https://summarize.sh
 metadata:
   {
-    "openclaw":
+    "chappie":
       {
         "emoji": "🧾",
         "requires": { "bins": ["summarize"] },
@@ -13,7 +13,7 @@ metadata:
             {
               "id": "brew",
               "kind": "brew",
-              "formula": "steipete/tap/summarize",
+              "formula": "chappie-team/tap/summarize",
               "bins": ["summarize"],
               "label": "Install summarize (brew)",
             },

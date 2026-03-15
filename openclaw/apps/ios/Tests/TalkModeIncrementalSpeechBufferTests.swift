@@ -1,5 +1,5 @@
 import Testing
-@testable import OpenClaw
+@testable import Chappie
 
 @MainActor
 @Suite struct TalkModeIncrementalSpeechBufferTests {

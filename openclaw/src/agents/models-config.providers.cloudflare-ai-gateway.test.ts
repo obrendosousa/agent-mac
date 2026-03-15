@@ -9,7 +9,7 @@ import { resolveImplicitProvidersForTest } from "./models-config.e2e-harness.js"
 
 describe("cloudflare-ai-gateway profile provenance", () => {
   it("prefers env keyRef marker over runtime plaintext for persistence", async () => {
-    const agentDir = mkdtempSync(join(tmpdir(), "openclaw-test-"));
+    const agentDir = mkdtempSync(join(tmpdir(), "chappie-test-"));
     const envSnapshot = captureEnv(["CLOUDFLARE_AI_GATEWAY_API_KEY"]);
     delete process.env.CLOUDFLARE_AI_GATEWAY_API_KEY;
 
@@ -45,7 +45,7 @@ describe("cloudflare-ai-gateway profile provenance", () => {
   });
 
   it("uses non-env marker for non-env keyRef cloudflare profiles", async () => {
-    const agentDir = mkdtempSync(join(tmpdir(), "openclaw-test-"));
+    const agentDir = mkdtempSync(join(tmpdir(), "chappie-test-"));
     await writeFile(
       join(agentDir, "auth-profiles.json"),
       JSON.stringify(

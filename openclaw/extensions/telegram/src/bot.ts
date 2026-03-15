@@ -18,7 +18,7 @@ import {
   resolveNativeCommandsEnabled,
   resolveNativeSkillsEnabled,
 } from "../../../src/config/commands.js";
-import type { OpenClawConfig, ReplyToMode } from "../../../src/config/config.js";
+import type { ChappieConfig, ReplyToMode } from "../../../src/config/config.js";
 import { loadConfig } from "../../../src/config/config.js";
 import {
   resolveChannelGroupPolicy,
@@ -57,7 +57,7 @@ export type TelegramBotOptions = {
   mediaMaxMb?: number;
   replyToMode?: ReplyToMode;
   proxyFetch?: typeof fetch;
-  config?: OpenClawConfig;
+  config?: ChappieConfig;
   /** Signal to abort in-flight Telegram API fetch requests (e.g. getUpdates) on shutdown. */
   fetchAbortSignal?: AbortSignal;
   updateOffset?: {

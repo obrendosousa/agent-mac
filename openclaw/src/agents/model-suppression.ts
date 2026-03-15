@@ -10,7 +10,7 @@ export function shouldSuppressBuiltInModel(params: {
   const provider = normalizeProviderId(params.provider?.trim().toLowerCase() ?? "");
   const id = params.id?.trim().toLowerCase() ?? "";
 
-  // pi-ai still ships non-Codex Spark rows, but OpenClaw treats Spark as
+  // pi-ai still ships non-Codex Spark rows, but Chappie treats Spark as
   // Codex-only until upstream availability is proven on direct API paths.
   return SUPPRESSED_SPARK_PROVIDERS.has(provider) && id === OPENAI_DIRECT_SPARK_MODEL_ID;
 }

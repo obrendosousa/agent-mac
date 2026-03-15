@@ -1,7 +1,7 @@
 import { timingSafeEqual } from "node:crypto";
 import { createServer } from "node:http";
 import { InputFile, webhookCallback } from "grammy";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { ChappieConfig } from "../../../src/config/config.js";
 import { isDiagnosticsEnabled } from "../../../src/infra/diagnostic-events.js";
 import { formatErrorMessage } from "../../../src/infra/errors.js";
 import { readJsonBodyWithLimit } from "../../../src/infra/http-body.js";
@@ -100,7 +100,7 @@ function hasValidTelegramWebhookSecret(
 export async function startTelegramWebhook(opts: {
   token: string;
   accountId?: string;
-  config?: OpenClawConfig;
+  config?: ChappieConfig;
   path?: string;
   port?: number;
   host?: string;

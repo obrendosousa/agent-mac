@@ -35,7 +35,7 @@ export {
   wrapToolParamNormalization,
 } from "./pi-tools.params.js";
 
-// NOTE(steipete): Upstream read now does file-magic MIME detection; we keep the wrapper
+// NOTE(chappie-team): Upstream read now does file-magic MIME detection; we keep the wrapper
 // to normalize payloads and sanitize oversized images before they hit providers.
 type ToolContentBlock = AgentToolResult<unknown>["content"][number];
 type ImageContentBlock = Extract<ToolContentBlock, { type: "image" }>;
@@ -47,7 +47,7 @@ const ADAPTIVE_READ_CONTEXT_SHARE = 0.2;
 const CHARS_PER_TOKEN_ESTIMATE = 4;
 const MAX_ADAPTIVE_READ_PAGES = 8;
 
-type OpenClawReadToolOptions = {
+type ChappieReadToolOptions = {
   modelContextWindowTokens?: number;
   imageSanitization?: ImageSanitizationLimits;
 };
@@ -65,7 +65,7 @@ function clamp(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value));
 }
 
-function resolveAdaptiveReadMaxBytes(options?: OpenClawReadToolOptions): number {
+function resolveAdaptiveReadMaxBytes(options?: ChappieReadToolOptions): number {
   const contextWindowTokens = options?.modelContextWindowTokens;
   if (
     typeof contextWindowTokens !== "number" ||
@@ -601,7 +601,7 @@ export function createSandboxedReadTool(params: SandboxToolParams) {
   const base = createReadTool(params.root, {
     operations: createSandboxReadOperations(params),
   }) as unknown as AnyAgentTool;
-  return createOpenClawReadTool(base, {
+  return createChappieReadTool(base, {
     modelContextWindowTokens: params.modelContextWindowTokens,
     imageSanitization: params.imageSanitization,
   });
@@ -636,9 +636,9 @@ export function createHostWorkspaceEditTool(root: string, options?: { workspaceO
   return wrapToolParamNormalization(withRecovery, CLAUDE_PARAM_GROUPS.edit);
 }
 
-export function createOpenClawReadTool(
+export function createChappieReadTool(
   base: AnyAgentTool,
-  options?: OpenClawReadToolOptions,
+  options?: ChappieReadToolOptions,
 ): AnyAgentTool {
   const patched = patchToolSchemaForClaudeCompatibility(base);
   return {

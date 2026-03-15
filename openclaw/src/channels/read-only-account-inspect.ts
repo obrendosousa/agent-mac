@@ -10,7 +10,7 @@ import {
   inspectTelegramAccount,
   type InspectedTelegramAccount,
 } from "../../extensions/telegram/src/account-inspect.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { ChappieConfig } from "../config/config.js";
 import type { ChannelId } from "./plugins/types.js";
 
 export type ReadOnlyInspectedAccount =
@@ -20,7 +20,7 @@ export type ReadOnlyInspectedAccount =
 
 export function inspectReadOnlyChannelAccount(params: {
   channelId: ChannelId;
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   accountId?: string | null;
 }): ReadOnlyInspectedAccount | null {
   if (params.channelId === "discord") {

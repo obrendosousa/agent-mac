@@ -10,7 +10,7 @@ import { PollLayoutType } from "discord-api-types/payloads/v10";
 import type { RESTAPIPoll } from "discord-api-types/rest/v10";
 import { Routes, type APIChannel, type APIEmbed } from "discord-api-types/v10";
 import type { ChunkMode } from "../../../src/auto-reply/chunk.js";
-import { loadConfig, type OpenClawConfig } from "../../../src/config/config.js";
+import { loadConfig, type ChappieConfig } from "../../../src/config/config.js";
 import type { RetryRunner } from "../../../src/infra/retry-policy.js";
 import { buildOutboundMediaLoadOptions } from "../../../src/media/load-options.js";
 import {
@@ -84,7 +84,7 @@ function parseRecipient(raw: string): DiscordRecipient {
 export async function parseAndResolveRecipient(
   raw: string,
   accountId?: string,
-  cfg?: OpenClawConfig,
+  cfg?: ChappieConfig,
 ): Promise<DiscordRecipient> {
   const resolvedCfg = cfg ?? loadConfig();
   const accountInfo = resolveDiscordAccount({ cfg: resolvedCfg, accountId });

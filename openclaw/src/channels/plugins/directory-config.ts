@@ -2,7 +2,7 @@ import { inspectDiscordAccount } from "../../../extensions/discord/src/account-i
 import { inspectSlackAccount } from "../../../extensions/slack/src/account-inspect.js";
 import { inspectTelegramAccount } from "../../../extensions/telegram/src/account-inspect.js";
 import { resolveWhatsAppAccount } from "../../../extensions/whatsapp/src/accounts.js";
-import type { OpenClawConfig } from "../../config/types.js";
+import type { ChappieConfig } from "../../config/types.js";
 import { mapAllowFromEntries } from "../../plugin-sdk/channel-config-helpers.js";
 import { isWhatsAppGroupJid, normalizeWhatsAppTarget } from "../../whatsapp/normalize.js";
 import { applyDirectoryQueryAndLimit, toDirectoryEntries } from "./directory-config-helpers.js";
@@ -10,7 +10,7 @@ import { normalizeSlackMessagingTarget } from "./normalize/slack.js";
 import type { ChannelDirectoryEntry } from "./types.js";
 
 export type DirectoryConfigParams = {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   accountId?: string | null;
   query?: string | null;
   limit?: number | null;

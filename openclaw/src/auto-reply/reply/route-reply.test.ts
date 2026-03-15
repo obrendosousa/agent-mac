@@ -7,7 +7,7 @@ import { slackOutbound } from "../../channels/plugins/outbound/slack.js";
 import { telegramOutbound } from "../../channels/plugins/outbound/telegram.js";
 import { whatsappOutbound } from "../../channels/plugins/outbound/whatsapp.js";
 import type { ChannelOutboundAdapter, ChannelPlugin } from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { ChappieConfig } from "../../config/config.js";
 import type { PluginRegistry } from "../../plugins/registry.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createOutboundTestPlugin, createTestRegistry } from "../../test-utils/channel-plugins.js";
@@ -192,8 +192,8 @@ describe("routeReply", () => {
   it("applies responsePrefix when routing", async () => {
     mocks.sendMessageSlack.mockClear();
     const cfg = {
-      messages: { responsePrefix: "[openclaw]" },
-    } as unknown as OpenClawConfig;
+      messages: { responsePrefix: "[chappie]" },
+    } as unknown as ChappieConfig;
     await routeReply({
       payload: { text: "hi" },
       channel: "slack",
@@ -202,7 +202,7 @@ describe("routeReply", () => {
     });
     expect(mocks.sendMessageSlack).toHaveBeenCalledWith(
       "channel:C123",
-      "[openclaw] hi",
+      "[chappie] hi",
       expect.any(Object),
     );
   });
@@ -215,7 +215,7 @@ describe("routeReply", () => {
           capabilities: { interactiveReplies: true },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as ChappieConfig;
     await routeReply({
       payload: { text: "[[slack_select: Choose one | Alpha:alpha]]" },
       channel: "slack",
@@ -229,7 +229,7 @@ describe("routeReply", () => {
         blocks: [
           expect.objectContaining({
             type: "actions",
-            block_id: "openclaw_reply_select_1",
+            block_id: "chappie_reply_select_1",
           }),
         ],
       }),
@@ -259,7 +259,7 @@ describe("routeReply", () => {
         ],
       },
       messages: {},
-    } as unknown as OpenClawConfig;
+    } as unknown as ChappieConfig;
     await routeReply({
       payload: { text: "hi" },
       channel: "slack",
@@ -393,7 +393,7 @@ describe("routeReply", () => {
             baseUrl: "https://chat.example.com",
           },
         },
-      } as unknown as OpenClawConfig,
+      } as unknown as ChappieConfig,
     });
     expect(mocks.deliverOutboundPayloads).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -463,7 +463,7 @@ describe("routeReply", () => {
           enabled: true,
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as ChappieConfig;
     await routeReply({
       payload: { text: "hi" },
       channel: "msteams",

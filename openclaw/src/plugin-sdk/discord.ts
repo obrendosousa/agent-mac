@@ -1,5 +1,5 @@
 export type { ChannelMessageActionAdapter } from "../channels/plugins/types.js";
-export type { OpenClawConfig } from "../config/config.js";
+export type { ChappieConfig } from "../config/config.js";
 export type { InspectedDiscordAccount } from "../../extensions/discord/src/account-inspect.js";
 export type { ResolvedDiscordAccount } from "../../extensions/discord/src/accounts.js";
 export * from "./channel-plugin-common.js";

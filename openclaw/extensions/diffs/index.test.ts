@@ -1,5 +1,5 @@
 import type { IncomingMessage } from "node:http";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/diffs";
+import type { ChappiePluginApi } from "chappie/plugin-sdk/diffs";
 import { describe, expect, it, vi } from "vitest";
 import { createMockServerResponse } from "../../src/test-utils/mock-http-response.js";
 import { createTestPluginApi } from "../test-utils/plugin-api.js";
@@ -46,7 +46,7 @@ describe("diffs plugin registration", () => {
     type RegisteredTool = {
       execute?: (toolCallId: string, params: Record<string, unknown>) => Promise<unknown>;
     };
-    type RegisteredHttpRouteParams = Parameters<OpenClawPluginApi["registerHttpRoute"]>[0];
+    type RegisteredHttpRouteParams = Parameters<ChappiePluginApi["registerHttpRoute"]>[0];
 
     let registeredTool: RegisteredTool | undefined;
     let registeredHttpRouteHandler: RegisteredHttpRouteParams["handler"] | undefined;
@@ -74,7 +74,7 @@ describe("diffs plugin registration", () => {
         },
       },
       runtime: {} as never,
-      registerTool(tool: Parameters<OpenClawPluginApi["registerTool"]>[0]) {
+      registerTool(tool: Parameters<ChappiePluginApi["registerTool"]>[0]) {
         registeredTool = typeof tool === "function" ? undefined : tool;
       },
       registerHttpRoute(params: RegisteredHttpRouteParams) {
@@ -82,7 +82,7 @@ describe("diffs plugin registration", () => {
       },
     });
 
-    plugin.register?.(api as unknown as OpenClawPluginApi);
+    plugin.register?.(api as unknown as ChappiePluginApi);
 
     const result = await registeredTool?.execute?.("tool-1", {
       before: "one\n",

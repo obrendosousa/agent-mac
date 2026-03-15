@@ -3,7 +3,7 @@
 
 export { emptyPluginConfigSchema } from "../plugins/config-schema.js";
 export type {
-  OpenClawPluginApi,
+  ChappiePluginApi,
   ProviderAuthContext,
   ProviderAuthResult,
 } from "../plugins/types.js";

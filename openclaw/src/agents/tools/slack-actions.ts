@@ -19,7 +19,7 @@ import {
 import { parseSlackBlocksInput } from "../../../extensions/slack/src/blocks-input.js";
 import { recordSlackThreadParticipation } from "../../../extensions/slack/src/sent-thread-cache.js";
 import { parseSlackTarget, resolveSlackChannelId } from "../../../extensions/slack/src/targets.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { ChappieConfig } from "../../config/config.js";
 import { withNormalizedTimestamp } from "../date-time.js";
 import {
   createActionGate,
@@ -104,7 +104,7 @@ function readSlackBlocksParam(params: Record<string, unknown>) {
 
 export async function handleSlackAction(
   params: Record<string, unknown>,
-  cfg: OpenClawConfig,
+  cfg: ChappieConfig,
   context?: SlackActionContext,
 ): Promise<AgentToolResult<unknown>> {
   const resolveChannelId = () =>

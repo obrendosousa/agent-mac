@@ -1,7 +1,7 @@
 import { resolveCommandSecretRefsViaGateway } from "../cli/command-secret-gateway.js";
 import { getStatusCommandSecretTargetIds } from "../cli/command-secret-targets.js";
 import { withProgress } from "../cli/progress.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { ChappieConfig } from "../config/config.js";
 import { readBestEffortConfig } from "../config/config.js";
 import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.js";
 import { normalizeControlUiBasePath } from "../gateway/control-ui-shared.js";
@@ -60,7 +60,7 @@ function unwrapDeferredResult<T>(result: DeferredResult<T>): T {
   return result.value;
 }
 
-function resolveMemoryPluginStatus(cfg: OpenClawConfig): MemoryPluginStatus {
+function resolveMemoryPluginStatus(cfg: ChappieConfig): MemoryPluginStatus {
   const pluginsEnabled = cfg.plugins?.enabled !== false;
   if (!pluginsEnabled) {
     return { enabled: false, slot: null, reason: "plugins disabled" };
@@ -73,7 +73,7 @@ function resolveMemoryPluginStatus(cfg: OpenClawConfig): MemoryPluginStatus {
 }
 
 async function resolveGatewayProbeSnapshot(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   opts: { timeoutMs?: number; all?: boolean };
 }): Promise<GatewayProbeSnapshot> {
   const gatewayConnection = buildGatewayConnectionDetails({ config: params.cfg });
@@ -108,7 +108,7 @@ async function resolveGatewayProbeSnapshot(params: {
 }
 
 async function resolveChannelsStatus(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   gatewayReachable: boolean;
   opts: { timeoutMs?: number; all?: boolean };
 }) {
@@ -127,8 +127,8 @@ async function resolveChannelsStatus(params: {
 }
 
 export type StatusScanResult = {
-  cfg: OpenClawConfig;
-  sourceConfig: OpenClawConfig;
+  cfg: ChappieConfig;
+  sourceConfig: ChappieConfig;
   secretDiagnostics: string[];
   osSummary: ReturnType<typeof resolveOsSummary>;
   tailscaleMode: string;
@@ -155,7 +155,7 @@ export type StatusScanResult = {
 };
 
 async function resolveMemoryStatusSnapshot(params: {
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   agentStatus: Awaited<ReturnType<typeof getAgentLocalStatuses>>;
   memoryPlugin: MemoryPluginStatus;
 }): Promise<MemoryStatusSnapshot | null> {
@@ -355,8 +355,8 @@ export async function scanStatus(
       progress.setLabel("Summarizing channels…");
       const channels = await buildChannelsTable(cfg, {
         // Show token previews in regular status; keep `status --all` redacted.
-        // Set `CLAWDBOT_SHOW_SECRETS=0` to force redaction.
-        showSecrets: process.env.CLAWDBOT_SHOW_SECRETS?.trim() !== "0",
+        // Set `CHAPPIEDBOT_SHOW_SECRETS=0` to force redaction.
+        showSecrets: process.env.CHAPPIEDBOT_SHOW_SECRETS?.trim() !== "0",
         sourceConfig: loadedRaw,
       });
       progress.tick();

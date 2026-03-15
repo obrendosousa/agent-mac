@@ -1,6 +1,6 @@
 import type { Bot } from "grammy";
 import type { HistoryEntry } from "../../../src/auto-reply/reply/history.js";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { ChappieConfig } from "../../../src/config/config.js";
 import type {
   DmPolicy,
   TelegramDirectConfig,
@@ -48,7 +48,7 @@ export type BuildTelegramMessageContextParams = {
   storeAllowFrom: string[];
   options?: TelegramMessageContextOptions;
   bot: Bot;
-  cfg: OpenClawConfig;
+  cfg: ChappieConfig;
   account: { accountId: string };
   historyLimit: number;
   groupHistories: Map<string, HistoryEntry[]>;

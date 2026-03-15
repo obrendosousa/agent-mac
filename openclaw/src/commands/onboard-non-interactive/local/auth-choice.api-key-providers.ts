@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../../config/config.js";
+import type { ChappieConfig } from "../../../config/config.js";
 import type { SecretInput } from "../../../config/types.secrets.js";
 import type { RuntimeEnv } from "../../../runtime.js";
 import { applyGoogleGeminiModelDefault } from "../../google-gemini-model-default.js";
@@ -62,7 +62,7 @@ type SimpleApiKeyAuthChoice = {
   envVar: string;
   profileId: string;
   setCredential: (value: SecretInput, options?: ApiKeyStorageOptions) => Promise<void> | void;
-  applyConfig: (cfg: OpenClawConfig) => OpenClawConfig;
+  applyConfig: (cfg: ChappieConfig) => ChappieConfig;
 };
 
 type ResolvedNonInteractiveApiKey = {
@@ -496,14 +496,14 @@ function buildSimpleApiKeyAuthChoices(params: { opts: OnboardOptions }): SimpleA
 
 export async function applySimpleNonInteractiveApiKeyChoice(params: {
   authChoice: AuthChoice;
-  nextConfig: OpenClawConfig;
-  baseConfig: OpenClawConfig;
+  nextConfig: ChappieConfig;
+  baseConfig: ChappieConfig;
   opts: OnboardOptions;
   runtime: RuntimeEnv;
   apiKeyStorageOptions?: ApiKeyStorageOptions;
   resolveApiKey: (input: {
     provider: string;
-    cfg: OpenClawConfig;
+    cfg: ChappieConfig;
     flagValue?: string;
     flagName: `--${string}`;
     envVar: string;
@@ -513,7 +513,7 @@ export async function applySimpleNonInteractiveApiKeyChoice(params: {
     resolved: ResolvedNonInteractiveApiKey,
     setter: (value: SecretInput) => Promise<void> | void,
   ) => Promise<boolean>;
-}): Promise<OpenClawConfig | null | undefined> {
+}): Promise<ChappieConfig | null | undefined> {
   const definition = buildSimpleApiKeyAuthChoices({
     opts: params.opts,
   }).find((entry) => entry.authChoices.includes(params.authChoice));

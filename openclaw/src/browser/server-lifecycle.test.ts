@@ -5,8 +5,8 @@ const { resolveProfileMock, ensureChromeExtensionRelayServerMock } = vi.hoisted(
   ensureChromeExtensionRelayServerMock: vi.fn(),
 }));
 
-const { stopOpenClawChromeMock, stopChromeExtensionRelayServerMock } = vi.hoisted(() => ({
-  stopOpenClawChromeMock: vi.fn(async () => {}),
+const { stopChappieChromeMock, stopChromeExtensionRelayServerMock } = vi.hoisted(() => ({
+  stopChappieChromeMock: vi.fn(async () => {}),
   stopChromeExtensionRelayServerMock: vi.fn(async () => true),
 }));
 
@@ -16,7 +16,7 @@ const { createBrowserRouteContextMock, listKnownProfileNamesMock } = vi.hoisted(
 }));
 
 vi.mock("./chrome.js", () => ({
-  stopOpenClawChrome: stopOpenClawChromeMock,
+  stopChappieChrome: stopChappieChromeMock,
 }));
 
 vi.mock("./config.js", () => ({
@@ -46,7 +46,7 @@ describe("ensureExtensionRelayForProfiles", () => {
       if (name === "chrome-relay") {
         return { driver: "extension", cdpUrl: "http://127.0.0.1:18888" };
       }
-      return { driver: "openclaw", cdpUrl: "http://127.0.0.1:18889" };
+      return { driver: "chappie", cdpUrl: "http://127.0.0.1:18889" };
     });
     ensureChromeExtensionRelayServerMock.mockResolvedValue(undefined);
 
@@ -54,7 +54,7 @@ describe("ensureExtensionRelayForProfiles", () => {
       resolved: {
         profiles: {
           "chrome-relay": {},
-          openclaw: {},
+          chappie: {},
         },
       } as never,
       onWarn: vi.fn(),
@@ -86,14 +86,14 @@ describe("stopKnownBrowserProfiles", () => {
   beforeEach(() => {
     createBrowserRouteContextMock.mockClear();
     listKnownProfileNamesMock.mockClear();
-    stopOpenClawChromeMock.mockClear();
+    stopChappieChromeMock.mockClear();
     stopChromeExtensionRelayServerMock.mockClear();
   });
 
   it("stops all known profiles and ignores per-profile failures", async () => {
-    listKnownProfileNamesMock.mockReturnValue(["openclaw", "chrome-relay"]);
+    listKnownProfileNamesMock.mockReturnValue(["chappie", "chrome-relay"]);
     const stopMap: Record<string, ReturnType<typeof vi.fn>> = {
-      openclaw: vi.fn(async () => {}),
+      chappie: vi.fn(async () => {}),
       "chrome-relay": vi.fn(async () => {
         throw new Error("profile stop failed");
       }),
@@ -111,7 +111,7 @@ describe("stopKnownBrowserProfiles", () => {
       onWarn,
     });
 
-    expect(stopMap.openclaw).toHaveBeenCalledTimes(1);
+    expect(stopMap.chappie).toHaveBeenCalledTimes(1);
     expect(stopMap["chrome-relay"]).toHaveBeenCalledTimes(1);
     expect(onWarn).not.toHaveBeenCalled();
   });
@@ -126,7 +126,7 @@ describe("stopKnownBrowserProfiles", () => {
     const localRuntime = {
       profile: {
         name: "deleted-local",
-        driver: "openclaw",
+        driver: "chappie",
       },
       running: {
         pid: 42,
@@ -156,7 +156,7 @@ describe("stopKnownBrowserProfiles", () => {
       onWarn: vi.fn(),
     });
 
-    expect(stopOpenClawChromeMock).toHaveBeenCalledWith(launchedBrowser);
+    expect(stopChappieChromeMock).toHaveBeenCalledWith(launchedBrowser);
     expect(localRuntime.running).toBeNull();
     expect(stopChromeExtensionRelayServerMock).toHaveBeenCalledWith({
       cdpUrl: "http://127.0.0.1:19999",
@@ -177,6 +177,6 @@ describe("stopKnownBrowserProfiles", () => {
       onWarn,
     });
 
-    expect(onWarn).toHaveBeenCalledWith("openclaw browser stop failed: Error: oops");
+    expect(onWarn).toHaveBeenCalledWith("chappie browser stop failed: Error: oops");
   });
 });

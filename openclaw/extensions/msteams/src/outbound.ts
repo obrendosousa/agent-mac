@@ -1,4 +1,4 @@
-import type { ChannelOutboundAdapter } from "openclaw/plugin-sdk/msteams";
+import type { ChannelOutboundAdapter } from "chappie/plugin-sdk/msteams";
 import { resolveOutboundSendDep } from "../../../src/infra/outbound/send-deps.js";
 import { createMSTeamsPollStoreFs } from "./polls.js";
 import { getMSTeamsRuntime } from "./runtime.js";

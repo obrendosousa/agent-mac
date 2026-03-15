@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { ChappieConfig } from "../config/config.js";
 import { getMemorySearchManager, type MemoryIndexManager } from "./index.js";
 import {
   closeAllMemoryIndexManagers,
@@ -38,7 +38,7 @@ describe("memory manager cache hydration", () => {
   let workspaceDir = "";
 
   beforeEach(async () => {
-    workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-mem-concurrent-"));
+    workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "chappie-mem-concurrent-"));
     await fs.mkdir(path.join(workspaceDir, "memory"), { recursive: true });
     await fs.writeFile(path.join(workspaceDir, "MEMORY.md"), "Hello memory.");
     hoisted.providerCreateCalls = 0;
@@ -49,7 +49,7 @@ describe("memory manager cache hydration", () => {
     await fs.rm(workspaceDir, { recursive: true, force: true });
   });
 
-  function createMemoryConcurrencyConfig(indexPath: string): OpenClawConfig {
+  function createMemoryConcurrencyConfig(indexPath: string): ChappieConfig {
     return {
       agents: {
         defaults: {
@@ -63,7 +63,7 @@ describe("memory manager cache hydration", () => {
         },
         list: [{ id: "main", default: true }],
       },
-    } as OpenClawConfig;
+    } as ChappieConfig;
   }
 
   it("deduplicates concurrent manager creation for the same cache key", async () => {

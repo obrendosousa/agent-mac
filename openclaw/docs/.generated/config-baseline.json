@@ -1331,7 +1331,7 @@
       "sensitive": false,
       "tags": ["advanced"],
       "label": "Embedded Pi",
-      "help": "Embedded Pi runner hardening controls for how workspace-local Pi settings are trusted and applied in OpenClaw sessions.",
+      "help": "Embedded Pi runner hardening controls for how workspace-local Pi settings are trusted and applied in Chappie sessions.",
       "hasChildren": true
     },
     {
@@ -2330,7 +2330,7 @@
       "sensitive": false,
       "tags": ["storage"],
       "label": "Memory Search Index Path",
-      "help": "Sets where the SQLite memory index is stored on disk for each agent. Keep the default `~/.openclaw/memory/{agentId}.sqlite` unless you need custom storage placement or backup policy alignment.",
+      "help": "Sets where the SQLite memory index is stored on disk for each agent. Keep the default `~/.chappie/memory/{agentId}.sqlite` unless you need custom storage placement or backup policy alignment.",
       "hasChildren": false
     },
     {
@@ -2817,7 +2817,7 @@
       "sensitive": false,
       "tags": ["storage"],
       "label": "Sandbox Browser Network",
-      "help": "Docker network for sandbox browser containers (default: openclaw-sandbox-browser). Avoid bridge if you need stricter isolation.",
+      "help": "Docker network for sandbox browser containers (default: chappie-sandbox-browser). Avoid bridge if you need stricter isolation.",
       "hasChildren": false
     },
     {
@@ -4620,7 +4620,7 @@
       "sensitive": false,
       "tags": ["advanced"],
       "label": "Agent Runtime",
-      "help": "Optional runtime descriptor for this agent. Use embedded for default OpenClaw execution or acp for external ACP harness defaults.",
+      "help": "Optional runtime descriptor for this agent. Use embedded for default Chappie execution or acp for external ACP harness defaults.",
       "hasChildren": true
     },
     {
@@ -4644,7 +4644,7 @@
       "sensitive": false,
       "tags": ["advanced"],
       "label": "Agent ACP Harness Agent",
-      "help": "Optional ACP harness agent id to use for this OpenClaw agent (for example codex, claude).",
+      "help": "Optional ACP harness agent id to use for this Chappie agent (for example codex, claude).",
       "hasChildren": false
     },
     {
@@ -4693,7 +4693,7 @@
       "sensitive": false,
       "tags": ["advanced"],
       "label": "Agent Runtime Type",
-      "help": "Runtime type for this agent: \"embedded\" (default OpenClaw runtime) or \"acp\" (ACP harness defaults).",
+      "help": "Runtime type for this agent: \"embedded\" (default Chappie runtime) or \"acp\" (ACP harness defaults).",
       "hasChildren": false
     },
     {
@@ -7031,7 +7031,7 @@
       "sensitive": false,
       "tags": ["storage"],
       "label": "Browser Profile Driver",
-      "help": "Per-profile browser driver mode: \"openclaw\" (or legacy \"clawd\") or \"extension\" depending on connection/runtime strategy. Use the driver that matches your browser control stack to avoid protocol mismatches.",
+      "help": "Per-profile browser driver mode: \"chappie\" (or legacy \"clawd\") or \"extension\" depending on connection/runtime strategy. Use the driver that matches your browser control stack to avoid protocol mismatches.",
       "hasChildren": false
     },
     {
@@ -11477,7 +11477,7 @@
       "sensitive": false,
       "tags": ["channels", "network", "performance"],
       "label": "Discord EventQueue Listener Timeout (ms)",
-      "help": "Canonical Discord listener timeout control in ms for gateway normalization/enqueue handlers. Default is 120000 in OpenClaw; set per account via channels.discord.accounts.<id>.eventQueue.listenerTimeout.",
+      "help": "Canonical Discord listener timeout control in ms for gateway normalization/enqueue handlers. Default is 120000 in Chappie; set per account via channels.discord.accounts.<id>.eventQueue.listenerTimeout.",
       "hasChildren": false
     },
     {
@@ -26377,7 +26377,7 @@
       "sensitive": false,
       "tags": ["channels", "network"],
       "label": "Synology Chat",
-      "help": "Connect your Synology NAS Chat to OpenClaw",
+      "help": "Connect your Synology NAS Chat to Chappie",
       "hasChildren": true
     },
     {
@@ -33779,7 +33779,7 @@
       "sensitive": false,
       "tags": ["observability", "storage"],
       "label": "Cache Trace File Path",
-      "help": "JSONL output path for cache trace logs (default: $OPENCLAW_STATE_DIR/logs/cache-trace.jsonl).",
+      "help": "JSONL output path for cache trace logs (default: $CHAPPIE_STATE_DIR/logs/cache-trace.jsonl).",
       "hasChildren": false
     },
     {
@@ -34064,7 +34064,7 @@
       "sensitive": false,
       "tags": ["network"],
       "label": "Wide-area Discovery Domain",
-      "help": "Optional unicast DNS-SD domain for wide-area discovery, such as openclaw.internal. Use this when you intentionally publish gateway discovery beyond local mDNS scopes.",
+      "help": "Optional unicast DNS-SD domain for wide-area discovery, such as chappie.internal. Use this when you intentionally publish gateway discovery beyond local mDNS scopes.",
       "hasChildren": false
     },
     {
@@ -34146,7 +34146,7 @@
       "sensitive": false,
       "tags": ["advanced"],
       "label": "Environment Variable Overrides",
-      "help": "Explicit key/value environment variable overrides merged into runtime process environment for OpenClaw. Use this for deterministic env configuration instead of relying only on shell profile side effects.",
+      "help": "Explicit key/value environment variable overrides merged into runtime process environment for Chappie. Use this for deterministic env configuration instead of relying only on shell profile side effects.",
       "hasChildren": true
     },
     {
@@ -34496,7 +34496,7 @@
       "sensitive": false,
       "tags": ["network", "storage"],
       "label": "Control UI Base Path",
-      "help": "Optional URL prefix where the Control UI is served (e.g. /openclaw).",
+      "help": "Optional URL prefix where the Control UI is served (e.g. /chappie).",
       "hasChildren": false
     },
     {
@@ -35070,7 +35070,7 @@
       "sensitive": false,
       "tags": ["access", "network"],
       "label": "Gateway Node Allowlist (Extra Commands)",
-      "help": "Extra node.invoke commands to allow beyond the gateway defaults (array of command strings). Enabling dangerous commands here is a security-sensitive override and is flagged by `openclaw security audit`.",
+      "help": "Extra node.invoke commands to allow beyond the gateway defaults (array of command strings). Enabling dangerous commands here is a security-sensitive override and is flagged by `chappie security audit`.",
       "hasChildren": true
     },
     {
@@ -35598,7 +35598,7 @@
       "sensitive": false,
       "tags": ["advanced"],
       "label": "Hooks",
-      "help": "Inbound webhook automation surface for mapping external events into wake or agent actions in OpenClaw. Keep this locked down with explicit token/session/agent controls before exposing it beyond trusted networks.",
+      "help": "Inbound webhook automation surface for mapping external events into wake or agent actions in Chappie. Keep this locked down with explicit token/session/agent controls before exposing it beyond trusted networks.",
       "hasChildren": true
     },
     {
@@ -36777,7 +36777,7 @@
       "sensitive": false,
       "tags": ["storage"],
       "label": "Memory Backend",
-      "help": "Selects the global memory engine: \"builtin\" uses OpenClaw memory internals, while \"qmd\" uses the QMD sidecar pipeline. Keep \"builtin\" unless you intentionally operate QMD.",
+      "help": "Selects the global memory engine: \"builtin\" uses Chappie memory internals, while \"qmd\" uses the QMD sidecar pipeline. Keep \"builtin\" unless you intentionally operate QMD.",
       "hasChildren": false
     },
     {
@@ -38384,7 +38384,7 @@
       "sensitive": false,
       "tags": ["advanced"],
       "label": "Metadata",
-      "help": "Metadata fields automatically maintained by OpenClaw to record write/version history for this config file. Keep these values system-managed and avoid manual edits unless debugging migration history.",
+      "help": "Metadata fields automatically maintained by Chappie to record write/version history for this config file. Keep these values system-managed and avoid manual edits unless debugging migration history.",
       "hasChildren": true
     },
     {
@@ -38408,7 +38408,7 @@
       "sensitive": false,
       "tags": ["media"],
       "label": "Config Last Touched Version",
-      "help": "Auto-set when OpenClaw writes the config.",
+      "help": "Auto-set when Chappie writes the config.",
       "hasChildren": false
     },
     {
@@ -38712,7 +38712,7 @@
       "sensitive": false,
       "tags": ["models"],
       "label": "Model Provider Inject num_ctx (OpenAI Compat)",
-      "help": "Controls whether OpenClaw injects `options.num_ctx` for Ollama providers configured with the OpenAI-compatible adapter (`openai-completions`). Default is true. Set false only if your proxy/upstream rejects unknown `options` payload fields.",
+      "help": "Controls whether Chappie injects `options.num_ctx` for Ollama providers configured with the OpenAI-compatible adapter (`openai-completions`). Default is true. Set false only if your proxy/upstream rejects unknown `options` payload fields.",
       "hasChildren": false
     },
     {
@@ -39409,7 +39409,7 @@
       "sensitive": false,
       "tags": ["access", "advanced"],
       "label": "Queue Owner TTL Seconds",
-      "help": "Idle queue-owner TTL for acpx prompt turns. Keep this short in OpenClaw to avoid delayed completion after each turn.",
+      "help": "Idle queue-owner TTL for acpx prompt turns. Keep this short in Chappie to avoid delayed completion after each turn.",
       "hasChildren": false
     },
     {
@@ -39479,8 +39479,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/bluebubbles",
-      "help": "OpenClaw BlueBubbles channel plugin (plugin: bluebubbles)",
+      "label": "@chappie/bluebubbles",
+      "help": "Chappie BlueBubbles channel plugin (plugin: bluebubbles)",
       "hasChildren": true
     },
     {
@@ -39491,7 +39491,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/bluebubbles Config",
+      "label": "@chappie/bluebubbles Config",
       "help": "Plugin-defined config payload for bluebubbles.",
       "hasChildren": false
     },
@@ -39503,7 +39503,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/bluebubbles",
+      "label": "Enable @chappie/bluebubbles",
       "hasChildren": false
     },
     {
@@ -39538,8 +39538,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/copilot-proxy",
-      "help": "OpenClaw Copilot Proxy provider plugin (plugin: copilot-proxy)",
+      "label": "@chappie/copilot-proxy",
+      "help": "Chappie Copilot Proxy provider plugin (plugin: copilot-proxy)",
       "hasChildren": true
     },
     {
@@ -39550,7 +39550,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/copilot-proxy Config",
+      "label": "@chappie/copilot-proxy Config",
       "help": "Plugin-defined config payload for copilot-proxy.",
       "hasChildren": false
     },
@@ -39562,7 +39562,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/copilot-proxy",
+      "label": "Enable @chappie/copilot-proxy",
       "hasChildren": false
     },
     {
@@ -39668,8 +39668,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["observability"],
-      "label": "@openclaw/diagnostics-otel",
-      "help": "OpenClaw diagnostics OpenTelemetry exporter (plugin: diagnostics-otel)",
+      "label": "@chappie/diagnostics-otel",
+      "help": "Chappie diagnostics OpenTelemetry exporter (plugin: diagnostics-otel)",
       "hasChildren": true
     },
     {
@@ -39680,7 +39680,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["observability"],
-      "label": "@openclaw/diagnostics-otel Config",
+      "label": "@chappie/diagnostics-otel Config",
       "help": "Plugin-defined config payload for diagnostics-otel.",
       "hasChildren": false
     },
@@ -39692,7 +39692,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["observability"],
-      "label": "Enable @openclaw/diagnostics-otel",
+      "label": "Enable @chappie/diagnostics-otel",
       "hasChildren": false
     },
     {
@@ -40060,8 +40060,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/discord",
-      "help": "OpenClaw Discord channel plugin (plugin: discord)",
+      "label": "@chappie/discord",
+      "help": "Chappie Discord channel plugin (plugin: discord)",
       "hasChildren": true
     },
     {
@@ -40072,7 +40072,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/discord Config",
+      "label": "@chappie/discord Config",
       "help": "Plugin-defined config payload for discord.",
       "hasChildren": false
     },
@@ -40084,7 +40084,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/discord",
+      "label": "Enable @chappie/discord",
       "hasChildren": false
     },
     {
@@ -40119,8 +40119,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/feishu",
-      "help": "OpenClaw Feishu/Lark channel plugin (community maintained by @m1heng) (plugin: feishu)",
+      "label": "@chappie/feishu",
+      "help": "Chappie Feishu/Lark channel plugin (community maintained by @m1heng) (plugin: feishu)",
       "hasChildren": true
     },
     {
@@ -40131,7 +40131,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/feishu Config",
+      "label": "@chappie/feishu Config",
       "help": "Plugin-defined config payload for feishu.",
       "hasChildren": false
     },
@@ -40143,7 +40143,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/feishu",
+      "label": "Enable @chappie/feishu",
       "hasChildren": false
     },
     {
@@ -40178,8 +40178,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/google-gemini-cli-auth",
-      "help": "OpenClaw Gemini CLI OAuth provider plugin (plugin: google-gemini-cli-auth)",
+      "label": "@chappie/google-gemini-cli-auth",
+      "help": "Chappie Gemini CLI OAuth provider plugin (plugin: google-gemini-cli-auth)",
       "hasChildren": true
     },
     {
@@ -40190,7 +40190,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/google-gemini-cli-auth Config",
+      "label": "@chappie/google-gemini-cli-auth Config",
       "help": "Plugin-defined config payload for google-gemini-cli-auth.",
       "hasChildren": false
     },
@@ -40202,7 +40202,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/google-gemini-cli-auth",
+      "label": "Enable @chappie/google-gemini-cli-auth",
       "hasChildren": false
     },
     {
@@ -40237,8 +40237,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/googlechat",
-      "help": "OpenClaw Google Chat channel plugin (plugin: googlechat)",
+      "label": "@chappie/googlechat",
+      "help": "Chappie Google Chat channel plugin (plugin: googlechat)",
       "hasChildren": true
     },
     {
@@ -40249,7 +40249,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/googlechat Config",
+      "label": "@chappie/googlechat Config",
       "help": "Plugin-defined config payload for googlechat.",
       "hasChildren": false
     },
@@ -40261,7 +40261,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/googlechat",
+      "label": "Enable @chappie/googlechat",
       "hasChildren": false
     },
     {
@@ -40296,8 +40296,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/imessage",
-      "help": "OpenClaw iMessage channel plugin (plugin: imessage)",
+      "label": "@chappie/imessage",
+      "help": "Chappie iMessage channel plugin (plugin: imessage)",
       "hasChildren": true
     },
     {
@@ -40308,7 +40308,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/imessage Config",
+      "label": "@chappie/imessage Config",
       "help": "Plugin-defined config payload for imessage.",
       "hasChildren": false
     },
@@ -40320,7 +40320,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/imessage",
+      "label": "Enable @chappie/imessage",
       "hasChildren": false
     },
     {
@@ -40355,8 +40355,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/irc",
-      "help": "OpenClaw IRC channel plugin (plugin: irc)",
+      "label": "@chappie/irc",
+      "help": "Chappie IRC channel plugin (plugin: irc)",
       "hasChildren": true
     },
     {
@@ -40367,7 +40367,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/irc Config",
+      "label": "@chappie/irc Config",
       "help": "Plugin-defined config payload for irc.",
       "hasChildren": false
     },
@@ -40379,7 +40379,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/irc",
+      "label": "Enable @chappie/irc",
       "hasChildren": false
     },
     {
@@ -40414,8 +40414,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/line",
-      "help": "OpenClaw LINE channel plugin (plugin: line)",
+      "label": "@chappie/line",
+      "help": "Chappie LINE channel plugin (plugin: line)",
       "hasChildren": true
     },
     {
@@ -40426,7 +40426,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/line Config",
+      "label": "@chappie/line Config",
       "help": "Plugin-defined config payload for line.",
       "hasChildren": false
     },
@@ -40438,7 +40438,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/line",
+      "label": "Enable @chappie/line",
       "hasChildren": false
     },
     {
@@ -40661,8 +40661,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/matrix",
-      "help": "OpenClaw Matrix channel plugin (plugin: matrix)",
+      "label": "@chappie/matrix",
+      "help": "Chappie Matrix channel plugin (plugin: matrix)",
       "hasChildren": true
     },
     {
@@ -40673,7 +40673,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/matrix Config",
+      "label": "@chappie/matrix Config",
       "help": "Plugin-defined config payload for matrix.",
       "hasChildren": false
     },
@@ -40685,7 +40685,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/matrix",
+      "label": "Enable @chappie/matrix",
       "hasChildren": false
     },
     {
@@ -40720,8 +40720,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/mattermost",
-      "help": "OpenClaw Mattermost channel plugin (plugin: mattermost)",
+      "label": "@chappie/mattermost",
+      "help": "Chappie Mattermost channel plugin (plugin: mattermost)",
       "hasChildren": true
     },
     {
@@ -40732,7 +40732,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/mattermost Config",
+      "label": "@chappie/mattermost Config",
       "help": "Plugin-defined config payload for mattermost.",
       "hasChildren": false
     },
@@ -40744,7 +40744,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/mattermost",
+      "label": "Enable @chappie/mattermost",
       "hasChildren": false
     },
     {
@@ -40779,8 +40779,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/memory-core",
-      "help": "OpenClaw core memory search plugin (plugin: memory-core)",
+      "label": "@chappie/memory-core",
+      "help": "Chappie core memory search plugin (plugin: memory-core)",
       "hasChildren": true
     },
     {
@@ -40791,7 +40791,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/memory-core Config",
+      "label": "@chappie/memory-core Config",
       "help": "Plugin-defined config payload for memory-core.",
       "hasChildren": false
     },
@@ -40803,7 +40803,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/memory-core",
+      "label": "Enable @chappie/memory-core",
       "hasChildren": false
     },
     {
@@ -40838,8 +40838,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["storage"],
-      "label": "@openclaw/memory-lancedb",
-      "help": "OpenClaw LanceDB-backed long-term memory plugin with auto-recall/capture (plugin: memory-lancedb)",
+      "label": "@chappie/memory-lancedb",
+      "help": "Chappie LanceDB-backed long-term memory plugin with auto-recall/capture (plugin: memory-lancedb)",
       "hasChildren": true
     },
     {
@@ -40850,7 +40850,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["storage"],
-      "label": "@openclaw/memory-lancedb Config",
+      "label": "@chappie/memory-lancedb Config",
       "help": "Plugin-defined config payload for memory-lancedb.",
       "hasChildren": true
     },
@@ -40967,7 +40967,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["storage"],
-      "label": "Enable @openclaw/memory-lancedb",
+      "label": "Enable @chappie/memory-lancedb",
       "hasChildren": false
     },
     {
@@ -41002,8 +41002,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["performance"],
-      "label": "@openclaw/minimax-portal-auth",
-      "help": "OpenClaw MiniMax Portal OAuth provider plugin (plugin: minimax-portal-auth)",
+      "label": "@chappie/minimax-portal-auth",
+      "help": "Chappie MiniMax Portal OAuth provider plugin (plugin: minimax-portal-auth)",
       "hasChildren": true
     },
     {
@@ -41014,7 +41014,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["performance"],
-      "label": "@openclaw/minimax-portal-auth Config",
+      "label": "@chappie/minimax-portal-auth Config",
       "help": "Plugin-defined config payload for minimax-portal-auth.",
       "hasChildren": false
     },
@@ -41026,7 +41026,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["performance"],
-      "label": "Enable @openclaw/minimax-portal-auth",
+      "label": "Enable @chappie/minimax-portal-auth",
       "hasChildren": false
     },
     {
@@ -41061,8 +41061,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/msteams",
-      "help": "OpenClaw Microsoft Teams channel plugin (plugin: msteams)",
+      "label": "@chappie/msteams",
+      "help": "Chappie Microsoft Teams channel plugin (plugin: msteams)",
       "hasChildren": true
     },
     {
@@ -41073,7 +41073,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/msteams Config",
+      "label": "@chappie/msteams Config",
       "help": "Plugin-defined config payload for msteams.",
       "hasChildren": false
     },
@@ -41085,7 +41085,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/msteams",
+      "label": "Enable @chappie/msteams",
       "hasChildren": false
     },
     {
@@ -41120,8 +41120,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/nextcloud-talk",
-      "help": "OpenClaw Nextcloud Talk channel plugin (plugin: nextcloud-talk)",
+      "label": "@chappie/nextcloud-talk",
+      "help": "Chappie Nextcloud Talk channel plugin (plugin: nextcloud-talk)",
       "hasChildren": true
     },
     {
@@ -41132,7 +41132,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/nextcloud-talk Config",
+      "label": "@chappie/nextcloud-talk Config",
       "help": "Plugin-defined config payload for nextcloud-talk.",
       "hasChildren": false
     },
@@ -41144,7 +41144,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/nextcloud-talk",
+      "label": "Enable @chappie/nextcloud-talk",
       "hasChildren": false
     },
     {
@@ -41179,8 +41179,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/nostr",
-      "help": "OpenClaw Nostr channel plugin for NIP-04 encrypted DMs (plugin: nostr)",
+      "label": "@chappie/nostr",
+      "help": "Chappie Nostr channel plugin for NIP-04 encrypted DMs (plugin: nostr)",
       "hasChildren": true
     },
     {
@@ -41191,7 +41191,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/nostr Config",
+      "label": "@chappie/nostr Config",
       "help": "Plugin-defined config payload for nostr.",
       "hasChildren": false
     },
@@ -41203,7 +41203,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/nostr",
+      "label": "Enable @chappie/nostr",
       "hasChildren": false
     },
     {
@@ -41238,8 +41238,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/ollama-provider",
-      "help": "OpenClaw Ollama provider plugin (plugin: ollama)",
+      "label": "@chappie/ollama-provider",
+      "help": "Chappie Ollama provider plugin (plugin: ollama)",
       "hasChildren": true
     },
     {
@@ -41250,7 +41250,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/ollama-provider Config",
+      "label": "@chappie/ollama-provider Config",
       "help": "Plugin-defined config payload for ollama.",
       "hasChildren": false
     },
@@ -41262,7 +41262,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/ollama-provider",
+      "label": "Enable @chappie/ollama-provider",
       "hasChildren": false
     },
     {
@@ -41474,8 +41474,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/sglang-provider",
-      "help": "OpenClaw SGLang provider plugin (plugin: sglang)",
+      "label": "@chappie/sglang-provider",
+      "help": "Chappie SGLang provider plugin (plugin: sglang)",
       "hasChildren": true
     },
     {
@@ -41486,7 +41486,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/sglang-provider Config",
+      "label": "@chappie/sglang-provider Config",
       "help": "Plugin-defined config payload for sglang.",
       "hasChildren": false
     },
@@ -41498,7 +41498,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/sglang-provider",
+      "label": "Enable @chappie/sglang-provider",
       "hasChildren": false
     },
     {
@@ -41533,8 +41533,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/signal",
-      "help": "OpenClaw Signal channel plugin (plugin: signal)",
+      "label": "@chappie/signal",
+      "help": "Chappie Signal channel plugin (plugin: signal)",
       "hasChildren": true
     },
     {
@@ -41545,7 +41545,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/signal Config",
+      "label": "@chappie/signal Config",
       "help": "Plugin-defined config payload for signal.",
       "hasChildren": false
     },
@@ -41557,7 +41557,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/signal",
+      "label": "Enable @chappie/signal",
       "hasChildren": false
     },
     {
@@ -41592,8 +41592,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/slack",
-      "help": "OpenClaw Slack channel plugin (plugin: slack)",
+      "label": "@chappie/slack",
+      "help": "Chappie Slack channel plugin (plugin: slack)",
       "hasChildren": true
     },
     {
@@ -41604,7 +41604,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/slack Config",
+      "label": "@chappie/slack Config",
       "help": "Plugin-defined config payload for slack.",
       "hasChildren": false
     },
@@ -41616,7 +41616,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/slack",
+      "label": "Enable @chappie/slack",
       "hasChildren": false
     },
     {
@@ -41651,8 +41651,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/synology-chat",
-      "help": "Synology Chat channel plugin for OpenClaw (plugin: synology-chat)",
+      "label": "@chappie/synology-chat",
+      "help": "Synology Chat channel plugin for Chappie (plugin: synology-chat)",
       "hasChildren": true
     },
     {
@@ -41663,7 +41663,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/synology-chat Config",
+      "label": "@chappie/synology-chat Config",
       "help": "Plugin-defined config payload for synology-chat.",
       "hasChildren": false
     },
@@ -41675,7 +41675,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/synology-chat",
+      "label": "Enable @chappie/synology-chat",
       "hasChildren": false
     },
     {
@@ -41769,8 +41769,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/telegram",
-      "help": "OpenClaw Telegram channel plugin (plugin: telegram)",
+      "label": "@chappie/telegram",
+      "help": "Chappie Telegram channel plugin (plugin: telegram)",
       "hasChildren": true
     },
     {
@@ -41781,7 +41781,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/telegram Config",
+      "label": "@chappie/telegram Config",
       "help": "Plugin-defined config payload for telegram.",
       "hasChildren": false
     },
@@ -41793,7 +41793,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/telegram",
+      "label": "Enable @chappie/telegram",
       "hasChildren": false
     },
     {
@@ -41921,8 +41921,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/tlon",
-      "help": "OpenClaw Tlon/Urbit channel plugin (plugin: tlon)",
+      "label": "@chappie/tlon",
+      "help": "Chappie Tlon/Urbit channel plugin (plugin: tlon)",
       "hasChildren": true
     },
     {
@@ -41933,7 +41933,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/tlon Config",
+      "label": "@chappie/tlon Config",
       "help": "Plugin-defined config payload for tlon.",
       "hasChildren": false
     },
@@ -41945,7 +41945,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/tlon",
+      "label": "Enable @chappie/tlon",
       "hasChildren": false
     },
     {
@@ -41980,8 +41980,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/twitch",
-      "help": "OpenClaw Twitch channel plugin (plugin: twitch)",
+      "label": "@chappie/twitch",
+      "help": "Chappie Twitch channel plugin (plugin: twitch)",
       "hasChildren": true
     },
     {
@@ -41992,7 +41992,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/twitch Config",
+      "label": "@chappie/twitch Config",
       "help": "Plugin-defined config payload for twitch.",
       "hasChildren": false
     },
@@ -42004,7 +42004,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/twitch",
+      "label": "Enable @chappie/twitch",
       "hasChildren": false
     },
     {
@@ -42039,8 +42039,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/vllm-provider",
-      "help": "OpenClaw vLLM provider plugin (plugin: vllm)",
+      "label": "@chappie/vllm-provider",
+      "help": "Chappie vLLM provider plugin (plugin: vllm)",
       "hasChildren": true
     },
     {
@@ -42051,7 +42051,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/vllm-provider Config",
+      "label": "@chappie/vllm-provider Config",
       "help": "Plugin-defined config payload for vllm.",
       "hasChildren": false
     },
@@ -42063,7 +42063,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/vllm-provider",
+      "label": "Enable @chappie/vllm-provider",
       "hasChildren": false
     },
     {
@@ -42098,8 +42098,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/voice-call",
-      "help": "OpenClaw voice-call plugin (plugin: voice-call)",
+      "label": "@chappie/voice-call",
+      "help": "Chappie voice-call plugin (plugin: voice-call)",
       "hasChildren": true
     },
     {
@@ -42110,7 +42110,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/voice-call Config",
+      "label": "@chappie/voice-call Config",
       "help": "Plugin-defined config payload for voice-call.",
       "hasChildren": true
     },
@@ -43335,7 +43335,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/voice-call",
+      "label": "Enable @chappie/voice-call",
       "hasChildren": false
     },
     {
@@ -43370,8 +43370,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/whatsapp",
-      "help": "OpenClaw WhatsApp channel plugin (plugin: whatsapp)",
+      "label": "@chappie/whatsapp",
+      "help": "Chappie WhatsApp channel plugin (plugin: whatsapp)",
       "hasChildren": true
     },
     {
@@ -43382,7 +43382,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/whatsapp Config",
+      "label": "@chappie/whatsapp Config",
       "help": "Plugin-defined config payload for whatsapp.",
       "hasChildren": false
     },
@@ -43394,7 +43394,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/whatsapp",
+      "label": "Enable @chappie/whatsapp",
       "hasChildren": false
     },
     {
@@ -43429,8 +43429,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/zalo",
-      "help": "OpenClaw Zalo channel plugin (plugin: zalo)",
+      "label": "@chappie/zalo",
+      "help": "Chappie Zalo channel plugin (plugin: zalo)",
       "hasChildren": true
     },
     {
@@ -43441,7 +43441,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/zalo Config",
+      "label": "@chappie/zalo Config",
       "help": "Plugin-defined config payload for zalo.",
       "hasChildren": false
     },
@@ -43453,7 +43453,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/zalo",
+      "label": "Enable @chappie/zalo",
       "hasChildren": false
     },
     {
@@ -43488,8 +43488,8 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/zalouser",
-      "help": "OpenClaw Zalo Personal Account plugin via native zca-js integration (plugin: zalouser)",
+      "label": "@chappie/zalouser",
+      "help": "Chappie Zalo Personal Account plugin via native zca-js integration (plugin: zalouser)",
       "hasChildren": true
     },
     {
@@ -43500,7 +43500,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "@openclaw/zalouser Config",
+      "label": "@chappie/zalouser Config",
       "help": "Plugin-defined config payload for zalouser.",
       "hasChildren": false
     },
@@ -43512,7 +43512,7 @@
       "deprecated": false,
       "sensitive": false,
       "tags": ["advanced"],
-      "label": "Enable @openclaw/zalouser",
+      "label": "Enable @chappie/zalouser",
       "hasChildren": false
     },
     {
@@ -43548,7 +43548,7 @@
       "sensitive": false,
       "tags": ["advanced"],
       "label": "Plugin Install Records",
-      "help": "CLI-managed install metadata (used by `openclaw plugins update` to locate install sources).",
+      "help": "CLI-managed install metadata (used by `chappie plugins update` to locate install sources).",
       "hasChildren": true
     },
     {
@@ -43582,7 +43582,7 @@
       "sensitive": false,
       "tags": ["storage"],
       "label": "Plugin Install Path",
-      "help": "Resolved install directory (usually ~/.openclaw/extensions/<id>).",
+      "help": "Resolved install directory (usually ~/.chappie/extensions/<id>).",
       "hasChildren": false
     },
     {
@@ -44317,7 +44317,7 @@
       "sensitive": false,
       "tags": ["auth", "performance", "security", "storage"],
       "label": "Session Parent Fork Max Tokens",
-      "help": "Maximum parent-session token count allowed for thread/session inheritance forking. If the parent exceeds this, OpenClaw starts a fresh thread session instead of forking; set 0 to disable this protection.",
+      "help": "Maximum parent-session token count allowed for thread/session inheritance forking. If the parent exceeds this, Chappie starts a fresh thread session instead of forking; set 0 to disable this protection.",
       "hasChildren": false
     },
     {
@@ -49618,7 +49618,7 @@
       "sensitive": false,
       "tags": ["advanced"],
       "label": "Updates",
-      "help": "Update-channel and startup-check behavior for keeping OpenClaw runtime versions current. Use conservative channels in production and more experimental channels only in controlled environments.",
+      "help": "Update-channel and startup-check behavior for keeping Chappie runtime versions current. Use conservative channels in production and more experimental channels only in controlled environments.",
       "hasChildren": true
     },
     {
@@ -49880,7 +49880,7 @@
       "sensitive": false,
       "tags": ["advanced"],
       "label": "Wizard Last Run Version",
-      "help": "OpenClaw version recorded at the time of the most recent wizard run on this config. Use this when diagnosing behavior differences across version-to-version onboarding changes.",
+      "help": "Chappie version recorded at the time of the most recent wizard run on this config. Use this when diagnosing behavior differences across version-to-version onboarding changes.",
       "hasChildren": false
     }
   ]
